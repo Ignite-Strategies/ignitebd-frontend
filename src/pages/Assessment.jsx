@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../lib/api';
 
@@ -22,6 +22,27 @@ export default function Assessment() {
   const [calculating, setCalculating] = useState(false);
   const [result, setResult] = useState(null);
   const [showContactForm, setShowContactForm] = useState(false);
+  const [assessmentId, setAssessmentId] = useState(null);
+
+  // Load from localStorage on page refresh
+  useEffect(() => {
+    const savedData = localStorage.getItem('assessmentData');
+    if (savedData) {
+      const data = JSON.parse(savedData);
+      setAssessmentId(data.id);
+      
+      // If we have results, show them
+      if (data.result) {
+        setResult(data.result);
+        setAssessment(data.assessment);
+        setContactInfo({
+          name: data.assessment.name || '',
+          email: data.assessment.email || '',
+          company: data.assessment.company || ''
+        });
+      }
+    }
+  }, []);
 
   const handleInputChange = (field, value) => {
     setAssessment(prev => ({
@@ -54,10 +75,23 @@ export default function Assessment() {
         company: contactInfo.company
       };
       
-      // Call the working AssessmentCalculationService endpoint
-      const response = await api.post('/assessment/coefficient', fullAssessment);
+      // Call the new PlatformProspect endpoint
+      const response = await api.post('/platformProspect/save', fullAssessment);
       
-      console.log('✅ Assessment response:', response.data);
+      console.log('✅ Platform prospect saved:', response.data);
+      
+      // Update localStorage with contact info and results
+      const assessmentData = {
+        id: response.data.id, // Use the database ID
+        assessment: fullAssessment,
+        result: {
+          score: response.data.score,
+          insights: response.data.insights
+        },
+        timestamp: new Date().toISOString()
+      };
+      
+      localStorage.setItem('assessmentData', JSON.stringify(assessmentData));
       
       // Set results state to show results on the same page (like TripWell)
       setResult({
