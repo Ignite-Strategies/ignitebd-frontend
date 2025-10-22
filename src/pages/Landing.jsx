@@ -99,7 +99,7 @@ export default function Landing() {
           <div className="text-center">
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center max-w-3xl mx-auto">
               <button
-                onClick={() => navigate('/home')}
+                onClick={() => navigate('/learn-more')}
                 className="px-6 py-3 bg-white/20 backdrop-blur-sm border-2 border-white/30 text-white font-bold rounded-xl hover:bg-white/30 transition-all hover:scale-105"
               >
                 Learn More

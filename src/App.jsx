@@ -3,6 +3,7 @@ import { ActivationProvider } from './context/ActivationContext';
 
 // Pages
 import Landing from './pages/Landing';
+import LearnMore from './pages/LearnMore';
 import BusinessPointLawProposal from './pages/BusinessPointLawProposal';
 import Splash from './pages/Splash';
 import Auth from './pages/Auth';
@@ -20,6 +21,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Landing />} />
+          <Route path="/learn-more" element={<LearnMore />} />
           <Route path="/businesspoint-law-proposal" element={<BusinessPointLawProposal />} />
           <Route path="/splash" element={<Splash />} />
           <Route path="/auth" element={<Auth />} />
