@@ -1,13 +1,15 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import api from '../lib/api';
 
 export default function Profilesetup() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    companyName: '',
-    industry: '',
-    annualRevenue: '',
-    teamSize: '',
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    role: '',
     goals: ''
   });
   const [loading, setLoading] = useState(false);
@@ -17,14 +19,15 @@ export default function Profilesetup() {
     setLoading(true);
 
     try {
-      // Here you would typically save the profile data to your backend
-      console.log('Profile data:', formData);
+      // Get adminId from localStorage (set during signup/signin)
+      const adminId = localStorage.getItem('adminId');
       
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      // Update admin profile with new data
+      const response = await api.put(`/adminUserAuth/${adminId}`, formData);
+      console.log('Profile updated:', response.data);
       
-      // Redirect to main dashboard
-      navigate('/businesspoint-law-proposal');
+      // Redirect to company create/choose
+      navigate('/companycreateorchoose');
     } catch (error) {
       console.error('Profile setup error:', error);
       alert('Profile setup failed. Please try again.');
@@ -55,79 +58,84 @@ export default function Profilesetup() {
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="grid md:grid-cols-2 gap-6">
               <div>
-                <label htmlFor="companyName" className="block text-sm font-medium text-white mb-2">
-                  Company Name *
+                <label htmlFor="firstName" className="block text-sm font-medium text-white mb-2">
+                  First Name *
                 </label>
                 <input
                   type="text"
-                  id="companyName"
-                  name="companyName"
-                  value={formData.companyName}
+                  id="firstName"
+                  name="firstName"
+                  value={formData.firstName}
                   onChange={handleChange}
                   className="w-full px-4 py-3 bg-white/20 border border-white/30 rounded-xl text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
-                  placeholder="Enter your company name"
+                  placeholder="Enter your first name"
                   required
                 />
               </div>
 
               <div>
-                <label htmlFor="industry" className="block text-sm font-medium text-white mb-2">
-                  Industry *
+                <label htmlFor="lastName" className="block text-sm font-medium text-white mb-2">
+                  Last Name *
+                </label>
+                <input
+                  type="text"
+                  id="lastName"
+                  name="lastName"
+                  value={formData.lastName}
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 bg-white/20 border border-white/30 rounded-xl text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                  placeholder="Enter your last name"
+                  required
+                />
+              </div>
+
+              <div>
+                <label htmlFor="email" className="block text-sm font-medium text-white mb-2">
+                  Email *
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 bg-white/20 border border-white/30 rounded-xl text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                  placeholder="Enter your email"
+                  required
+                />
+              </div>
+
+              <div>
+                <label htmlFor="phone" className="block text-sm font-medium text-white mb-2">
+                  Phone
+                </label>
+                <input
+                  type="tel"
+                  id="phone"
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 bg-white/20 border border-white/30 rounded-xl text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                  placeholder="Enter your phone number"
+                />
+              </div>
+
+              <div className="md:col-span-2">
+                <label htmlFor="role" className="block text-sm font-medium text-white mb-2">
+                  Role with Company *
                 </label>
                 <select
-                  id="industry"
-                  name="industry"
-                  value={formData.industry}
+                  id="role"
+                  name="role"
+                  value={formData.role}
                   onChange={handleChange}
                   className="w-full px-4 py-3 bg-white/20 border border-white/30 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
                   required
                 >
-                  <option value="" className="bg-gray-800">Select your industry</option>
-                  <option value="legal" className="bg-gray-800">Legal Services</option>
-                  <option value="consulting" className="bg-gray-800">Consulting</option>
-                  <option value="technology" className="bg-gray-800">Technology</option>
-                  <option value="healthcare" className="bg-gray-800">Healthcare</option>
-                  <option value="finance" className="bg-gray-800">Finance</option>
+                  <option value="" className="bg-gray-800">Select your role</option>
+                  <option value="founder" className="bg-gray-800">Founder</option>
+                  <option value="marketing" className="bg-gray-800">Marketing</option>
                   <option value="other" className="bg-gray-800">Other</option>
-                </select>
-              </div>
-
-              <div>
-                <label htmlFor="annualRevenue" className="block text-sm font-medium text-white mb-2">
-                  Annual Revenue
-                </label>
-                <select
-                  id="annualRevenue"
-                  name="annualRevenue"
-                  value={formData.annualRevenue}
-                  onChange={handleChange}
-                  className="w-full px-4 py-3 bg-white/20 border border-white/30 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
-                >
-                  <option value="" className="bg-gray-800">Select revenue range</option>
-                  <option value="0-100k" className="bg-gray-800">$0 - $100K</option>
-                  <option value="100k-500k" className="bg-gray-800">$100K - $500K</option>
-                  <option value="500k-1m" className="bg-gray-800">$500K - $1M</option>
-                  <option value="1m-5m" className="bg-gray-800">$1M - $5M</option>
-                  <option value="5m+" className="bg-gray-800">$5M+</option>
-                </select>
-              </div>
-
-              <div>
-                <label htmlFor="teamSize" className="block text-sm font-medium text-white mb-2">
-                  Team Size
-                </label>
-                <select
-                  id="teamSize"
-                  name="teamSize"
-                  value={formData.teamSize}
-                  onChange={handleChange}
-                  className="w-full px-4 py-3 bg-white/20 border border-white/30 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
-                >
-                  <option value="" className="bg-gray-800">Select team size</option>
-                  <option value="1-5" className="bg-gray-800">1-5 people</option>
-                  <option value="6-20" className="bg-gray-800">6-20 people</option>
-                  <option value="21-50" className="bg-gray-800">21-50 people</option>
-                  <option value="50+" className="bg-gray-800">50+ people</option>
                 </select>
               </div>
             </div>

@@ -9,6 +9,9 @@ import Splash from './pages/Splash';
 import Signup from './pages/Signup';
 import Signin from './pages/Signin';
 import Profilesetup from './pages/Profilesetup';
+import CompanyCreateOrChoose from './pages/CompanyCreateOrChoose';
+import CompanyProfile from './pages/CompanyProfile';
+import JoinCompany from './pages/JoinCompany';
 import Auth from './pages/Auth';
 import Cost from './pages/Cost';
 import Human from './pages/Human';
@@ -29,6 +32,9 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/signin" element={<Signin />} />
           <Route path="/profilesetup" element={<Profilesetup />} />
+          <Route path="/companycreateorchoose" element={<CompanyCreateOrChoose />} />
+          <Route path="/companyprofile" element={<CompanyProfile />} />
+          <Route path="/joincompany" element={<JoinCompany />} />
           <Route path="/auth" element={<Auth />} />
           <Route path="/cost" element={<Cost />} />
           <Route path="/human" element={<Human />} />
