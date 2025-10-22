@@ -10,13 +10,10 @@ export default function Landing() {
       <div className="flex items-center justify-center min-h-screen p-8">
         <div className="max-w-6xl w-full">
           
-          {/* Logo Front and Center */}
-          <div className="text-center mb-12">
-            <img src="/logo.png" alt="Ignite Strategies" className="h-20 mx-auto mb-6" />
-            <div className="text-white/80 text-lg mb-8">
-              Revenue Building Strategies
-            </div>
-          </div>
+                  {/* Logo Front and Center */}
+                  <div className="text-center mb-12">
+                    <img src="/logo.png" alt="Ignite Strategies" className="h-32 mx-auto mb-8" />
+                  </div>
           
           {/* Main Headline */}
           <div className="text-center mb-12">
