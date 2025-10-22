@@ -1,6 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ActivationProvider } from './context/ActivationContext';
-import FocusManager from './components/FocusManager';
 
 // Pages
 import Landing from './pages/Landing';
@@ -30,8 +29,7 @@ function App() {
   return (
     <ActivationProvider>
       <Router>
-        <FocusManager>
-          <Routes>
+        <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="/learn-more" element={<LearnMore />} />
           <Route path="/businesspoint-law-proposal" element={<BusinessPointLawProposal />} />
@@ -54,8 +52,7 @@ function App() {
                   <Route path="/bd/content" element={<BDContent />} />
                   <Route path="/bd/ads" element={<BDAds />} />
                   <Route path="/bd/pipeline" element={<BDPipeline />} />
-          </Routes>
-        </FocusManager>
+        </Routes>
       </Router>
     </ActivationProvider>
   );

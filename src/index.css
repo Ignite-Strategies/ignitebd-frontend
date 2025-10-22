@@ -16,13 +16,4 @@ code {
     monospace;
 }
 
-/* Global focus management to prevent cursor jumping */
-.focus-manager {
-  outline: none !important;
-}
-
-/* Simple focus management - just remove aggressive transitions */
-input, textarea, select {
-  transition: none !important;
-}
 
