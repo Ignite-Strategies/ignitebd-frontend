@@ -101,19 +101,7 @@ export default function Assessment() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-red-900 via-orange-900 to-red-800 p-8">
-      {/* Header with Logo */}
-      <div className="absolute top-0 left-0 right-0 p-6 z-10">
-        <div className="max-w-6xl mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <img src="/logo.png" alt="Ignite Strategies" className="h-10" />
-          </div>
-          <div className="text-white/80 text-sm">
-            Growth Assessment
-          </div>
-        </div>
-      </div>
-
-      <div className="max-w-4xl w-full mt-20">
+      <div className="max-w-4xl w-full">
         
         {/* Header */}
         <div className="text-center mb-12">
