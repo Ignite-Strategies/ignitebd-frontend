@@ -7,7 +7,6 @@ import LearnMore from './pages/LearnMore';
 import BusinessPointLawProposal from './pages/BusinessPointLawProposal';
 import Splash from './pages/Splash';
 import Auth from './pages/Auth';
-import Home from './pages/Home';
 import Cost from './pages/Cost';
 import Human from './pages/Human';
 import BDGoals from './pages/BD/Goals';
@@ -25,7 +24,6 @@ function App() {
           <Route path="/businesspoint-law-proposal" element={<BusinessPointLawProposal />} />
           <Route path="/splash" element={<Splash />} />
           <Route path="/auth" element={<Auth />} />
-          <Route path="/home" element={<Home />} />
           <Route path="/cost" element={<Cost />} />
           <Route path="/human" element={<Human />} />
           <Route path="/bd/goals" element={<BDGoals />} />
