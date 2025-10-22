@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getAuth, setPersistence, browserLocalPersistence, GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
+import { getAuth, setPersistence, browserLocalPersistence, GoogleAuthProvider, signInWithPopup, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { getAnalytics } from "firebase/analytics";
 
 /**
@@ -68,6 +68,63 @@ export async function signOutUser() {
     console.log("✅ Firebase: User signed out");
   } catch (error) {
     console.error("❌ Firebase: Sign out error:", error);
+    throw error;
+  }
+}
+
+/**
+ * Sign up with email and password
+ */
+export async function signUpWithEmail(email, password, displayName) {
+  try {
+    console.log("🔐 Firebase: Signing up with email...");
+    
+    const result = await createUserWithEmailAndPassword(auth, email, password);
+    const user = result.user;
+    
+    // Update display name
+    if (displayName) {
+      await user.updateProfile({ displayName });
+    }
+    
+    console.log("✅ Firebase: User signed up with email");
+    console.log("📧 Email:", user.email);
+    console.log("🆔 UID:", user.uid);
+    
+    return {
+      uid: user.uid,
+      email: user.email,
+      name: user.displayName || displayName,
+      photoURL: user.photoURL
+    };
+  } catch (error) {
+    console.error("❌ Firebase: Email sign-up error:", error);
+    throw error;
+  }
+}
+
+/**
+ * Sign in with email and password
+ */
+export async function signInWithEmail(email, password) {
+  try {
+    console.log("🔐 Firebase: Signing in with email...");
+    
+    const result = await signInWithEmailAndPassword(auth, email, password);
+    const user = result.user;
+    
+    console.log("✅ Firebase: User signed in with email");
+    console.log("📧 Email:", user.email);
+    console.log("🆔 UID:", user.uid);
+    
+    return {
+      uid: user.uid,
+      email: user.email,
+      name: user.displayName,
+      photoURL: user.photoURL
+    };
+  } catch (error) {
+    console.error("❌ Firebase: Email sign-in error:", error);
     throw error;
   }
 }
