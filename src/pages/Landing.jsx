@@ -4,8 +4,20 @@ export default function Landing() {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
+    <div className="min-h-screen bg-gradient-to-br from-red-900 via-orange-900 to-red-800">
       
+      {/* Header with Logo */}
+      <div className="absolute top-0 left-0 right-0 p-6 z-10">
+        <div className="max-w-6xl mx-auto flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <img src="/logo.svg" alt="Ignite Strategies" className="h-12" />
+          </div>
+          <div className="text-white/80 text-sm">
+            Ignite Coefficient™ Assessment
+          </div>
+        </div>
+      </div>
+
       {/* Hero Section */}
       <div className="flex items-center justify-center min-h-screen p-8">
         <div className="max-w-6xl w-full">
@@ -13,11 +25,11 @@ export default function Landing() {
           {/* Main Headline */}
           <div className="text-center mb-16">
             <h1 className="text-7xl font-black text-white mb-6 leading-tight">
-              How much <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-rose-600">growth energy</span> is your business really producing?
+              How much <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-400 to-orange-500">growth energy</span> is your business really producing?
             </h1>
             
             <p className="text-2xl text-gray-300 mb-8 max-w-4xl mx-auto leading-relaxed">
-              The <span className="font-bold text-orange-400">Ignite Coefficient™</span> measures how effectively your team converts time, people, and dollars into forward momentum.
+              The <span className="font-bold text-red-400">Ignite Coefficient™</span> measures how effectively your team converts time, people, and dollars into forward momentum.
             </p>
           </div>
 
@@ -42,10 +54,10 @@ export default function Landing() {
           <div className="text-center">
             <button
               onClick={() => navigate('/welcome-joel')}
-              className="group relative px-16 py-6 bg-gradient-to-r from-orange-500 to-rose-600 text-white text-2xl font-bold rounded-2xl shadow-2xl hover:shadow-orange-500/50 transition-all hover:scale-105"
+              className="group relative px-16 py-6 bg-gradient-to-r from-red-600 to-orange-600 text-white text-2xl font-bold rounded-2xl shadow-2xl hover:shadow-red-500/50 transition-all hover:scale-105"
             >
               <span className="relative z-10">Run Your Free Assessment →</span>
-              <div className="absolute inset-0 bg-gradient-to-r from-orange-600 to-rose-700 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-red-700 to-orange-700 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
             </button>
             
             <p className="text-white/60 text-sm mt-4">

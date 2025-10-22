@@ -51,11 +51,14 @@ export default function Cost() {
       {/* Header */}
       <div className="bg-white border-b border-gray-200 shadow-sm">
         <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-          <div className="flex items-center gap-3">
-            <div className="text-3xl">💰</div>
-            <div>
-              <h1 className="text-2xl font-bold text-gray-900">Cost / Ops</h1>
-              <p className="text-sm text-gray-600">Reinvestment & Ignite Coefficient</p>
+          <div className="flex items-center gap-4">
+            <img src="/logo.svg" alt="Ignite Strategies" className="h-10" />
+            <div className="flex items-center gap-3">
+              <div className="text-3xl">💰</div>
+              <div>
+                <h1 className="text-2xl font-bold text-gray-900">Cost / Ops</h1>
+                <p className="text-sm text-gray-600">Reinvestment & Ignite Coefficient</p>
+              </div>
             </div>
           </div>
           

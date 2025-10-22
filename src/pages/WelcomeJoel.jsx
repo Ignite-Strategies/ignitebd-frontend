@@ -104,6 +104,18 @@ export default function WelcomeJoel() {
 
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center p-8">
+        {/* Header with Logo */}
+        <div className="absolute top-0 left-0 right-0 p-6 z-10">
+          <div className="max-w-6xl mx-auto flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <img src="/logo.svg" alt="Ignite Strategies" className="h-10" />
+            </div>
+            <div className="text-white/80 text-sm">
+              Joel Gulick Assessment
+            </div>
+          </div>
+        </div>
+
         <div className="max-w-4xl w-full">
           
           {/* Progress Bar */}
@@ -181,7 +193,7 @@ export default function WelcomeJoel() {
                   }
                 }}
                 disabled={calculating}
-                className="ml-auto px-8 py-3 bg-gradient-to-r from-orange-500 to-rose-600 text-white font-bold rounded-xl hover:shadow-lg transition hover:scale-105 disabled:opacity-50"
+                className="ml-auto px-8 py-3 bg-gradient-to-r from-red-600 to-orange-600 text-white font-bold rounded-xl hover:shadow-lg transition hover:scale-105 disabled:opacity-50"
               >
                 {calculating ? 'Computing...' : currentStep < steps.length - 1 ? 'Next →' : 'Compute My Ignite Coefficient'}
               </button>
@@ -233,9 +245,9 @@ export default function WelcomeJoel() {
         <div className="bg-white/10 backdrop-blur-md rounded-3xl shadow-2xl p-10 border border-white/20 mb-8">
           <div className="text-center">
             <div className={`inline-flex items-center justify-center w-48 h-48 rounded-full bg-gradient-to-br ${
-              insights.color === 'red' ? 'from-red-500 to-orange-500' :
-              insights.color === 'yellow' ? 'from-yellow-500 to-orange-500' :
-              'from-green-500 to-emerald-500'
+              insights.color === 'red' ? 'from-red-600 to-red-500' :
+              insights.color === 'yellow' ? 'from-orange-500 to-red-500' :
+              'from-red-500 to-orange-500'
             } mb-6`}>
               <span className="text-6xl font-black text-white">{score}</span>
             </div>
@@ -250,21 +262,21 @@ export default function WelcomeJoel() {
           <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20">
             <div className="text-3xl mb-3">💰</div>
             <h3 className="text-xl font-bold text-white mb-2">Cost Efficiency</h3>
-            <p className="text-3xl font-black text-orange-400 mb-2">{result.breakdown.costEfficiency}%</p>
+            <p className="text-3xl font-black text-red-400 mb-2">{result.breakdown.costEfficiency}%</p>
             <p className="text-white/70 text-sm">Operational ROI</p>
           </div>
           
           <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20">
             <div className="text-3xl mb-3">⚡</div>
             <h3 className="text-xl font-bold text-white mb-2">Team Alignment</h3>
-            <p className="text-3xl font-black text-orange-400 mb-2">{result.breakdown.teamAlignment}%</p>
+            <p className="text-3xl font-black text-red-400 mb-2">{result.breakdown.teamAlignment}%</p>
             <p className="text-white/70 text-sm">Self-driven execution</p>
           </div>
           
           <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20">
             <div className="text-3xl mb-3">🚀</div>
             <h3 className="text-xl font-bold text-white mb-2">BD Velocity</h3>
-            <p className="text-3xl font-black text-orange-400 mb-2">{result.breakdown.bdVelocity}%</p>
+            <p className="text-3xl font-black text-red-400 mb-2">{result.breakdown.bdVelocity}%</p>
             <p className="text-white/70 text-sm">Pipeline conversion</p>
           </div>
         </div>
@@ -277,7 +289,7 @@ export default function WelcomeJoel() {
               {result.recommendations.map((rec, idx) => (
                 <div key={idx} className="bg-white/20 rounded-xl p-4">
                   <div className="flex items-start gap-3">
-                    <div className="w-8 h-8 bg-orange-500 text-white rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">
+                    <div className="w-8 h-8 bg-red-600 text-white rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">
                       {idx + 1}
                     </div>
                     <div>
@@ -305,7 +317,7 @@ export default function WelcomeJoel() {
         <div className="text-center">
           <button
             onClick={() => navigate('/home')}
-            className="px-12 py-4 bg-gradient-to-r from-orange-500 to-rose-600 text-white text-xl font-bold rounded-2xl shadow-2xl hover:shadow-orange-500/50 transition-all hover:scale-105"
+            className="px-12 py-4 bg-gradient-to-r from-red-600 to-orange-600 text-white text-xl font-bold rounded-2xl shadow-2xl hover:shadow-red-500/50 transition-all hover:scale-105"
           >
             {insights.title.includes('igniting') ? "Let's scale your success" : 
              insights.title.includes('momentum') ? "Let's accelerate your growth" : 
