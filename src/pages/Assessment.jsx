@@ -16,7 +16,8 @@ export default function Assessment() {
   });
   const [contactInfo, setContactInfo] = useState({
     name: '',
-    email: ''
+    email: '',
+    company: ''
   });
   const [calculating, setCalculating] = useState(false);
   const [result, setResult] = useState(null);
@@ -49,7 +50,8 @@ export default function Assessment() {
       const fullAssessment = {
         ...assessment,
         name: contactInfo.name,
-        email: contactInfo.email
+        email: contactInfo.email,
+        company: contactInfo.company
       };
       
       // Call the working AssessmentCalculationService endpoint
@@ -79,8 +81,7 @@ export default function Assessment() {
   };
 
   const isAssessmentComplete = () => {
-    return assessment.company && 
-           assessment.industry &&
+    return assessment.industry &&
            assessment.workTooMuch && 
            assessment.assignTasks && 
            assessment.wantMoreClients && 
@@ -90,7 +91,7 @@ export default function Assessment() {
   };
 
   const isContactComplete = () => {
-    return contactInfo.name && contactInfo.email;
+    return contactInfo.name && contactInfo.email && contactInfo.company;
   };
 
 
@@ -118,33 +119,21 @@ export default function Assessment() {
         {/* Assessment Form */}
         <div className="bg-white/10 backdrop-blur-md rounded-3xl shadow-2xl p-10 border border-white/20">
           
-          {/* Company Information */}
+          {/* Industry Information */}
           <div className="mb-12">
             <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
               <span className="text-3xl">🏢</span>
-              Company Information
+              Industry Information
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <label className="block text-white font-semibold mb-2">What's your company name?</label>
-                <input
-                  type="text"
-                  value={assessment.company}
-                  onChange={(e) => handleInputChange('company', e.target.value)}
-                  placeholder="e.g., Acme Corp"
-                  className="w-full px-4 py-3 bg-white/20 border border-white/30 rounded-xl text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-red-500"
-                />
-              </div>
-              <div>
-                <label className="block text-white font-semibold mb-2">What's your industry?</label>
-                <input
-                  type="text"
-                  value={assessment.industry}
-                  onChange={(e) => handleInputChange('industry', e.target.value)}
-                  placeholder="e.g., Technology, Legal, Healthcare"
-                  className="w-full px-4 py-3 bg-white/20 border border-white/30 rounded-xl text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-red-500"
-                />
-              </div>
+            <div>
+              <label className="block text-white font-semibold mb-2">What's your industry?</label>
+              <input
+                type="text"
+                value={assessment.industry}
+                onChange={(e) => handleInputChange('industry', e.target.value)}
+                placeholder="e.g., Technology, Legal, Healthcare"
+                className="w-full px-4 py-3 bg-white/20 border border-white/30 rounded-xl text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-red-500"
+              />
             </div>
           </div>
 
@@ -326,7 +315,7 @@ export default function Assessment() {
               <p className="text-xl text-white/90">Add your contact details to receive your personalized growth analysis</p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
               <div>
                 <label className="block text-white font-semibold mb-2">What's your name?</label>
                 <input
@@ -344,6 +333,16 @@ export default function Assessment() {
                   value={contactInfo.email}
                   onChange={(e) => handleContactChange('email', e.target.value)}
                   placeholder="e.g., john@company.com"
+                  className="w-full px-4 py-3 bg-white/20 border border-white/30 rounded-xl text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-red-500"
+                />
+              </div>
+              <div>
+                <label className="block text-white font-semibold mb-2">What's your company?</label>
+                <input
+                  type="text"
+                  value={contactInfo.company}
+                  onChange={(e) => handleContactChange('company', e.target.value)}
+                  placeholder="e.g., Acme Corp"
                   className="w-full px-4 py-3 bg-white/20 border border-white/30 rounded-xl text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-red-500"
                 />
               </div>
@@ -373,7 +372,7 @@ export default function Assessment() {
             <div className="text-center mb-8">
               <div className="text-6xl mb-4">🔥</div>
               <h2 className="text-4xl font-bold text-white mb-2">Your Growth Analysis</h2>
-              <p className="text-xl text-white/90">Personalized insights for {assessment.company}</p>
+              <p className="text-xl text-white/90">Personalized insights for {contactInfo.company}</p>
             </div>
 
             <div className="space-y-6">
