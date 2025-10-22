@@ -45,18 +45,21 @@ export default function Assessment() {
       
       // Save assessment to database
       try {
-        await api.post('/assessmentSubmission/submit', {
+        const submissionResponse = await api.post('/assessmentSubmission/submit', {
           ...assessment,
           score: result.score,
           insights: JSON.stringify(result.insights)
         });
         console.log('✅ Assessment saved successfully');
+        
+        // Redirect to results page with the assessment ID
+        const assessmentId = submissionResponse.data.id;
+        navigate(`/assessment-results?id=${assessmentId}`);
       } catch (saveError) {
         console.error('❌ Failed to save assessment:', saveError);
-        // Continue anyway - don't block the user from seeing results
+        // Still redirect to results page even if save fails
+        navigate('/assessment-results');
       }
-      
-      setResult(result);
       
     } catch (error) {
       console.error('Error computing assessment:', error);
@@ -95,82 +98,6 @@ export default function Assessment() {
            assessment.bdSpend;
   };
 
-  if (result) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-red-900 via-orange-900 to-red-800 p-8">
-        <div className="max-w-5xl w-full">
-          
-          {/* Results Header */}
-          <div className="text-center mb-12">
-            <div className="text-8xl mb-6">🔥</div>
-            <h1 className="text-6xl font-black text-white mb-4">
-              Are you ready to Ignite?
-            </h1>
-            <p className="text-2xl text-white/90">
-              Growth Potential Score: {result.score}/100
-            </p>
-          </div>
-
-          {/* Score Visualization */}
-          <div className="bg-white/10 backdrop-blur-md rounded-3xl shadow-2xl p-10 border border-white/20 mb-8">
-            <div className="text-center">
-              <div className={`inline-flex items-center justify-center w-48 h-48 rounded-full bg-gradient-to-br ${
-                result.score < 40 ? 'from-red-600 to-red-500' :
-                result.score < 70 ? 'from-orange-500 to-red-500' :
-                'from-red-500 to-orange-500'
-              } mb-6`}>
-                <span className="text-6xl font-black text-white">{result.score}</span>
-              </div>
-              
-              <h2 className="text-3xl font-bold text-white mb-4">
-                {result.score < 40 ? "High Growth Opportunity" : 
-                 result.score < 70 ? "Strong Growth Potential" : 
-                 "Excellent Growth Foundation"}
-              </h2>
-              
-              <div className="space-y-6 mb-8">
-                <p className="text-lg text-white/90 leading-relaxed">{result.insights.relateWithUser}</p>
-                <p className="text-lg text-white/90 leading-relaxed">{result.insights.growthNeeds}</p>
-              </div>
-            </div>
-          </div>
-
-          {/* Recommendations */}
-          <div className="bg-white/10 backdrop-blur-md rounded-3xl shadow-2xl p-8 border border-white/20 mb-8">
-            <h3 className="text-2xl font-bold text-white mb-6">💡 How We Can Support Your Growth</h3>
-            <div className="space-y-4">
-              {result.recommendations.map((rec, idx) => (
-                <div key={idx} className="bg-white/20 rounded-xl p-4">
-                  <div className="flex items-start gap-3">
-                    <div className="w-8 h-8 bg-red-600 text-white rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">
-                      {idx + 1}
-                    </div>
-                    <div>
-                      <h4 className="font-bold text-white mb-1">{rec}</h4>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* CTA */}
-          <div className="text-center">
-            <button
-              onClick={() => navigate('/assessment-results')}
-              className="px-12 py-4 bg-gradient-to-r from-red-600 to-orange-600 text-white text-xl font-bold rounded-2xl shadow-2xl hover:shadow-red-500/50 transition-all hover:scale-105"
-            >
-              See Detailed Analysis →
-            </button>
-            
-            <p className="text-white/60 text-sm mt-4">
-              Ready to unlock your business potential? Let's build your growth strategy.
-            </p>
-          </div>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-red-900 via-orange-900 to-red-800 p-8">

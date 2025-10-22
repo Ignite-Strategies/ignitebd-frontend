@@ -21,8 +21,24 @@ export default function AssessmentResults() {
   const loadResults = async () => {
     try {
       setLoading(true);
-      const response = await api.post(`/assessmentResults/analyze/${assessmentId}`);
-      setResults(response.data);
+      // Get the assessment data from the submission
+      const response = await api.get(`/assessmentSubmission/${assessmentId}`);
+      const assessment = response.data;
+      
+      // Parse the insights JSON string
+      let insights = null;
+      if (assessment.insights) {
+        try {
+          insights = JSON.parse(assessment.insights);
+        } catch (parseError) {
+          console.error('❌ Failed to parse insights:', parseError);
+        }
+      }
+      
+      setResults({
+        ...assessment,
+        insights
+      });
     } catch (error) {
       console.error('❌ Error loading assessment results:', error);
     } finally {
@@ -92,11 +108,22 @@ export default function AssessmentResults() {
 
         {/* Analysis */}
         <div className="bg-white rounded-2xl shadow-xl p-8 border border-gray-200 mb-8">
-          <h3 className="text-2xl font-bold text-gray-900 mb-6">📊 Your Analysis</h3>
-          <div className="prose prose-lg max-w-none">
-            <div className="whitespace-pre-wrap text-gray-700 leading-relaxed">
-              {results.analysis}
-            </div>
+          <h3 className="text-2xl font-bold text-gray-900 mb-6">📊 Here's the results of your assessment</h3>
+          <div className="space-y-6">
+            {results.insights && (
+              <>
+                <div className="prose prose-lg max-w-none">
+                  <p className="text-gray-700 leading-relaxed text-lg">
+                    {results.insights.relateWithUser}
+                  </p>
+                </div>
+                <div className="prose prose-lg max-w-none">
+                  <p className="text-gray-700 leading-relaxed text-lg">
+                    {results.insights.growthNeeds}
+                  </p>
+                </div>
+              </>
+            )}
           </div>
         </div>
 
