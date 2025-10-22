@@ -401,10 +401,10 @@ export default function Assessment() {
         {/* CTA */}
         <div className="text-center">
           <button
-            onClick={() => navigate('/companydashboard')}
+            onClick={() => navigate('/assessment-results')}
             className="px-12 py-4 bg-gradient-to-r from-red-600 to-orange-600 text-white text-xl font-bold rounded-2xl shadow-2xl hover:shadow-red-500/50 transition-all hover:scale-105"
           >
-            Start Your Growth Journey →
+            See Detailed Analysis →
           </button>
           
           <p className="text-white/60 text-sm mt-4">
