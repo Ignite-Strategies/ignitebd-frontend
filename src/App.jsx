@@ -6,6 +6,7 @@ import Landing from './pages/Landing';
 import LearnMore from './pages/LearnMore';
 import BusinessPointLawProposal from './pages/BusinessPointLawProposal';
 import Splash from './pages/Splash';
+import Signin from './pages/Signin';
 import Auth from './pages/Auth';
 import Cost from './pages/Cost';
 import Human from './pages/Human';
@@ -23,6 +24,7 @@ function App() {
           <Route path="/learn-more" element={<LearnMore />} />
           <Route path="/businesspoint-law-proposal" element={<BusinessPointLawProposal />} />
           <Route path="/splash" element={<Splash />} />
+          <Route path="/signin" element={<Signin />} />
           <Route path="/auth" element={<Auth />} />
           <Route path="/cost" element={<Cost />} />
           <Route path="/human" element={<Human />} />
