@@ -97,7 +97,7 @@ export default function Assessment() {
 
   if (result) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-red-900 via-orange-900 to-red-800 flex items-center justify-center p-8">
+      <div className="min-h-screen bg-gradient-to-br from-red-900 via-orange-900 to-red-800 p-8">
         <div className="max-w-5xl w-full">
           
           {/* Results Header */}
@@ -173,7 +173,7 @@ export default function Assessment() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-red-900 via-orange-900 to-red-800 flex items-center justify-center p-8">
+    <div className="min-h-screen bg-gradient-to-br from-red-900 via-orange-900 to-red-800 p-8">
       {/* Header with Logo */}
       <div className="absolute top-0 left-0 right-0 p-6 z-10">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
@@ -186,7 +186,7 @@ export default function Assessment() {
         </div>
       </div>
 
-      <div className="max-w-4xl w-full">
+      <div className="max-w-4xl w-full mt-20">
         
         {/* Header */}
         <div className="text-center mb-12">
