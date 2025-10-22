@@ -1,57 +1,30 @@
 import { useState, useEffect } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
-import api from '../lib/api';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 export default function AssessmentResults() {
   const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
-  const assessmentId = searchParams.get('id');
+  const location = useLocation();
   
   const [results, setResults] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (assessmentId) {
-      loadResults();
+    // Get data from navigation state
+    if (location.state) {
+      setResults(location.state);
+      setLoading(false);
     } else {
-      setLoading(false);
+      // If no data, redirect back to assessment
+      navigate('/assessment');
     }
-  }, [assessmentId]);
-
-  const loadResults = async () => {
-    try {
-      setLoading(true);
-      // Get the assessment data from the submission
-      const response = await api.get(`/assessmentSubmission/${assessmentId}`);
-      const assessment = response.data;
-      
-      // Parse the insights JSON string
-      let insights = null;
-      if (assessment.insights) {
-        try {
-          insights = JSON.parse(assessment.insights);
-        } catch (parseError) {
-          console.error('❌ Failed to parse insights:', parseError);
-        }
-      }
-      
-      setResults({
-        ...assessment,
-        insights
-      });
-    } catch (error) {
-      console.error('❌ Error loading assessment results:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  }, [location.state, navigate]);
 
   if (loading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-600 mx-auto"></div>
-          <p className="mt-4 text-gray-600">Analyzing your assessment...</p>
+          <p className="mt-4 text-gray-600">Loading your assessment results...</p>
         </div>
       </div>
     );
@@ -61,7 +34,7 @@ export default function AssessmentResults() {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
-          <h1 className="text-2xl font-bold text-gray-900 mb-4">Assessment Not Found</h1>
+          <h1 className="text-2xl font-bold text-gray-900 mb-4">No Assessment Data</h1>
           <button
             onClick={() => navigate('/assessment')}
             className="px-6 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition"
@@ -83,7 +56,7 @@ export default function AssessmentResults() {
               <img src="/logo.png" alt="Ignite Strategies" className="h-10" />
               <div>
                 <h1 className="text-2xl font-bold text-gray-900">Assessment Results</h1>
-                <p className="text-gray-600">Growth analysis for {results.assessment.company}</p>
+                <p className="text-gray-600">Growth analysis for {results.company}</p>
               </div>
             </div>
           </div>
@@ -134,17 +107,17 @@ export default function AssessmentResults() {
             <div>
               <h4 className="font-semibold text-gray-900 mb-3">Workload Management</h4>
               <div className="space-y-2 text-sm">
-                <p><span className="font-medium">Works too much:</span> {results.assessment.workTooMuch}</p>
-                <p><span className="font-medium">Delegates effectively:</span> {results.assessment.assignTasks}</p>
+                <p><span className="font-medium">Works too much:</span> {results.workTooMuch}</p>
+                <p><span className="font-medium">Delegates effectively:</span> {results.assignTasks}</p>
               </div>
             </div>
             <div>
               <h4 className="font-semibold text-gray-900 mb-3">Growth Goals</h4>
               <div className="space-y-2 text-sm">
-                <p><span className="font-medium">Wants more clients:</span> {results.assessment.wantMoreClients}</p>
-                <p><span className="font-medium">Revenue growth target:</span> {results.assessment.revenueGrowthPercent}%</p>
-                <p><span className="font-medium">Total volume target:</span> ${results.assessment.totalVolume?.toLocaleString()}</p>
-                <p><span className="font-medium">Current BD spend:</span> ${results.assessment.bdSpend?.toLocaleString()}</p>
+                <p><span className="font-medium">Wants more clients:</span> {results.wantMoreClients}</p>
+                <p><span className="font-medium">Revenue growth target:</span> {results.revenueGrowthPercent}%</p>
+                <p><span className="font-medium">Total volume target:</span> ${results.totalVolume?.toLocaleString()}</p>
+                <p><span className="font-medium">Current BD spend:</span> ${results.bdSpend?.toLocaleString()}</p>
               </div>
             </div>
           </div>

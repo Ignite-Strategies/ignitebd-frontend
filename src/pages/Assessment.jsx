@@ -43,23 +43,15 @@ export default function Assessment() {
         ]
       };
       
-      // Save assessment to database
-      try {
-        const submissionResponse = await api.post('/assessmentSubmission/submit', {
-          ...assessment,
-          score: result.score,
-          insights: JSON.stringify(result.insights)
-        });
-        console.log('✅ Assessment saved successfully');
-        
-        // Redirect to results page with the assessment ID
-        const assessmentId = submissionResponse.data.id;
-        navigate(`/assessment-results?id=${assessmentId}`);
-      } catch (saveError) {
-        console.error('❌ Failed to save assessment:', saveError);
-        // Still redirect to results page even if save fails
-        navigate('/assessment-results');
-      }
+      // Pass the data directly to results page (no database save needed)
+      const resultsData = {
+        ...assessment,
+        score: result.score,
+        insights: result.insights
+      };
+      
+      // Navigate to results page with data in state
+      navigate('/assessment-results', { state: resultsData });
       
     } catch (error) {
       console.error('Error computing assessment:', error);
