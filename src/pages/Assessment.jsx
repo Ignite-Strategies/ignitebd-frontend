@@ -29,44 +29,31 @@ export default function Assessment() {
     try {
       setCalculating(true);
       
-      // Call the backend AssessmentCalculationService with OpenAI integration
-      const response = await api.post('/assessment/coefficient', assessment);
+      // Navigate to results page immediately with loading state
+      navigate('/assessment-results', { state: { loading: true, assessment } });
       
-      const result = {
-        score: response.data.score,
-        breakdown: assessment,
-        insights: response.data.insights,
-        recommendations: response.data.insights.recommendations || [
-          "Systematize your delegation processes",
-          "Optimize your business development spend", 
-          "Build scalable client acquisition systems"
-        ]
-      };
+      // Call the NEW simplified demo endpoint - no database saves, just OpenAI
+      const response = await api.post('/assessmentDemo/generate', assessment);
       
-      // Pass the data directly to results page (no database save needed)
-      const resultsData = {
-        ...assessment,
-        score: result.score,
-        insights: result.insights
-      };
+      console.log('✅ Assessment demo response:', response.data);
       
-      // Navigate immediately to results page with AI response
+      // Navigate again with actual results
       navigate('/assessment-results', { state: {
-        assessment,
-        score: response.data.score,
-        insights: response.data.insights
+        ...assessment,
+        insights: response.data.assessmentDemo,
+        loading: false
       }});
       
     } catch (error) {
       console.error('Error computing assessment:', error);
       // Fallback - still navigate to results with basic data
       navigate('/assessment-results', { state: {
-        assessment,
-        score: 65,
+        ...assessment,
         insights: {
           relateWithUser: "It sounds like you are feeling overwhelmed with tasks and want to grow your business.",
           growthNeeds: "To get there, you need more business development activities and a systematic approach."
-        }
+        },
+        loading: false
       }});
     } finally {
       setCalculating(false);

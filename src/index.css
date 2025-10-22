@@ -16,3 +16,34 @@ code {
     monospace;
 }
 
+/* Global focus management to prevent cursor jumping */
+.focus-manager {
+  outline: none !important;
+}
+
+/* Prevent auto-focus on inputs during page transitions */
+input, textarea, select {
+  transition: none !important;
+}
+
+/* Remove focus outlines that can cause cursor jumping */
+*:focus {
+  outline: none !important;
+}
+
+/* Prevent text selection that can cause cursor issues */
+* {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Allow text selection only on input elements */
+input, textarea {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}
+

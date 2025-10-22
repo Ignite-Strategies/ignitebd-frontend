@@ -11,20 +11,31 @@ export default function AssessmentResults() {
   useEffect(() => {
     // Get data from navigation state
     if (location.state) {
-      setResults(location.state);
-      setLoading(false);
+      if (location.state.loading) {
+        // Show loading state while AI processes
+        setLoading(true);
+        setResults(location.state);
+      } else {
+        // Show results
+        setResults(location.state);
+        setLoading(false);
+      }
     } else {
       // If no data, redirect back to assessment
       navigate('/assessment');
     }
   }, [location.state, navigate]);
 
+
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-red-900 via-orange-900 to-red-800 flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-600 mx-auto"></div>
-          <p className="mt-4 text-gray-600">Loading your assessment results...</p>
+          <div className="text-6xl mb-6">🤖</div>
+          <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-white mx-auto mb-6"></div>
+          <h2 className="text-3xl font-bold text-white mb-4">Getting Your Results...</h2>
+          <p className="text-xl text-white/90 mb-2">Our AI is analyzing your assessment</p>
+          <p className="text-lg text-white/70">This will just take a moment</p>
         </div>
       </div>
     );
@@ -47,7 +58,7 @@ export default function AssessmentResults() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div ref={pageRef} tabIndex={-1} className="min-h-screen bg-gray-50">
       {/* Header */}
       <div className="bg-white border-b border-gray-200 shadow-sm">
         <div className="max-w-7xl mx-auto px-6 py-6">
@@ -65,23 +76,20 @@ export default function AssessmentResults() {
 
       <div className="max-w-4xl mx-auto px-6 py-12">
         
-        {/* Score Display */}
+        {/* AI Analysis Header */}
         <div className="bg-gradient-to-br from-red-600 to-orange-600 rounded-2xl shadow-xl p-8 text-white mb-8">
           <div className="text-center">
-            <div className="text-6xl mb-4">🔥</div>
-            <h2 className="text-4xl font-bold mb-2">Growth Potential Score</h2>
-            <div className="text-8xl font-black mb-4">{results.score}/100</div>
+            <div className="text-6xl mb-4">🤖</div>
+            <h2 className="text-4xl font-bold mb-2">AI-Powered Growth Analysis</h2>
             <p className="text-xl text-white/90">
-              {results.score < 40 ? "High Growth Opportunity" : 
-               results.score < 70 ? "Strong Growth Potential" : 
-               "Excellent Growth Foundation"}
+              Personalized insights for {results.company}
             </p>
           </div>
         </div>
 
-        {/* Analysis */}
+        {/* AI Analysis */}
         <div className="bg-white rounded-2xl shadow-xl p-8 border border-gray-200 mb-8">
-          <h3 className="text-2xl font-bold text-gray-900 mb-6">📊 Here's the results of your assessment</h3>
+          <h3 className="text-2xl font-bold text-gray-900 mb-6">🤖 AI Analysis</h3>
           <div className="space-y-6">
             {results.insights && (
               <>
@@ -100,28 +108,6 @@ export default function AssessmentResults() {
           </div>
         </div>
 
-        {/* Assessment Summary */}
-        <div className="bg-white rounded-2xl shadow-xl p-8 border border-gray-200 mb-8">
-          <h3 className="text-2xl font-bold text-gray-900 mb-6">📋 Assessment Summary</h3>
-          <div className="grid md:grid-cols-2 gap-6">
-            <div>
-              <h4 className="font-semibold text-gray-900 mb-3">Workload Management</h4>
-              <div className="space-y-2 text-sm">
-                <p><span className="font-medium">Works too much:</span> {results.workTooMuch}</p>
-                <p><span className="font-medium">Delegates effectively:</span> {results.assignTasks}</p>
-              </div>
-            </div>
-            <div>
-              <h4 className="font-semibold text-gray-900 mb-3">Growth Goals</h4>
-              <div className="space-y-2 text-sm">
-                <p><span className="font-medium">Wants more clients:</span> {results.wantMoreClients}</p>
-                <p><span className="font-medium">Revenue growth target:</span> {results.revenueGrowthPercent}%</p>
-                <p><span className="font-medium">Total volume target:</span> ${results.totalVolume?.toLocaleString()}</p>
-                <p><span className="font-medium">Current BD spend:</span> ${results.bdSpend?.toLocaleString()}</p>
-              </div>
-            </div>
-          </div>
-        </div>
 
         {/* CTA */}
         <div className="text-center">
