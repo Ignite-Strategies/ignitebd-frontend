@@ -23,7 +23,7 @@ export default function LearnMore() {
       </div>
 
       {/* Hero Section */}
-      <div className="flex items-center justify-center min-h-screen p-8">
+      <div className="pt-20 p-8">
         <div className="max-w-6xl w-full">
           
           {/* Header */}
@@ -151,7 +151,7 @@ export default function LearnMore() {
           <div className="text-center">
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <button
-                onClick={() => navigate('/businesspoint-law-proposal')}
+                onClick={() => navigate('/assessment')}
                 className="px-8 py-4 bg-white/20 backdrop-blur-sm border-2 border-white/30 text-white font-bold rounded-xl hover:bg-white/30 transition-all hover:scale-105"
               >
                 Take Assessment

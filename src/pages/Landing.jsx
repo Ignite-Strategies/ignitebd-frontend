@@ -103,7 +103,7 @@ export default function Landing() {
               </button>
               
               <button
-                onClick={() => navigate('/businesspoint-law-proposal')}
+                onClick={() => navigate('/assessment')}
                 className="px-6 py-3 bg-white/20 backdrop-blur-sm border-2 border-white/30 text-white font-bold rounded-xl hover:bg-white/30 transition-all hover:scale-105"
               >
                 Take Assessment

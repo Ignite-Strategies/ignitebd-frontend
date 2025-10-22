@@ -19,6 +19,11 @@ import BDGoals from './pages/BD/Goals';
 import BDEvents from './pages/BD/Events';
 import BDContent from './pages/BD/Content';
 import BDAds from './pages/BD/Ads';
+import BDPipeline from './pages/BDPipeline';
+import CompanyDashboard from './pages/CompanyDashboard';
+import Assessment from './pages/Assessment';
+import AssessmentResults from './pages/AssessmentResults';
+import Prices from './pages/Prices';
 
 function App() {
   return (
@@ -28,6 +33,9 @@ function App() {
           <Route path="/" element={<Landing />} />
           <Route path="/learn-more" element={<LearnMore />} />
           <Route path="/businesspoint-law-proposal" element={<BusinessPointLawProposal />} />
+          <Route path="/assessment" element={<Assessment />} />
+          <Route path="/assessment-results" element={<AssessmentResults />} />
+          <Route path="/prices" element={<Prices />} />
           <Route path="/splash" element={<Splash />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/signin" element={<Signin />} />
@@ -35,13 +43,15 @@ function App() {
           <Route path="/companycreateorchoose" element={<CompanyCreateOrChoose />} />
           <Route path="/companyprofile" element={<CompanyProfile />} />
           <Route path="/joincompany" element={<JoinCompany />} />
+          <Route path="/companydashboard" element={<CompanyDashboard />} />
           <Route path="/auth" element={<Auth />} />
           <Route path="/cost" element={<Cost />} />
           <Route path="/human" element={<Human />} />
-          <Route path="/bd/goals" element={<BDGoals />} />
-          <Route path="/bd/events" element={<BDEvents />} />
-          <Route path="/bd/content" element={<BDContent />} />
-          <Route path="/bd/ads" element={<BDAds />} />
+                  <Route path="/bd/goals" element={<BDGoals />} />
+                  <Route path="/bd/events" element={<BDEvents />} />
+                  <Route path="/bd/content" element={<BDContent />} />
+                  <Route path="/bd/ads" element={<BDAds />} />
+                  <Route path="/bd/pipeline" element={<BDPipeline />} />
         </Routes>
       </Router>
     </ActivationProvider>

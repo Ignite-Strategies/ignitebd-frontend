@@ -33,7 +33,7 @@ export default function CompanyProfile() {
       localStorage.setItem('companyId', response.data.id);
       
       // Redirect to main dashboard
-      navigate('/businesspoint-law-proposal');
+      navigate('/companydashboard');
       
     } catch (error) {
       console.error('Company creation error:', error);

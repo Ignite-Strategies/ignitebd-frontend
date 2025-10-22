@@ -21,7 +21,7 @@ export default function BusinessPointLawProposal() {
       prompt: 'How much of your current spend directly drives measurable outcomes?',
       label: 'Operational Efficiency %',
       tooltip: 'Higher = stronger ROI per dollar',
-      description: 'For BusinessPoint Law, this means: marketing spend that converts to clients, tech that saves time, staff that drives revenue.'
+      description: 'For BusinessPoint Law: Does your marketing budget generate qualified leads? Are your case management systems saving billable hours? Is every team member contributing to client acquisition or retention?'
     },
     {
       id: 'human',
@@ -30,7 +30,7 @@ export default function BusinessPointLawProposal() {
       prompt: 'How aligned and self-driven is your team?',
       label: 'Team Alignment %',
       tooltip: 'Higher = more initiative, less micromanagement',
-      description: 'Do your associates take initiative? Can you step away without everything falling apart?'
+      description: 'Can your associates handle client matters independently? Do you have systems in place so you can focus on business development and high-value legal work?'
     },
     {
       id: 'bd',
@@ -39,7 +39,7 @@ export default function BusinessPointLawProposal() {
       prompt: 'How fast does attention convert into opportunity?',
       label: 'Business Development Velocity %',
       tooltip: 'Higher = stronger pipeline velocity',
-      description: 'From first contact to signed retainer - how efficiently do you convert interest into paying clients?'
+      description: 'From initial consultation to signed retainer agreement - how quickly and effectively do you convert prospects into paying clients? What\'s your average sales cycle?'
     }
   ];
 
@@ -310,17 +310,38 @@ export default function BusinessPointLawProposal() {
         {/* CTA */}
         <div className="text-center">
           <button
-            onClick={() => navigate('/home')}
+            onClick={() => navigate('/companydashboard')}
             className="px-12 py-4 bg-gradient-to-r from-red-600 to-orange-600 text-white text-xl font-bold rounded-2xl shadow-2xl hover:shadow-red-500/50 transition-all hover:scale-105"
           >
-            {insights.title.includes('igniting') ? "Let's scale your success" : 
+            {insights.title.includes('igniting') ? "Let's scale your practice" : 
              insights.title.includes('momentum') ? "Let's accelerate your growth" : 
              "Let's build your delegation framework"} →
           </button>
           
-          <p className="text-white/60 text-sm mt-4">
-            Ready to dive deeper? Explore your personalized activation dashboard.
-          </p>
+          <div className="mt-6 space-y-2">
+            <p className="text-white/60 text-sm">
+              Ready to dive deeper? Explore your personalized BusinessPoint Law dashboard.
+            </p>
+            <p className="text-white/40 text-xs">
+              Get access to pipeline management, team efficiency tools, and revenue optimization strategies.
+            </p>
+          </div>
+          
+          {/* Additional Law Firm Specific CTAs */}
+          <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-4 max-w-2xl mx-auto">
+            <button
+              onClick={() => navigate('/bd/pipeline')}
+              className="px-6 py-3 bg-white/20 text-white rounded-xl font-semibold hover:bg-white/30 transition border border-white/30"
+            >
+              📊 View Pipeline Management
+            </button>
+            <button
+              onClick={() => navigate('/bd/goals')}
+              className="px-6 py-3 bg-white/20 text-white rounded-xl font-semibold hover:bg-white/30 transition border border-white/30"
+            >
+              🎯 Set Revenue Goals
+            </button>
+          </div>
         </div>
       </div>
     </div>

@@ -57,6 +57,12 @@ export default function BDGoals() {
             >
               Google Ads
             </button>
+            <button
+              onClick={() => navigate('/bd/pipeline')}
+              className="px-6 py-2 bg-white border border-gray-300 text-gray-700 rounded-lg font-semibold hover:border-gray-400 transition whitespace-nowrap"
+            >
+              Pipeline
+            </button>
           </div>
         </div>
       </div>
