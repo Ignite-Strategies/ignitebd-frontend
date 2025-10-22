@@ -50,29 +50,24 @@ export default function Assessment() {
         insights: result.insights
       };
       
-      // Navigate to results page with data in state
-      navigate('/assessment-results', { state: resultsData });
+      // Navigate immediately to results page with AI response
+      navigate('/assessment-results', { state: {
+        assessment,
+        score: response.data.score,
+        insights: response.data.insights
+      }});
       
     } catch (error) {
       console.error('Error computing assessment:', error);
-      // Fallback to simple result if API fails
-      const result = {
+      // Fallback - still navigate to results with basic data
+      navigate('/assessment-results', { state: {
+        assessment,
         score: 65,
-        breakdown: assessment,
         insights: {
-          igniteGrowthAssessment: "Ignite Growth Assessment",
-          relateWithUser: "It sounds like you are feeling overwhelmed with tasks and want to grow your business - you want more clients and better delegation.",
-          growthNeeds: "To get there, you need more business development activities and a systematic approach to delegation and growth planning.",
-          deeperDive: "This assessment shows the foundation for a deeper dive into your specific growth strategy once you become a client.",
-          nextSteps: "Ready to take the next step in your growth journey?"
-        },
-        recommendations: [
-          "Systematize your delegation processes",
-          "Optimize your business development spend",
-          "Build scalable client acquisition systems"
-        ]
-      };
-      setResult(result);
+          relateWithUser: "It sounds like you are feeling overwhelmed with tasks and want to grow your business.",
+          growthNeeds: "To get there, you need more business development activities and a systematic approach."
+        }
+      }});
     } finally {
       setCalculating(false);
     }
