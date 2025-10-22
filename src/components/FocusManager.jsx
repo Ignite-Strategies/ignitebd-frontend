@@ -10,39 +10,17 @@ export default function FocusManager({ children }) {
   const pageRef = useRef(null);
 
   useEffect(() => {
-    // Fix cursor jumping on every route change
+    // Simple focus management - just remove focus from inputs on route change
     const fixFocus = () => {
-      // Remove focus from any active input elements
+      // Only blur if there's an active input element
       const activeElement = document.activeElement;
-      if (activeElement && activeElement.blur) {
+      if (activeElement && (activeElement.tagName === 'INPUT' || activeElement.tagName === 'TEXTAREA')) {
         activeElement.blur();
       }
-
-      // Clear any text selection that might cause cursor issues
-      if (window.getSelection) {
-        window.getSelection().removeAllRanges();
-      }
-
-      // Set focus to the page container to establish proper focus context
-      if (pageRef.current) {
-        pageRef.current.focus();
-      }
-
-      // Prevent any input from auto-focusing
-      const inputs = document.querySelectorAll('input, textarea, select');
-      inputs.forEach(input => {
-        input.setAttribute('readonly', 'true');
-        setTimeout(() => {
-          input.removeAttribute('readonly');
-        }, 100);
-      });
     };
 
-    // Fix focus immediately on route change
-    fixFocus();
-
-    // Also fix focus after a short delay to catch any late-rendering elements
-    const timeoutId = setTimeout(fixFocus, 100);
+    // Fix focus after route change
+    const timeoutId = setTimeout(fixFocus, 50);
 
     return () => clearTimeout(timeoutId);
   }, [location.pathname]);
