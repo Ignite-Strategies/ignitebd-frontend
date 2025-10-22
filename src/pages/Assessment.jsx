@@ -100,8 +100,8 @@ export default function Assessment() {
 
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-red-900 via-orange-900 to-red-800 p-8 flex items-center justify-center">
-      <div className="max-w-4xl w-full">
+    <div className="min-h-screen bg-gradient-to-br from-red-900 via-orange-900 to-red-800 p-8">
+      <div className="max-w-4xl w-full mx-auto">
         
         {/* Header */}
         <div className="text-center mb-12">
