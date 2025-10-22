@@ -32,25 +32,24 @@ export default function Assessment() {
       // Call the working AssessmentCalculationService endpoint
       const response = await api.post('/assessment/coefficient', assessment);
       
-      console.log('✅ Assessment demo response:', response.data);
+      console.log('✅ Assessment response:', response.data);
       
-      // Navigate directly to results with actual data - no loading screen
-      navigate('/assessment-results', { state: {
-        ...assessment,
+      // Set results state to show results on the same page (like TripWell)
+      setResult({
         score: response.data.score,
         insights: response.data.insights
-      }});
+      });
       
     } catch (error) {
       console.error('Error computing assessment:', error);
-      // Fallback - still navigate to results with basic data
-      navigate('/assessment-results', { state: {
-        ...assessment,
+      // Fallback - show basic results
+      setResult({
+        score: 65,
         insights: {
           relateWithUser: "It sounds like you are feeling overwhelmed with tasks and want to grow your business.",
           growthNeeds: "To get there, you need more business development activities and a systematic approach."
         }
-      }});
+      });
     } finally {
       setCalculating(false);
     }
@@ -300,6 +299,49 @@ export default function Assessment() {
           </p>
         </div>
       </div>
+
+      {/* Results Section - Show on same page like TripWell */}
+      {result && (
+        <div className="max-w-4xl w-full mx-auto mt-8">
+          <div className="bg-white/10 backdrop-blur-md rounded-3xl shadow-2xl p-10 border border-white/20">
+            <div className="text-center mb-8">
+              <div className="text-6xl mb-4">🔥</div>
+              <h2 className="text-4xl font-bold text-white mb-2">Your Growth Analysis</h2>
+              <p className="text-xl text-white/90">Personalized insights for {assessment.company}</p>
+            </div>
+
+            <div className="space-y-6">
+              {result.insights && (
+                <>
+                  <div className="prose prose-lg max-w-none">
+                    <p className="text-white/90 leading-relaxed text-lg">
+                      {result.insights.relateWithUser}
+                    </p>
+                  </div>
+                  <div className="prose prose-lg max-w-none">
+                    <p className="text-white/90 leading-relaxed text-lg">
+                      {result.insights.growthNeeds}
+                    </p>
+                  </div>
+                </>
+              )}
+            </div>
+
+            <div className="text-center mt-8">
+              <button
+                onClick={() => navigate('/prices')}
+                className="px-12 py-4 bg-gradient-to-r from-red-600 to-orange-600 text-white text-xl font-bold rounded-2xl shadow-2xl hover:shadow-red-500/50 transition-all hover:scale-105"
+              >
+                Learn How We Can Help →
+              </button>
+              
+              <p className="text-white/60 text-sm mt-4">
+                Ready to unlock your growth potential? Let's build your success strategy.
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
