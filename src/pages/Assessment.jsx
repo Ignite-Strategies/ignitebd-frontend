@@ -5,7 +5,6 @@ import api from '../lib/api';
 export default function Assessment() {
   const navigate = useNavigate();
   const [assessment, setAssessment] = useState({
-    name: '',
     company: '',
     industry: '',
     workTooMuch: '',
@@ -15,8 +14,13 @@ export default function Assessment() {
     totalVolume: '',
     bdSpend: ''
   });
+  const [contactInfo, setContactInfo] = useState({
+    name: '',
+    email: ''
+  });
   const [calculating, setCalculating] = useState(false);
   const [result, setResult] = useState(null);
+  const [showContactForm, setShowContactForm] = useState(false);
 
   const handleInputChange = (field, value) => {
     setAssessment(prev => ({
@@ -25,12 +29,31 @@ export default function Assessment() {
     }));
   };
 
+  const handleContactChange = (field, value) => {
+    setContactInfo(prev => ({
+      ...prev,
+      [field]: value
+    }));
+  };
+
+  const handleSubmit = () => {
+    // First show contact form (like TripWell)
+    setShowContactForm(true);
+  };
+
   const computeAssessment = async () => {
     try {
       setCalculating(true);
       
+      // Combine assessment with contact info for backend
+      const fullAssessment = {
+        ...assessment,
+        name: contactInfo.name,
+        email: contactInfo.email
+      };
+      
       // Call the working AssessmentCalculationService endpoint
-      const response = await api.post('/assessment/coefficient', assessment);
+      const response = await api.post('/assessment/coefficient', fullAssessment);
       
       console.log('✅ Assessment response:', response.data);
       
@@ -55,9 +78,8 @@ export default function Assessment() {
     }
   };
 
-  const isFormComplete = () => {
-    return assessment.name && 
-           assessment.company && 
+  const isAssessmentComplete = () => {
+    return assessment.company && 
            assessment.industry &&
            assessment.workTooMuch && 
            assessment.assignTasks && 
@@ -65,6 +87,10 @@ export default function Assessment() {
            assessment.revenueGrowthPercent && 
            assessment.totalVolume && 
            assessment.bdSpend;
+  };
+
+  const isContactComplete = () => {
+    return contactInfo.name && contactInfo.email;
   };
 
 
@@ -92,23 +118,13 @@ export default function Assessment() {
         {/* Assessment Form */}
         <div className="bg-white/10 backdrop-blur-md rounded-3xl shadow-2xl p-10 border border-white/20">
           
-          {/* Contact Information */}
+          {/* Company Information */}
           <div className="mb-12">
             <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
-              <span className="text-3xl">👋</span>
-              Contact Information
+              <span className="text-3xl">🏢</span>
+              Company Information
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div>
-                <label className="block text-white font-semibold mb-2">What's your name?</label>
-                <input
-                  type="text"
-                  value={assessment.name}
-                  onChange={(e) => handleInputChange('name', e.target.value)}
-                  placeholder="e.g., John Smith"
-                  className="w-full px-4 py-3 bg-white/20 border border-white/30 rounded-xl text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-red-500"
-                />
-              </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label className="block text-white font-semibold mb-2">What's your company name?</label>
                 <input
@@ -279,11 +295,11 @@ export default function Assessment() {
           {/* Submit Button */}
           <div className="text-center">
             <button
-              onClick={computeAssessment}
-              disabled={!isFormComplete() || calculating}
+              onClick={handleSubmit}
+              disabled={!isAssessmentComplete()}
               className="px-12 py-4 bg-gradient-to-r from-red-600 to-orange-600 text-white text-xl font-bold rounded-2xl shadow-2xl hover:shadow-red-500/50 transition-all hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {calculating ? 'Computing Your Assessment...' : 'Get My Assessment'}
+              Want Your Results?
             </button>
             
             <p className="text-white/60 text-sm mt-4">
@@ -299,6 +315,56 @@ export default function Assessment() {
           </p>
         </div>
       </div>
+
+      {/* Contact Form - Shows after "Want Your Results?" */}
+      {showContactForm && (
+        <div className="max-w-4xl w-full mx-auto mt-8">
+          <div className="bg-white/10 backdrop-blur-md rounded-3xl shadow-2xl p-10 border border-white/20">
+            <div className="text-center mb-8">
+              <div className="text-6xl mb-4">📧</div>
+              <h2 className="text-4xl font-bold text-white mb-2">Get Your Results</h2>
+              <p className="text-xl text-white/90">Add your contact details to receive your personalized growth analysis</p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+              <div>
+                <label className="block text-white font-semibold mb-2">What's your name?</label>
+                <input
+                  type="text"
+                  value={contactInfo.name}
+                  onChange={(e) => handleContactChange('name', e.target.value)}
+                  placeholder="e.g., John Smith"
+                  className="w-full px-4 py-3 bg-white/20 border border-white/30 rounded-xl text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-red-500"
+                />
+              </div>
+              <div>
+                <label className="block text-white font-semibold mb-2">What's your email?</label>
+                <input
+                  type="email"
+                  value={contactInfo.email}
+                  onChange={(e) => handleContactChange('email', e.target.value)}
+                  placeholder="e.g., john@company.com"
+                  className="w-full px-4 py-3 bg-white/20 border border-white/30 rounded-xl text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-red-500"
+                />
+              </div>
+            </div>
+
+            <div className="text-center">
+              <button
+                onClick={computeAssessment}
+                disabled={!isContactComplete() || calculating}
+                className="px-12 py-4 bg-gradient-to-r from-red-600 to-orange-600 text-white text-xl font-bold rounded-2xl shadow-2xl hover:shadow-red-500/50 transition-all hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {calculating ? 'Generating Your Analysis...' : 'Get My Results'}
+              </button>
+              
+              <p className="text-white/60 text-sm mt-4">
+                We'll send your personalized growth analysis to your email
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Results Section - Show on same page like TripWell */}
       {result && (
