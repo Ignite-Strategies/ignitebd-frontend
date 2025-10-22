@@ -58,7 +58,7 @@ export default function AssessmentResults() {
   }
 
   return (
-    <div ref={pageRef} tabIndex={-1} className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50">
       {/* Header */}
       <div className="bg-white border-b border-gray-200 shadow-sm">
         <div className="max-w-7xl mx-auto px-6 py-6">
@@ -79,7 +79,7 @@ export default function AssessmentResults() {
         {/* AI Analysis Header */}
         <div className="bg-gradient-to-br from-red-600 to-orange-600 rounded-2xl shadow-xl p-8 text-white mb-8">
           <div className="text-center">
-            <div className="text-6xl mb-4">🤖</div>
+            <div className="text-6xl mb-4">🔥</div>
             <h2 className="text-4xl font-bold mb-2">AI-Powered Growth Analysis</h2>
             <p className="text-xl text-white/90">
               Personalized insights for {results.company}
@@ -89,7 +89,7 @@ export default function AssessmentResults() {
 
         {/* AI Analysis */}
         <div className="bg-white rounded-2xl shadow-xl p-8 border border-gray-200 mb-8">
-          <h3 className="text-2xl font-bold text-gray-900 mb-6">🤖 AI Analysis</h3>
+          <h3 className="text-2xl font-bold text-gray-900 mb-6">🔥 AI Analysis</h3>
           <div className="space-y-6">
             {results.insights && (
               <>
