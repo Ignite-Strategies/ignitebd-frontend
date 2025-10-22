@@ -1,5 +1,17 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
 import { ActivationProvider } from './context/ActivationContext';
+
+// ScrollToTop component to fix scroll position on route change
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+}
 
 // Pages
 import Landing from './pages/Landing';
@@ -29,6 +41,7 @@ function App() {
   return (
     <ActivationProvider>
       <Router>
+        <ScrollToTop />
         <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="/learn-more" element={<LearnMore />} />
