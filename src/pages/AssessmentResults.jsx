@@ -11,15 +11,8 @@ export default function AssessmentResults() {
   useEffect(() => {
     // Get data from navigation state
     if (location.state) {
-      if (location.state.loading) {
-        // Show loading state while AI processes
-        setLoading(true);
-        setResults(location.state);
-      } else {
-        // Show results
-        setResults(location.state);
-        setLoading(false);
-      }
+      setResults(location.state);
+      setLoading(false);
     } else {
       // If no data, redirect back to assessment
       navigate('/assessment');
@@ -27,19 +20,6 @@ export default function AssessmentResults() {
   }, [location.state, navigate]);
 
 
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-red-900 via-orange-900 to-red-800 flex items-center justify-center">
-        <div className="text-center">
-          <div className="text-6xl mb-6">🤖</div>
-          <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-white mx-auto mb-6"></div>
-          <h2 className="text-3xl font-bold text-white mb-4">Getting Your Results...</h2>
-          <p className="text-xl text-white/90 mb-2">Our AI is analyzing your assessment</p>
-          <p className="text-lg text-white/70">This will just take a moment</p>
-        </div>
-      </div>
-    );
-  }
 
   if (!results) {
     return (
@@ -58,16 +38,16 @@ export default function AssessmentResults() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-br from-red-900 via-orange-900 to-red-800">
       {/* Header */}
-      <div className="bg-white border-b border-gray-200 shadow-sm">
+      <div className="bg-white/10 backdrop-blur-md border-b border-white/20 shadow-sm">
         <div className="max-w-7xl mx-auto px-6 py-6">
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-3">
-              <img src="/logo.png" alt="Ignite Strategies" className="h-10" />
+              <div className="text-4xl">🔥</div>
               <div>
-                <h1 className="text-2xl font-bold text-gray-900">Assessment Results</h1>
-                <p className="text-gray-600">Growth analysis for {results.company}</p>
+                <h1 className="text-2xl font-bold text-white">Assessment Results</h1>
+                <p className="text-white/90">Growth analysis for {results.company}</p>
               </div>
             </div>
           </div>

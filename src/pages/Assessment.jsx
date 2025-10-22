@@ -29,19 +29,16 @@ export default function Assessment() {
     try {
       setCalculating(true);
       
-      // Navigate to results page immediately with loading state
-      navigate('/assessment-results', { state: { loading: true, assessment } });
-      
-      // Call the NEW simplified demo endpoint - no database saves, just OpenAI
-      const response = await api.post('/assessmentDemo/generate', assessment);
+      // Call the working AssessmentCalculationService endpoint
+      const response = await api.post('/assessment/coefficient', assessment);
       
       console.log('✅ Assessment demo response:', response.data);
       
-      // Navigate again with actual results
+      // Navigate directly to results with actual data - no loading screen
       navigate('/assessment-results', { state: {
         ...assessment,
-        insights: response.data.assessmentDemo,
-        loading: false
+        score: response.data.score,
+        insights: response.data.insights
       }});
       
     } catch (error) {
@@ -52,8 +49,7 @@ export default function Assessment() {
         insights: {
           relateWithUser: "It sounds like you are feeling overwhelmed with tasks and want to grow your business.",
           growthNeeds: "To get there, you need more business development activities and a systematic approach."
-        },
-        loading: false
+        }
       }});
     } finally {
       setCalculating(false);
