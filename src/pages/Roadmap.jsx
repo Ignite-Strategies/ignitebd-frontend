@@ -225,17 +225,17 @@ export default function Roadmap() {
             </div>
           </div>
 
-          <div className="mt-8 text-center">
-            <p className="text-gray-600 mb-4">
-              Ready to get started? Complete your growth assessment to create a personalized roadmap.
-            </p>
-            <button
-              onClick={() => navigate('/assessment')}
-              className="px-8 py-3 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition-colors"
-            >
-              Start Growth Assessment →
-            </button>
-          </div>
+                      <div className="mt-8 text-center">
+                        <p className="text-gray-600 mb-4">
+                          Ready to get started? Return to your dashboard to begin implementing this roadmap.
+                        </p>
+                        <button
+                          onClick={() => navigate('/growth-dashboard')}
+                          className="px-8 py-3 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition-colors"
+                        >
+                          Back to Dashboard →
+                        </button>
+                      </div>
         </div>
       </div>
     </div>
