@@ -119,10 +119,15 @@ export default function BusinessPointLawProposal() {
         <div className="bg-white rounded-2xl shadow-lg p-8 mb-8">
             <div className="text-center mb-8">
             <h1 className="text-4xl font-bold text-gray-900 mb-4">Business Point Law - BD Roadmap</h1>
-            <p className="text-xl text-gray-600">
+            <p className="text-xl text-gray-600 mb-4">
               A phased approach to building a sustainable business development engine for NDA service providers.
             </p>
-            <p className="text-sm text-gray-500 mt-2">
+            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+              <p className="text-gray-800 font-medium">
+                Please see the below that is a planned/proposed road map to help BusinessPoint Law increase customers. We look forward to collaborating with you!
+              </p>
+            </div>
+            <p className="text-sm text-gray-500">
               Customized roadmap for NDA service growth and client acquisition.
             </p>
           </div>
