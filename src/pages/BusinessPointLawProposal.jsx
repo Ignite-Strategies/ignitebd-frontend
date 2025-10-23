@@ -40,9 +40,9 @@ export default function BusinessPointLawProposal() {
       icon: '🚀',
       color: 'bg-orange-500',
       activities: [
-        'Pick One Primary Engine (LinkedIn + email outreach for law firms)',
+        'Pick One Primary Engine (LinkedIn + email outreach for NDA prospects)',
         'Set up Conversion Flow (landing page → consultation → CRM deal)',
-        'Launch Targeted Ad Campaigns (Google Ads, Meta Ads for BD services)',
+        'Launch Targeted Ad Campaigns (Google Ads, Meta Ads for NDA services)',
         'Implement Email Automation (Nurture sequences, outreach campaigns)',
         'Participate in Strategic Events (Networking, speaking engagements)',
       ],
@@ -111,19 +111,19 @@ export default function BusinessPointLawProposal() {
     }
   ];
 
-  return (
+    return (
     <div className="min-h-screen bg-gray-50">
       <Navigation />
       
       <div className="max-w-6xl mx-auto p-8">
         <div className="bg-white rounded-2xl shadow-lg p-8 mb-8">
-          <div className="text-center mb-8">
-            <h1 className="text-4xl font-bold text-gray-900 mb-4">Business Point Law - BD Proposal</h1>
+            <div className="text-center mb-8">
+            <h1 className="text-4xl font-bold text-gray-900 mb-4">Business Point Law - BD Roadmap</h1>
             <p className="text-xl text-gray-600">
-              A phased approach to building a sustainable business development engine for law firms.
+              A phased approach to building a sustainable business development engine for NDA service providers.
             </p>
             <p className="text-sm text-gray-500 mt-2">
-              Customized roadmap for legal practice growth and client acquisition.
+              Customized roadmap for NDA service growth and client acquisition.
             </p>
           </div>
 
@@ -168,8 +168,8 @@ export default function BusinessPointLawProposal() {
                       <span key={idx} className="px-3 py-1 bg-red-100 text-red-700 rounded-full text-sm font-medium">
                         ✓ {kpi}
                       </span>
-                    ))}
-                  </div>
+              ))}
+            </div>
                 </div>
               </div>
             ))}
@@ -224,7 +224,7 @@ export default function BusinessPointLawProposal() {
               </p>
             </div>
           </div>
-
+          
           <div className="mt-8 text-center">
             <p className="text-gray-600 mb-4">
               Ready to get started? Return to your dashboard to begin implementing this roadmap.
