@@ -35,6 +35,16 @@ import BDPipeline from './pages/BDPipeline';
 import CompanyDashboard from './pages/CompanyDashboard';
 import Assessment from './pages/Assessment';
 import AssessmentResults from './pages/AssessmentResults';
+import Revenue from './pages/Revenue';
+import HumanCapital from './pages/HumanCapital';
+import TargetAcquisition from './pages/TargetAcquisition';
+import GrowthDashboard from './pages/GrowthDashboard';
+import Ecosystem from './pages/Ecosystem';
+import Persona from './pages/Persona';
+import Pipeline from './pages/Pipeline';
+import Ads from './pages/Ads';
+import Seo from './pages/Seo';
+import Events from './pages/Events';
 import Prices from './pages/Prices';
 
 function App() {
@@ -48,6 +58,16 @@ function App() {
           <Route path="/businesspoint-law-proposal" element={<BusinessPointLawProposal />} />
           <Route path="/assessment" element={<Assessment />} />
           <Route path="/assessment-results" element={<AssessmentResults />} />
+          <Route path="/revenue" element={<Revenue />} />
+          <Route path="/human-capital" element={<HumanCapital />} />
+          <Route path="/target-acquisition" element={<TargetAcquisition />} />
+          <Route path="/growth-dashboard" element={<GrowthDashboard />} />
+          <Route path="/ecosystem" element={<Ecosystem />} />
+          <Route path="/persona" element={<Persona />} />
+          <Route path="/pipeline" element={<Pipeline />} />
+          <Route path="/ads" element={<Ads />} />
+          <Route path="/seo" element={<Seo />} />
+          <Route path="/events" element={<Events />} />
           <Route path="/prices" element={<Prices />} />
           <Route path="/splash" element={<Splash />} />
           <Route path="/signup" element={<Signup />} />

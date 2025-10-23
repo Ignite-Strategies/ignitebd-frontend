@@ -58,32 +58,56 @@ export default function Assessment() {
     }));
   };
 
-  const handleSubmit = () => {
-    // First show contact form (like TripWell)
-    setShowContactForm(true);
+  const handleSubmit = async () => {
+    try {
+      // Save assessment data to database first
+      const response = await api.post('/platformProspect/save-assessment', assessment);
+      
+      console.log('✅ Assessment saved with ID:', response.data.id);
+      
+      // Save assessment ID to localStorage
+      const assessmentData = {
+        id: response.data.id,
+        assessment: assessment,
+        timestamp: new Date().toISOString()
+      };
+      
+      localStorage.setItem('assessmentData', JSON.stringify(assessmentData));
+      setAssessmentId(response.data.id);
+      
+      // Then show contact form
+      setShowContactForm(true);
+      
+    } catch (error) {
+      console.error('Error saving assessment:', error);
+      // Still show contact form even if save fails
+      setShowContactForm(true);
+    }
   };
 
   const computeAssessment = async () => {
     try {
       setCalculating(true);
       
-      // Combine assessment with contact info for backend
-      const fullAssessment = {
-        ...assessment,
+      // Send assessment ID + contact info to complete the assessment
+      const response = await api.post('/platformProspect/complete-assessment', {
+        assessmentId: assessmentId,
         name: contactInfo.name,
         email: contactInfo.email,
         company: contactInfo.company
-      };
+      });
       
-      // Call the new PlatformProspect endpoint
-      const response = await api.post('/platformProspect/save', fullAssessment);
+      console.log('✅ Assessment completed:', response.data);
       
-      console.log('✅ Platform prospect saved:', response.data);
-      
-      // Update localStorage with contact info and results
+      // Update localStorage with results
       const assessmentData = {
-        id: response.data.id, // Use the database ID
-        assessment: fullAssessment,
+        id: response.data.id,
+        assessment: {
+          ...assessment,
+          name: contactInfo.name,
+          email: contactInfo.email,
+          company: contactInfo.company
+        },
         result: {
           score: response.data.score,
           insights: response.data.insights
@@ -322,12 +346,9 @@ export default function Assessment() {
               disabled={!isAssessmentComplete()}
               className="px-12 py-4 bg-gradient-to-r from-red-600 to-orange-600 text-white text-xl font-bold rounded-2xl shadow-2xl hover:shadow-red-500/50 transition-all hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              Want Your Results?
+              Submit
             </button>
             
-            <p className="text-white/60 text-sm mt-4">
-              Complete all fields to get your personalized growth assessment
-            </p>
           </div>
         </div>
 
@@ -345,13 +366,13 @@ export default function Assessment() {
           <div className="bg-white/10 backdrop-blur-md rounded-3xl shadow-2xl p-10 border border-white/20">
             <div className="text-center mb-8">
               <div className="text-6xl mb-4">📧</div>
-              <h2 className="text-4xl font-bold text-white mb-2">Get Your Results</h2>
-              <p className="text-xl text-white/90">Add your contact details to receive your personalized growth analysis</p>
+              <h2 className="text-4xl font-bold text-white mb-2">Want your results?</h2>
+              <p className="text-xl text-white/90">Before providing you the assessment, please fill in the below</p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
               <div>
-                <label className="block text-white font-semibold mb-2">What's your name?</label>
+                <label className="block text-white font-semibold mb-2">Name</label>
                 <input
                   type="text"
                   value={contactInfo.name}
@@ -361,7 +382,7 @@ export default function Assessment() {
                 />
               </div>
               <div>
-                <label className="block text-white font-semibold mb-2">What's your email?</label>
+                <label className="block text-white font-semibold mb-2">Email</label>
                 <input
                   type="email"
                   value={contactInfo.email}
@@ -388,7 +409,7 @@ export default function Assessment() {
                 disabled={!isContactComplete() || calculating}
                 className="px-12 py-4 bg-gradient-to-r from-red-600 to-orange-600 text-white text-xl font-bold rounded-2xl shadow-2xl hover:shadow-red-500/50 transition-all hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {calculating ? 'Generating Your Analysis...' : 'Get My Results'}
+                {calculating ? 'Generating Your Analysis...' : 'See my results'}
               </button>
               
               <p className="text-white/60 text-sm mt-4">
