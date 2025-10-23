@@ -45,7 +45,6 @@ import BDAssessmentTotalOutlook from './pages/BDAssessmentTotalOutlook';
 import GrowthDashboard from './pages/GrowthDashboard';
 import Ecosystem from './pages/Ecosystem';
 import Persona from './pages/Persona';
-import Pipeline from './pages/Pipeline';
 import Ads from './pages/Ads';
 import Seo from './pages/Seo';
 import Events from './pages/Events';
@@ -77,7 +76,7 @@ function App() {
         <Route path="/growth-dashboard" element={<GrowthDashboard />} />
         <Route path="/ecosystem" element={<Ecosystem />} />
         <Route path="/persona" element={<Persona />} />
-        <Route path="/pipeline" element={<Pipeline />} />
+        <Route path="/bdpipeline" element={<BDPipeline />} />
         <Route path="/ads" element={<Ads />} />
         <Route path="/seo" element={<Seo />} />
         <Route path="/events" element={<Events />} />
