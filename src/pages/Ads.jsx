@@ -1,416 +1,358 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Navigation from '../components/Navigation';
 
-// Campaign Card Component
-function CampaignCard({ campaign, onEdit, onDelete }) {
-  const getROIColor = (roi) => {
-    if (roi >= 4) return 'text-green-600';
-    if (roi >= 2) return 'text-yellow-600';
-    return 'text-red-600';
-  };
-
-  return (
-    <div className="bg-white border border-gray-200 rounded-xl p-6 hover:shadow-lg transition-shadow">
-      <div className="flex justify-between items-start mb-4">
-        <div>
-          <h3 className="text-xl font-bold text-gray-900">{campaign.name}</h3>
-          <p className="text-gray-600">{campaign.platform} • {campaign.status}</p>
-        </div>
-        <div className="flex gap-2">
-          <button
-            onClick={() => onEdit(campaign.id)}
-            className="px-3 py-1 text-sm bg-blue-100 text-blue-700 rounded-lg hover:bg-blue-200 transition-colors"
-          >
-            Edit
-          </button>
-          <button
-            onClick={() => onDelete(campaign.id)}
-            className="px-3 py-1 text-sm bg-red-100 text-red-700 rounded-lg hover:bg-red-200 transition-colors"
-          >
-            Delete
-          </button>
-        </div>
-      </div>
-      
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
-        <div>
-          <p className="text-sm text-gray-600">Monthly Spend</p>
-          <p className="font-semibold text-gray-900">${campaign.monthlySpend.toLocaleString()}</p>
-        </div>
-        <div>
-          <p className="text-sm text-gray-600">ROI</p>
-          <p className={`font-semibold ${getROIColor(campaign.roi)}`}>{campaign.roi}x</p>
-        </div>
-        <div>
-          <p className="text-sm text-gray-600">Clicks</p>
-          <p className="font-semibold text-gray-900">{campaign.clicks.toLocaleString()}</p>
-        </div>
-        <div>
-          <p className="text-sm text-gray-600">Conversions</p>
-          <p className="font-semibold text-gray-900">{campaign.conversions}</p>
-        </div>
-      </div>
-      
-      <div className="text-sm text-gray-600">
-        <p><strong>Target:</strong> {campaign.targetAudience}</p>
-        <p><strong>Goal:</strong> {campaign.goal}</p>
-      </div>
-    </div>
-  );
-}
-
-// Campaign Form Component
-function CampaignForm({ campaign, onSave, onCancel }) {
-  const [formData, setFormData] = useState({
-    name: '',
-    platform: '',
-    status: 'active',
-    monthlySpend: '',
-    roi: '',
-    clicks: '',
-    conversions: '',
-    targetAudience: '',
-    goal: '',
-    notes: ''
-  });
-
-  useEffect(() => {
-    if (campaign) {
-      setFormData(campaign);
-    }
-  }, [campaign]);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    onSave(formData);
-  };
-
-  return (
-    <div className="bg-white border border-gray-200 rounded-xl p-6">
-      <h3 className="text-xl font-bold text-gray-900 mb-6">
-        {campaign ? 'Edit Campaign' : 'Create New Campaign'}
-      </h3>
-      
-      <form onSubmit={handleSubmit} className="space-y-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-2">Campaign Name</label>
-            <input
-              type="text"
-              value={formData.name}
-              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-              placeholder="e.g., Q4 Lead Generation"
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500"
-              required
-            />
-          </div>
-          
-          <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-2">Platform</label>
-            <select
-              value={formData.platform}
-              onChange={(e) => setFormData({ ...formData, platform: e.target.value })}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500"
-              required
-            >
-              <option value="">Select Platform</option>
-              <option value="Google Ads">Google Ads</option>
-              <option value="Facebook Ads">Facebook Ads</option>
-              <option value="LinkedIn Ads">LinkedIn Ads</option>
-              <option value="Twitter Ads">Twitter Ads</option>
-              <option value="Instagram Ads">Instagram Ads</option>
-              <option value="Other">Other</option>
-            </select>
-          </div>
-          
-          <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-2">Status</label>
-            <select
-              value={formData.status}
-              onChange={(e) => setFormData({ ...formData, status: e.target.value })}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500"
-              required
-            >
-              <option value="active">Active</option>
-              <option value="paused">Paused</option>
-              <option value="completed">Completed</option>
-              <option value="draft">Draft</option>
-            </select>
-          </div>
-          
-          <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-2">Monthly Spend ($)</label>
-            <input
-              type="number"
-              value={formData.monthlySpend}
-              onChange={(e) => setFormData({ ...formData, monthlySpend: parseFloat(e.target.value) })}
-              placeholder="e.g., 2400"
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500"
-              required
-            />
-          </div>
-          
-          <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-2">ROI (x)</label>
-            <input
-              type="number"
-              step="0.1"
-              value={formData.roi}
-              onChange={(e) => setFormData({ ...formData, roi: parseFloat(e.target.value) })}
-              placeholder="e.g., 4.2"
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500"
-              required
-            />
-          </div>
-          
-          <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-2">Clicks</label>
-            <input
-              type="number"
-              value={formData.clicks}
-              onChange={(e) => setFormData({ ...formData, clicks: parseInt(e.target.value) })}
-              placeholder="e.g., 1200"
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500"
-              required
-            />
-          </div>
-          
-          <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-2">Conversions</label>
-            <input
-              type="number"
-              value={formData.conversions}
-              onChange={(e) => setFormData({ ...formData, conversions: parseInt(e.target.value) })}
-              placeholder="e.g., 48"
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500"
-              required
-            />
-          </div>
-          
-          <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-2">Target Audience</label>
-            <input
-              type="text"
-              value={formData.targetAudience}
-              onChange={(e) => setFormData({ ...formData, targetAudience: e.target.value })}
-              placeholder="e.g., B2B SaaS Founders"
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500"
-              required
-            />
-          </div>
-        </div>
-        
-        <div>
-          <label className="block text-sm font-semibold text-gray-700 mb-2">Campaign Goal</label>
-          <textarea
-            value={formData.goal}
-            onChange={(e) => setFormData({ ...formData, goal: e.target.value })}
-            placeholder="What is this campaign trying to achieve?"
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500"
-            rows="2"
-            required
-          />
-        </div>
-        
-        <div>
-          <label className="block text-sm font-semibold text-gray-700 mb-2">Notes</label>
-          <textarea
-            value={formData.notes}
-            onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
-            placeholder="Additional notes about this campaign..."
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500"
-            rows="2"
-          />
-        </div>
-        
-        <div className="flex justify-end gap-4">
-          <button
-            type="button"
-            onClick={onCancel}
-            className="px-6 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors"
-          >
-            Cancel
-          </button>
-          <button
-            type="submit"
-            className="px-6 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 transition-colors"
-          >
-            {campaign ? 'Update Campaign' : 'Create Campaign'}
-          </button>
-        </div>
-      </form>
-    </div>
-  );
-}
-
-// Performance Summary Component
-function PerformanceSummary({ campaigns }) {
-  const totalSpend = campaigns.reduce((sum, campaign) => sum + campaign.monthlySpend, 0);
-  const totalClicks = campaigns.reduce((sum, campaign) => sum + campaign.clicks, 0);
-  const totalConversions = campaigns.reduce((sum, campaign) => sum + campaign.conversions, 0);
-  const avgROI = campaigns.length > 0 ? campaigns.reduce((sum, campaign) => sum + campaign.roi, 0) / campaigns.length : 0;
-  const conversionRate = totalClicks > 0 ? (totalConversions / totalClicks * 100).toFixed(2) : 0;
-
-  return (
-    <div className="bg-gradient-to-r from-yellow-50 to-orange-50 border border-yellow-200 rounded-xl p-6 mb-8">
-      <h3 className="text-xl font-bold text-gray-900 mb-4">Performance Summary</h3>
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-        <div>
-          <p className="text-sm text-gray-600">Total Monthly Spend</p>
-          <p className="text-2xl font-bold text-gray-900">${totalSpend.toLocaleString()}</p>
-        </div>
-        <div>
-          <p className="text-sm text-gray-600">Average ROI</p>
-          <p className="text-2xl font-bold text-gray-900">{avgROI.toFixed(1)}x</p>
-        </div>
-        <div>
-          <p className="text-sm text-gray-600">Total Clicks</p>
-          <p className="text-2xl font-bold text-gray-900">{totalClicks.toLocaleString()}</p>
-        </div>
-        <div>
-          <p className="text-sm text-gray-600">Conversion Rate</p>
-          <p className="text-2xl font-bold text-gray-900">{conversionRate}%</p>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// Main Ads Component
 export default function Ads() {
   const navigate = useNavigate();
-  const [campaigns, setCampaigns] = useState([]);
-  const [showForm, setShowForm] = useState(false);
-  const [editingCampaign, setEditingCampaign] = useState(null);
+  const [selectedTab, setSelectedTab] = useState('overview');
 
-  // Load data from localStorage on mount
-  useEffect(() => {
-    const savedData = localStorage.getItem('adsData');
-    if (savedData) {
-      const data = JSON.parse(savedData);
-      setCampaigns(data.campaigns || []);
+  // Dummy Google Ads account data
+  const accountData = {
+    name: "Ignite BD Campaigns",
+    customerId: "123-456-7890",
+    isTestAccount: false,
+    campaigns: 8,
+    adGroups: 24,
+    keywords: 156,
+    monthlySpend: 2400,
+    leads: 47,
+    costPerLead: 51
+  };
+
+  // Campaign data
+  const campaigns = [
+    {
+      id: 1,
+      name: "BD Services - Search",
+      status: "Active",
+      budget: 500,
+      spent: 320,
+      impressions: 12500,
+      clicks: 245,
+      ctr: 1.96,
+      cpc: 1.31,
+      conversions: 8,
+      costPerConversion: 40
+    },
+    {
+      id: 2,
+      name: "Business Development - Display",
+      status: "Active", 
+      budget: 300,
+      spent: 180,
+      impressions: 45000,
+      clicks: 180,
+      ctr: 0.40,
+      cpc: 1.00,
+      conversions: 5,
+      costPerConversion: 36
+    },
+    {
+      id: 3,
+      name: "Growth Consulting - LinkedIn",
+      status: "Paused",
+      budget: 200,
+      spent: 95,
+      impressions: 8500,
+      clicks: 95,
+      ctr: 1.12,
+      cpc: 1.00,
+      conversions: 3,
+      costPerConversion: 32
     }
-  }, []);
+  ];
 
-  const handleSave = (campaignData) => {
-    if (editingCampaign) {
-      // Update existing campaign
-      setCampaigns(prev => prev.map(c => 
-        c.id === editingCampaign.id ? { ...campaignData, id: editingCampaign.id } : c
-      ));
-    } else {
-      // Create new campaign
-      setCampaigns(prev => [...prev, { ...campaignData, id: Date.now() }]);
-    }
-    
-    // Save to localStorage
-    const dataToSave = {
-      campaigns: editingCampaign ? campaigns.map(c => 
-        c.id === editingCampaign.id ? { ...campaignData, id: editingCampaign.id } : c
-      ) : [...campaigns, { ...campaignData, id: Date.now() }],
-      timestamp: new Date().toISOString()
-    };
-    localStorage.setItem('adsData', JSON.stringify(dataToSave));
-    
-    setShowForm(false);
-    setEditingCampaign(null);
+  const tabs = [
+    { id: 'overview', label: 'Overview', icon: '🏠' },
+    { id: 'campaigns', label: 'Campaigns', icon: '📊' },
+    { id: 'keywords', label: 'Keywords', icon: '🔍' },
+    { id: 'ads', label: 'Ads', icon: '📝' },
+    { id: 'audiences', label: 'Audiences', icon: '👥' },
+    { id: 'tools', label: 'Tools', icon: '🛠️' }
+  ];
+
+  const formatCurrency = (amount) => {
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0
+    }).format(amount);
   };
 
-  const handleEdit = (campaignId) => {
-    const campaign = campaigns.find(c => c.id === campaignId);
-    setEditingCampaign(campaign);
-    setShowForm(true);
+  const formatPercent = (value) => {
+    return `${value.toFixed(2)}%`;
   };
 
-  const handleDelete = (campaignId) => {
-    const updatedCampaigns = campaigns.filter(c => c.id !== campaignId);
-    setCampaigns(updatedCampaigns);
-    
-    // Save to localStorage
-    const dataToSave = {
-      campaigns: updatedCampaigns,
-      timestamp: new Date().toISOString()
-    };
-    localStorage.setItem('adsData', JSON.stringify(dataToSave));
-  };
+  const renderOverview = () => (
+    <div className="space-y-8">
+      {/* Account Stats */}
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+        <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 text-center">
+          <div className="text-3xl font-bold text-blue-900">{accountData.campaigns}</div>
+          <div className="text-sm text-blue-600">Active Campaigns</div>
+        </div>
+        <div className="bg-green-50 border border-green-200 rounded-lg p-6 text-center">
+          <div className="text-3xl font-bold text-green-900">{formatCurrency(accountData.monthlySpend)}</div>
+          <div className="text-sm text-green-600">Monthly Spend</div>
+        </div>
+        <div className="bg-purple-50 border border-purple-200 rounded-lg p-6 text-center">
+          <div className="text-3xl font-bold text-purple-900">{accountData.leads}</div>
+          <div className="text-sm text-purple-600">Leads Generated</div>
+        </div>
+        <div className="bg-orange-50 border border-orange-200 rounded-lg p-6 text-center">
+          <div className="text-3xl font-bold text-orange-900">{formatCurrency(accountData.costPerLead)}</div>
+          <div className="text-sm text-orange-600">Cost Per Lead</div>
+        </div>
+      </div>
 
-  const handleCancel = () => {
-    setShowForm(false);
-    setEditingCampaign(null);
-  };
+      {/* Recent Campaigns */}
+      <div className="bg-white rounded-xl shadow-lg p-6">
+        <h3 className="text-xl font-bold text-gray-900 mb-4">Recent Campaigns</h3>
+        <div className="space-y-4">
+          {campaigns.slice(0, 3).map((campaign) => (
+            <div key={campaign.id} className="border border-gray-200 rounded-lg p-4">
+              <div className="flex items-center justify-between mb-2">
+                <h4 className="font-semibold text-gray-900">{campaign.name}</h4>
+                <span className={`px-2 py-1 text-xs rounded-full ${
+                  campaign.status === 'Active' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
+                }`}>
+                  {campaign.status}
+                </span>
+              </div>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+                <div>
+                  <div className="text-gray-600">Spend</div>
+                  <div className="font-semibold">{formatCurrency(campaign.spent)} / {formatCurrency(campaign.budget)}</div>
+                </div>
+                <div>
+                  <div className="text-gray-600">CTR</div>
+                  <div className="font-semibold">{formatPercent(campaign.ctr)}</div>
+                </div>
+                <div>
+                  <div className="text-gray-600">CPC</div>
+                  <div className="font-semibold">{formatCurrency(campaign.cpc)}</div>
+                </div>
+                <div>
+                  <div className="text-gray-600">Conversions</div>
+                  <div className="font-semibold">{campaign.conversions}</div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+
+  const renderCampaigns = () => (
+    <div className="space-y-6">
+      <div className="flex justify-between items-center">
+        <h3 className="text-xl font-bold text-gray-900">Campaign Management</h3>
+        <button className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors">
+          Create Campaign
+        </button>
+      </div>
+
+      <div className="bg-white rounded-xl shadow-lg overflow-hidden">
+        <div className="overflow-x-auto">
+          <table className="w-full">
+            <thead className="bg-gray-50">
+              <tr>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Campaign</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Budget</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Spent</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">CTR</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">CPC</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Conversions</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+              </tr>
+            </thead>
+            <tbody className="bg-white divide-y divide-gray-200">
+              {campaigns.map((campaign) => (
+                <tr key={campaign.id}>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <div className="text-sm font-medium text-gray-900">{campaign.name}</div>
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <span className={`px-2 py-1 text-xs rounded-full ${
+                      campaign.status === 'Active' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
+                    }`}>
+                      {campaign.status}
+                    </span>
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{formatCurrency(campaign.budget)}</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{formatCurrency(campaign.spent)}</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{formatPercent(campaign.ctr)}</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{formatCurrency(campaign.cpc)}</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{campaign.conversions}</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                    <button className="text-red-600 hover:text-red-900 mr-3">Edit</button>
+                    <button className="text-gray-600 hover:text-gray-900">View</button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  );
+
+  const renderKeywords = () => (
+    <div className="space-y-6">
+      <div className="flex justify-between items-center">
+        <h3 className="text-xl font-bold text-gray-900">Keyword Management</h3>
+        <button className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors">
+          Add Keywords
+        </button>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="bg-white rounded-xl shadow-lg p-6">
+          <h4 className="font-semibold text-gray-900 mb-4">Top Performing Keywords</h4>
+          <div className="space-y-3">
+            {[
+              { keyword: "business development services", cpc: 2.45, conversions: 12 },
+              { keyword: "growth consulting", cpc: 3.20, conversions: 8 },
+              { keyword: "startup advisor", cpc: 1.85, conversions: 15 },
+              { keyword: "scaling business", cpc: 2.10, conversions: 9 }
+            ].map((item, index) => (
+              <div key={index} className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                <div>
+                  <div className="font-medium text-gray-900">{item.keyword}</div>
+                  <div className="text-sm text-gray-600">{item.conversions} conversions</div>
+                </div>
+                <div className="text-sm font-semibold text-gray-900">{formatCurrency(item.cpc)}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="bg-white rounded-xl shadow-lg p-6">
+          <h4 className="font-semibold text-gray-900 mb-4">Keyword Suggestions</h4>
+          <div className="space-y-3">
+            {[
+              "BD strategy consultant",
+              "business growth expert", 
+              "startup scaling advisor",
+              "revenue growth specialist"
+            ].map((keyword, index) => (
+              <div key={index} className="flex justify-between items-center p-3 bg-blue-50 rounded-lg">
+                <div className="font-medium text-gray-900">{keyword}</div>
+                <button className="text-sm text-red-600 hover:text-red-800">Add</button>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
+  const renderTools = () => (
+    <div className="space-y-6">
+      <h3 className="text-xl font-bold text-gray-900">Google Ads Tools</h3>
+      
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="bg-white rounded-xl shadow-lg p-6">
+          <div className="text-3xl mb-3">🎯</div>
+          <h4 className="font-semibold text-gray-900 mb-2">Keyword Planner</h4>
+          <p className="text-sm text-gray-600 mb-4">Find the right keywords for your BD campaigns</p>
+          <button className="w-full px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors">
+            Launch Tool
+          </button>
+        </div>
+
+        <div className="bg-white rounded-xl shadow-lg p-6">
+          <div className="text-3xl mb-3">📊</div>
+          <h4 className="font-semibold text-gray-900 mb-2">Performance Grader</h4>
+          <p className="text-sm text-gray-600 mb-4">Analyze your campaign performance</p>
+          <button className="w-full px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors">
+            Launch Tool
+          </button>
+        </div>
+
+        <div className="bg-white rounded-xl shadow-lg p-6">
+          <div className="text-3xl mb-3">💰</div>
+          <h4 className="font-semibold text-gray-900 mb-2">Budget Optimizer</h4>
+          <p className="text-sm text-gray-600 mb-4">Optimize your ad spend allocation</p>
+          <button className="w-full px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors">
+            Launch Tool
+          </button>
+        </div>
+      </div>
+    </div>
+  );
 
   return (
-    <div className="min-h-screen bg-gray-50 p-8">
-      <div className="max-w-6xl mx-auto">
-        <div className="bg-white rounded-2xl shadow-lg p-8">
-          <div className="flex items-center gap-4 mb-8">
-            <button
-              onClick={() => navigate('/growth-dashboard')}
-              className="px-4 py-2 bg-gray-100 text-gray-600 rounded-lg hover:bg-gray-200 transition-colors"
-            >
-              ← Back to Dashboard
-            </button>
-            <div>
-              <h1 className="text-3xl font-bold text-gray-900">Ad Spend & Targeting</h1>
-              <p className="text-gray-600">Monitor your advertising performance and ROI</p>
+    <div className="min-h-screen bg-gray-50">
+      <Navigation />
+      <div className="p-8">
+        <div className="max-w-7xl mx-auto">
+          
+          {/* Header */}
+          <div className="bg-white rounded-2xl shadow-lg p-8 mb-8">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-4">
+                <div className="text-4xl">🚀</div>
+                <div>
+                  <h1 className="text-3xl font-bold text-gray-900">{accountData.name}</h1>
+                  <p className="text-gray-600">Google Ads Campaign Management</p>
+                  <p className="text-sm text-gray-500">Customer ID: {accountData.customerId}</p>
+                </div>
+              </div>
+              <div className="text-right">
+                <div className="text-2xl font-bold text-gray-900">{formatCurrency(accountData.monthlySpend)}</div>
+                <div className="text-sm text-gray-500">Monthly Spend</div>
+              </div>
             </div>
           </div>
 
-          {!showForm ? (
-            <div className="space-y-8">
-              {/* Performance Summary */}
-              {campaigns.length > 0 && <PerformanceSummary campaigns={campaigns} />}
-
-              {/* Header */}
-              <div className="text-center">
-                <div className="text-6xl mb-4">📈</div>
-                <h2 className="text-2xl font-bold text-gray-900 mb-4">Advertising Campaigns</h2>
-                <p className="text-gray-600 mb-8">
-                  Track your advertising campaigns, analyze performance, and optimize your ad spend.
-                </p>
-                <button
-                  onClick={() => setShowForm(true)}
-                  className="px-6 py-3 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 transition-colors"
-                >
-                  Create New Campaign
-                </button>
-              </div>
-
-              {/* Campaigns Grid */}
-              {campaigns.length > 0 ? (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {campaigns.map((campaign) => (
-                    <CampaignCard
-                      key={campaign.id}
-                      campaign={campaign}
-                      onEdit={handleEdit}
-                      onDelete={handleDelete}
-                    />
-                  ))}
-                </div>
-              ) : (
-                <div className="text-center py-12">
-                  <div className="text-4xl mb-4">🎯</div>
-                  <h3 className="text-xl font-semibold text-gray-900 mb-2">No Campaigns Yet</h3>
-                  <p className="text-gray-600 mb-6">
-                    Start by creating your first advertising campaign to track performance and ROI.
-                  </p>
+          {/* Tabs */}
+          <div className="bg-white rounded-xl shadow-lg mb-8">
+            <div className="border-b border-gray-200">
+              <nav className="flex space-x-8 px-6">
+                {tabs.map((tab) => (
                   <button
-                    onClick={() => setShowForm(true)}
-                    className="px-6 py-3 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 transition-colors"
+                    key={tab.id}
+                    onClick={() => setSelectedTab(tab.id)}
+                    className={`py-4 px-1 border-b-2 font-medium text-sm ${
+                      selectedTab === tab.id
+                        ? 'border-red-500 text-red-600'
+                        : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                    }`}
                   >
-                    Create Your First Campaign
+                    <span className="mr-2">{tab.icon}</span>
+                    {tab.label}
                   </button>
-                </div>
-              )}
+                ))}
+              </nav>
             </div>
-          ) : (
-            <CampaignForm
-              campaign={editingCampaign}
-              onSave={handleSave}
-              onCancel={handleCancel}
-            />
-          )}
+          </div>
+
+          {/* Tab Content */}
+          <div className="bg-white rounded-xl shadow-lg p-8">
+            {selectedTab === 'overview' && renderOverview()}
+            {selectedTab === 'campaigns' && renderCampaigns()}
+            {selectedTab === 'keywords' && renderKeywords()}
+            {selectedTab === 'tools' && renderTools()}
+            {selectedTab === 'ads' && (
+              <div className="text-center py-12">
+                <div className="text-4xl mb-4">📝</div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-2">Ad Management</h3>
+                <p className="text-gray-600">Create and manage your Google Ads</p>
+              </div>
+            )}
+            {selectedTab === 'audiences' && (
+              <div className="text-center py-12">
+                <div className="text-4xl mb-4">👥</div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-2">Audience Management</h3>
+                <p className="text-gray-600">Target the right people for your BD campaigns</p>
+              </div>
+            )}
+          </div>
+
         </div>
       </div>
     </div>

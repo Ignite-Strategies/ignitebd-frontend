@@ -260,12 +260,59 @@ export default function Persona() {
   const [showForm, setShowForm] = useState(false);
   const [editingPersona, setEditingPersona] = useState(null);
 
-  // Load data from localStorage on mount
+  // Load data from localStorage on mount, or use dummy data
   useEffect(() => {
     const savedData = localStorage.getItem('personaData');
     if (savedData) {
       const data = JSON.parse(savedData);
       setPersonas(data.personas || []);
+    } else {
+      // Load dummy personas for demo
+      const dummyPersonas = [
+        {
+          id: 1,
+          name: "Sarah Chen",
+          title: "Startup Founder",
+          age: "35-44",
+          location: "San Francisco, CA",
+          companySize: "1-10 employees",
+          painPoints: "Struggling to scale customer acquisition while maintaining quality. Needs to find the right balance between growth and operational efficiency.",
+          goals: "Scale to $1M ARR within 18 months while building a sustainable growth engine.",
+          channels: "LinkedIn, industry events, referrals from VCs and advisors",
+          budget: "$50K - $100K",
+          decisionProcess: "Makes decisions quickly but consults with co-founder and board advisors",
+          objections: "Concerned about cost and time investment. Wants to see clear ROI."
+        },
+        {
+          id: 2,
+          name: "Mike Rodriguez",
+          title: "Tech Partner",
+          age: "35-44",
+          location: "Austin, TX",
+          companySize: "51-200 employees",
+          painPoints: "Looking for strategic partnerships to expand market reach and integrate complementary technologies.",
+          goals: "Build ecosystem of partners to accelerate growth and provide more value to customers.",
+          channels: "Industry conferences, LinkedIn, direct outreach, partner referrals",
+          budget: "$100K - $500K",
+          decisionProcess: "Committee decision involving CTO, CEO, and business development team",
+          objections: "Worried about integration complexity and maintaining quality standards."
+        },
+        {
+          id: 3,
+          name: "Jennifer Park",
+          title: "Anchor Collaborator",
+          age: "45-54",
+          location: "New York, NY",
+          companySize: "201-1000 employees",
+          painPoints: "Needs to establish thought leadership and strategic relationships in the industry.",
+          goals: "Position company as industry leader and build strategic alliances for long-term growth.",
+          channels: "Industry publications, speaking engagements, exclusive events, direct relationships",
+          budget: "$500K+",
+          decisionProcess: "Executive-level decision with input from legal and business development",
+          objections: "Concerned about exclusivity and long-term commitment requirements."
+        }
+      ];
+      setPersonas(dummyPersonas);
     }
   }, []);
 
@@ -329,7 +376,7 @@ export default function Persona() {
             </button>
             <div>
               <h1 className="text-3xl font-bold text-gray-900">Persona Development</h1>
-              <p className="text-gray-600">Define and refine your ideal buyer profiles</p>
+              <p className="text-gray-600">Define and refine your ideal profiles - buyers, collaborators, partners, and more</p>
             </div>
           </div>
 
@@ -338,9 +385,9 @@ export default function Persona() {
               {/* Header */}
               <div className="text-center">
                 <div className="text-6xl mb-4">👥</div>
-                <h2 className="text-2xl font-bold text-gray-900 mb-4">Buyer Personas</h2>
+                <h2 className="text-2xl font-bold text-gray-900 mb-4">All Personas</h2>
                 <p className="text-gray-600 mb-8">
-                  Create detailed buyer personas to guide your marketing and sales efforts.
+                  Create detailed personas for buyers, collaborators, partners, and any key relationships.
                 </p>
                 <button
                   onClick={() => setShowForm(true)}
