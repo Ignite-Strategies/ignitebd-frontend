@@ -5,12 +5,14 @@ import Navigation from '../components/Navigation';
 export default function BDBaselineAssessment() {
   const navigate = useNavigate();
   const [baseline, setBaseline] = useState({
-    socialFollowers: '',
-    emailListSize: '',
-    websiteTraffic: '',
-    activeLeads: '',
-    monthlySpend: '',
-    primaryChannel: 'none'
+    bdTeamSize: '',
+    bdExperience: '',
+    currentPipeline: '',
+    avgDealSize: '',
+    closeRate: '',
+    primaryChannel: 'none',
+    bdTools: '',
+    referralProgram: 'none'
   });
 
   const handleInputChange = (field, value) => {
@@ -28,15 +30,15 @@ export default function BDBaselineAssessment() {
     };
     localStorage.setItem('bdBaselineData', JSON.stringify(dataToSave));
     
-    // Navigate to BD assessment outlook
-    navigate('/bd-assessment-total-outlook');
+    // Navigate to simple results page
+    navigate('/bd-baseline-results');
   };
 
   const isComplete = () => {
-    return baseline.socialFollowers && 
-           baseline.emailListSize && 
-           baseline.websiteTraffic && 
-           baseline.activeLeads &&
+    return baseline.bdTeamSize && 
+           baseline.bdExperience && 
+           baseline.currentPipeline && 
+           baseline.avgDealSize &&
            baseline.primaryChannel !== 'none';
   };
 
