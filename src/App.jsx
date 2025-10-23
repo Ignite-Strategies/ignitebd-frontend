@@ -46,6 +46,7 @@ import Ads from './pages/Ads';
 import Seo from './pages/Seo';
 import Events from './pages/Events';
 import EmailCampaigns from './pages/EmailCampaigns';
+import GrowthCostOutlook from './pages/GrowthCostOutlook';
 import Prices from './pages/Prices';
 
 function App() {
@@ -70,6 +71,7 @@ function App() {
         <Route path="/seo" element={<Seo />} />
         <Route path="/events" element={<Events />} />
         <Route path="/email-campaigns" element={<EmailCampaigns />} />
+        <Route path="/growth-cost-outlook" element={<GrowthCostOutlook />} />
           <Route path="/prices" element={<Prices />} />
           <Route path="/splash" element={<Splash />} />
           <Route path="/signup" element={<Signup />} />
