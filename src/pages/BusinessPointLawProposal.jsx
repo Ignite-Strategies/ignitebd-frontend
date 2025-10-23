@@ -40,7 +40,7 @@ export default function BusinessPointLawProposal() {
       icon: '🚀',
       color: 'bg-orange-500',
       activities: [
-        'Pick One Primary Engine (LinkedIn + email outreach for NDA prospects)',
+        'Pick One Primary Engine (LinkedIn + email outreach to debt-to-liquidity providers)',
         'Set up Conversion Flow (landing page → consultation → CRM deal)',
         'Launch Targeted Ad Campaigns (Google Ads, Meta Ads for NDA services)',
         'Implement Email Automation (Nurture sequences, outreach campaigns)',
@@ -120,7 +120,7 @@ export default function BusinessPointLawProposal() {
             <div className="text-center mb-8">
             <h1 className="text-4xl font-bold text-gray-900 mb-4">Business Point Law - BD Roadmap</h1>
             <p className="text-xl text-gray-600 mb-4">
-              A phased approach to building a sustainable business development engine for NDA service providers.
+              A phased approach to building a sustainable business development engine for BusinessPointLaw.
             </p>
             <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
               <p className="text-gray-800 font-medium">
@@ -128,7 +128,7 @@ export default function BusinessPointLawProposal() {
               </p>
             </div>
             <p className="text-sm text-gray-500">
-              Customized roadmap for NDA service growth and client acquisition.
+              Customized roadmap for BusinessPointLaw's growth and client acquisition.
             </p>
           </div>
 
