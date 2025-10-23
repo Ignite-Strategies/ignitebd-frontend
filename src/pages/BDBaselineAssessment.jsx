@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Navigation from '../components/Navigation';
 
 export default function BDBaselineAssessment() {
   const navigate = useNavigate();
@@ -27,10 +28,8 @@ export default function BDBaselineAssessment() {
     };
     localStorage.setItem('bdBaselineData', JSON.stringify(dataToSave));
     
-    // Navigate to growth cost outlook with baseline data
-    navigate('/growth-cost-outlook', { 
-      state: { baselineData: baseline } 
-    });
+    // Navigate to BD assessment outlook
+    navigate('/bd-assessment-total-outlook');
   };
 
   const isComplete = () => {
@@ -42,8 +41,10 @@ export default function BDBaselineAssessment() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-900 via-purple-900 to-blue-800 p-8">
-      <div className="max-w-4xl mx-auto">
+    <div className="min-h-screen bg-gradient-to-br from-blue-900 via-purple-900 to-blue-800">
+      <Navigation />
+      <div className="p-8">
+        <div className="max-w-4xl mx-auto">
         <div className="bg-white/10 backdrop-blur-md rounded-3xl shadow-2xl p-10 border border-white/20">
           
           {/* Header */}
@@ -193,7 +194,7 @@ export default function BDBaselineAssessment() {
               Next: We'll calculate the gap between where you are and where you want to be
             </p>
           </div>
-
+        </div>
         </div>
       </div>
     </div>

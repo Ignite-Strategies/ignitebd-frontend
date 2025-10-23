@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
 import { ActivationProvider } from './context/ActivationContext';
+import Navigation from './components/Navigation';
 
 // ScrollToTop component to fix scroll position on route change
 function ScrollToTop() {
@@ -36,8 +37,11 @@ import CompanyDashboard from './pages/CompanyDashboard';
 import Assessment from './pages/Assessment';
 import AssessmentResults from './pages/AssessmentResults';
 import Revenue from './pages/Revenue';
+import RevenueTotalOutlook from './pages/RevenueTotalOutlook';
 import HumanCapital from './pages/HumanCapital';
+import HumanCapitalTotalOutlook from './pages/HumanCapitalTotalOutlook';
 import TargetAcquisition from './pages/TargetAcquisition';
+import BDAssessmentTotalOutlook from './pages/BDAssessmentTotalOutlook';
 import GrowthDashboard from './pages/GrowthDashboard';
 import Ecosystem from './pages/Ecosystem';
 import Persona from './pages/Persona';
@@ -49,6 +53,8 @@ import EmailCampaigns from './pages/EmailCampaigns';
 import GrowthCostOutlook from './pages/GrowthCostOutlook';
 import RevenueToTargetOutlook from './pages/RevenueToTargetOutlook';
 import BDBaselineAssessment from './pages/BDBaselineAssessment';
+import Settings from './pages/Settings';
+import Roadmap from './pages/Roadmap';
 import Prices from './pages/Prices';
 
 function App() {
@@ -63,8 +69,11 @@ function App() {
           <Route path="/assessment" element={<Assessment />} />
           <Route path="/assessment-results" element={<AssessmentResults />} />
         <Route path="/revenue" element={<Revenue />} />
+        <Route path="/revenue-total-outlook" element={<RevenueTotalOutlook />} />
         <Route path="/human-capital" element={<HumanCapital />} />
+        <Route path="/human-capital-total-outlook" element={<HumanCapitalTotalOutlook />} />
         <Route path="/target-acquisition" element={<TargetAcquisition />} />
+        <Route path="/bd-assessment-total-outlook" element={<BDAssessmentTotalOutlook />} />
         <Route path="/growth-dashboard" element={<GrowthDashboard />} />
         <Route path="/ecosystem" element={<Ecosystem />} />
         <Route path="/persona" element={<Persona />} />
@@ -76,7 +85,9 @@ function App() {
         <Route path="/growth-cost-outlook" element={<GrowthCostOutlook />} />
         <Route path="/revenue-target-outlook" element={<RevenueToTargetOutlook />} />
         <Route path="/bd-baseline-assessment" element={<BDBaselineAssessment />} />
-          <Route path="/prices" element={<Prices />} />
+        <Route path="/settings" element={<Settings />} />
+        <Route path="/roadmap" element={<Roadmap />} />
+        <Route path="/prices" element={<Prices />} />
           <Route path="/splash" element={<Splash />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/signin" element={<Signin />} />

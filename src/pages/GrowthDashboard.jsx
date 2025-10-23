@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Navigation from '../components/Navigation';
 
 // Header Summary Component
 function HeaderSummary({ targetRevenue, currentRevenue, timeHorizon }) {
@@ -18,7 +18,7 @@ function HeaderSummary({ targetRevenue, currentRevenue, timeHorizon }) {
             {progressPercent.toFixed(1)}% to goal
           </div>
           <div className="text-sm text-gray-500">
-            {timeHorizon} month target
+            ${remaining.toLocaleString()} remaining
           </div>
         </div>
       </div>
@@ -37,12 +37,8 @@ function HeaderSummary({ targetRevenue, currentRevenue, timeHorizon }) {
         </div>
       </div>
       
-      {/* Summary Text */}
-      <div className="text-center">
-        <p className="text-gray-700">
-          You've closed <span className="font-semibold text-orange-600">${currentRevenue.toLocaleString()}</span> of <span className="font-semibold">${targetRevenue.toLocaleString()}</span>. 
-          <span className="font-semibold text-red-600"> ${remaining.toLocaleString()}</span> left to hit your goal.
-        </p>
+      <div className="text-sm text-gray-500">
+        Target: ${targetRevenue.toLocaleString()} in {timeHorizon} months
       </div>
     </div>
   );
@@ -91,33 +87,35 @@ function StackCard({ name, metrics, insight, cta, icon, color, route }) {
 // Main Growth Dashboard Component
 export default function GrowthDashboard() {
   const navigate = useNavigate();
-  const [dashboardData, setDashboardData] = useState({
-    targetRevenue: 250000,
+  
+  // Static dashboard data - no API calls
+  const dashboardData = {
+    targetRevenue: 1000000,
     currentRevenue: 150000,
     timeHorizon: 12
-  });
+  };
 
-  // Sample data for the 6 functional areas
+  // Static stack cards - no API calls
   const stackCards = [
     {
       name: "Ecosystem Build",
       metrics: [
         { label: "Partners", value: "12" },
-        { label: "Associations", value: "3" }
+        { label: "Influence Score", value: "8.5/10" }
       ],
-      insight: "Strong network foundation, ready for expansion",
+      insight: "Strong partner network, ready to expand",
       cta: "Open",
-      icon: "🏢",
+      icon: "🌐",
       color: "bg-blue-500",
       route: "/ecosystem"
     },
     {
       name: "Persona Development",
       metrics: [
-        { label: "Personas", value: "4" },
-        { label: "Research Status", value: "Complete" }
+        { label: "Buyer Personas", value: "3" },
+        { label: "Engagement Rate", value: "24%" }
       ],
-      insight: "Well-defined buyer profiles driving targeted outreach",
+      insight: "Well-defined personas driving engagement",
       cta: "Open",
       icon: "👥",
       color: "bg-green-500",
@@ -127,11 +125,11 @@ export default function GrowthDashboard() {
       name: "Pipeline Management",
       metrics: [
         { label: "Active Leads", value: "47" },
-        { label: "Conversion Rate", value: "23%" }
+        { label: "Conversion Rate", value: "18%" }
       ],
-      insight: "Healthy pipeline with room for optimization",
+      insight: "Healthy pipeline, focus on conversion",
       cta: "Open",
-      icon: "📊",
+      icon: "🎯",
       color: "bg-purple-500",
       route: "/pipeline"
     },
@@ -139,25 +137,37 @@ export default function GrowthDashboard() {
       name: "Ad Spend & Targeting",
       metrics: [
         { label: "Monthly Spend", value: "$2,400" },
-        { label: "ROI", value: "4.2x" }
+        { label: "ROI", value: "340%" }
       ],
-      insight: "Strong ad performance, consider scaling budget",
+      insight: "Strong ad performance, ready to scale",
       cta: "Open",
-      icon: "📈",
-      color: "bg-yellow-500",
+      icon: "📊",
+      color: "bg-orange-500",
       route: "/ads"
     },
     {
       name: "SEO & Content",
       metrics: [
-        { label: "Organic Traffic", value: "1,240" },
-        { label: "Content Pieces", value: "18" }
+        { label: "Organic Traffic", value: "2.1K" },
+        { label: "Content Score", value: "B+" }
       ],
-      insight: "Growing organic presence, content strategy working",
+      insight: "Good SEO foundation, content performing well",
       cta: "Open",
       icon: "🔍",
-      color: "bg-indigo-500",
+      color: "bg-teal-500",
       route: "/seo"
+    },
+    {
+      name: "Event Tracker",
+      metrics: [
+        { label: "Upcoming Events", value: "4" },
+        { label: "Networking Score", value: "9/10" }
+      ],
+      insight: "Active event schedule, strong networking",
+      cta: "Open",
+      icon: "📅",
+      color: "bg-red-500",
+      route: "/events"
     },
     {
       name: "Email Campaigns",
@@ -170,57 +180,14 @@ export default function GrowthDashboard() {
       icon: "📧",
       color: "bg-cyan-500",
       route: "/email-campaigns"
-    },
-    {
-      name: "Event Tracker",
-      metrics: [
-        { label: "Upcoming Events", value: "5" },
-        { label: "Contacts Made", value: "127" }
-      ],
-      insight: "Active event participation driving quality leads",
-      cta: "Open",
-      icon: "🎯",
-      color: "bg-red-500",
-      route: "/events"
     }
   ];
 
-  // Load data from localStorage on mount
-  useEffect(() => {
-    const savedData = localStorage.getItem('dashboardData');
-    if (savedData) {
-      const data = JSON.parse(savedData);
-      setDashboardData(data);
-    }
-
-    // Try to get target data from target acquisition
-    const targetData = localStorage.getItem('targetAcquisitionData');
-    if (targetData) {
-      const parsedTarget = JSON.parse(targetData);
-      if (parsedTarget.targetData?.targetRevenue) {
-        setDashboardData(prev => ({
-          ...prev,
-          targetRevenue: parseFloat(parsedTarget.targetData.targetRevenue)
-        }));
-      }
-    }
-
-    // Try to get current revenue from revenue stack
-    const revenueData = localStorage.getItem('revenueData');
-    if (revenueData) {
-      const parsedRevenue = JSON.parse(revenueData);
-      if (parsedRevenue.calculations?.annualRevenue) {
-        setDashboardData(prev => ({
-          ...prev,
-          currentRevenue: parsedRevenue.calculations.annualRevenue
-        }));
-      }
-    }
-  }, []);
-
   return (
-    <div className="min-h-screen bg-gray-50 p-8">
-      <div className="max-w-7xl mx-auto">
+    <div className="min-h-screen bg-gray-50">
+      <Navigation />
+      <div className="p-8">
+        <div className="max-w-7xl mx-auto">
         
         {/* Header Summary */}
         <HeaderSummary 
@@ -229,19 +196,10 @@ export default function GrowthDashboard() {
           timeHorizon={dashboardData.timeHorizon}
         />
 
-        {/* Functional Stack Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* Functional Stack Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
           {stackCards.map((card, index) => (
-            <StackCard
-              key={index}
-              name={card.name}
-              metrics={card.metrics}
-              insight={card.insight}
-              cta={card.cta}
-              icon={card.icon}
-              color={card.color}
-              route={card.route}
-            />
+            <StackCard key={index} {...card} />
           ))}
         </div>
 
@@ -250,25 +208,25 @@ export default function GrowthDashboard() {
           <h2 className="text-2xl font-bold text-gray-900 mb-6">Quick Actions</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <button
-              onClick={() => navigate('/revenue')}
+              onClick={() => navigate('/assessment')}
               className="p-4 bg-orange-50 border border-orange-200 rounded-xl hover:bg-orange-100 transition-colors"
             >
-              <div className="text-orange-600 font-semibold">Update Revenue Stack</div>
+              <div className="text-orange-600 font-semibold">Start Assessment</div>
+              <div className="text-sm text-gray-600">Complete your growth analysis</div>
+            </button>
+            <button
+              onClick={() => navigate('/revenue')}
+              className="p-4 bg-blue-50 border border-blue-200 rounded-xl hover:bg-blue-100 transition-colors"
+            >
+              <div className="text-blue-600 font-semibold">Update Revenue Stack</div>
               <div className="text-sm text-gray-600">Refresh your revenue metrics</div>
             </button>
             <button
-              onClick={() => navigate('/human-capital')}
-              className="p-4 bg-blue-50 border border-blue-200 rounded-xl hover:bg-blue-100 transition-colors"
-            >
-              <div className="text-blue-600 font-semibold">Review Team Capacity</div>
-              <div className="text-sm text-gray-600">Check if you can deliver</div>
-            </button>
-            <button
-              onClick={() => navigate('/target-acquisition')}
+              onClick={() => navigate('/settings')}
               className="p-4 bg-green-50 border border-green-200 rounded-xl hover:bg-green-100 transition-colors"
             >
-              <div className="text-green-600 font-semibold">Set New Targets</div>
-              <div className="text-sm text-gray-600">Define your growth goals</div>
+              <div className="text-green-600 font-semibold">Settings & Setup</div>
+              <div className="text-sm text-gray-600">Configure your account</div>
             </button>
           </div>
         </div>
@@ -278,6 +236,7 @@ export default function GrowthDashboard() {
           <p className="text-gray-500 text-sm">
             Growth Dashboard • Your command center for business development
           </p>
+        </div>
         </div>
       </div>
     </div>

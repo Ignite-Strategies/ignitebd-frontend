@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Navigation from '../components/Navigation';
 
 export default function HumanCapital() {
   const navigate = useNavigate();
@@ -130,8 +131,10 @@ export default function HumanCapital() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-red-900 via-orange-900 to-red-800 p-8">
-      <div className="max-w-4xl w-full mx-auto">
+    <div className="min-h-screen bg-gradient-to-br from-red-900 via-orange-900 to-red-800">
+      <Navigation />
+      <div className="p-8">
+        <div className="max-w-4xl w-full mx-auto">
         
         {/* Header */}
         <div className="text-center mb-12">
@@ -343,10 +346,10 @@ export default function HumanCapital() {
                   Back to Revenue
                 </button>
                 <button
-                  onClick={() => navigate('/assessment')}
+                  onClick={() => navigate('/human-capital-total-outlook')}
                   className="px-8 py-3 bg-white/20 text-white font-semibold rounded-xl hover:bg-white/30 transition-all ml-4"
                 >
-                  Continue to Assessment
+                  Review Team Capacity →
                 </button>
               </div>
             )}
@@ -358,6 +361,7 @@ export default function HumanCapital() {
           <p className="text-white/60 text-sm">
             Module 2 of your growth assessment - ensuring your team can deliver.
           </p>
+        </div>
         </div>
       </div>
     </div>

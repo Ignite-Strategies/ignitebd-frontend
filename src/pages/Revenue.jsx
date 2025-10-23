@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Navigation from '../components/Navigation';
 
 export default function Revenue() {
   const navigate = useNavigate();
@@ -80,8 +81,10 @@ export default function Revenue() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-red-900 via-orange-900 to-red-800 p-8">
-      <div className="max-w-4xl w-full mx-auto">
+    <div className="min-h-screen bg-gradient-to-br from-red-900 via-orange-900 to-red-800">
+      <Navigation />
+      <div className="p-8">
+        <div className="max-w-4xl w-full mx-auto">
         
         {/* Header */}
         <div className="text-center mb-12">
@@ -241,10 +244,10 @@ export default function Revenue() {
               <div>
                 <p className="text-white/80 text-lg mb-4">Next → Assess your capacity to deliver this volume</p>
                 <button
-                  onClick={() => navigate('/assessment')}
+                  onClick={() => navigate('/revenue-total-outlook')}
                   className="px-8 py-3 bg-white/20 text-white font-semibold rounded-xl hover:bg-white/30 transition-all"
                 >
-                  Continue to Assessment
+                  Review Calculations →
                 </button>
               </div>
             )}
@@ -256,6 +259,7 @@ export default function Revenue() {
           <p className="text-white/60 text-sm">
             Module 1 of your growth assessment - building the foundation for success.
           </p>
+        </div>
         </div>
       </div>
     </div>

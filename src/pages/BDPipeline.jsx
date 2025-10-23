@@ -1,20 +1,22 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Navigation from '../components/Navigation';
 import api from '../lib/api';
 
 export default function BDPipeline() {
   const navigate = useNavigate();
   const containerId = localStorage.getItem('containerId');
   
-  // Pipeline stages configuration
+  // Pipeline stages configuration - Updated for BD Engine Formula
   const stages = [
-    { key: 'aware', label: 'Aware', emoji: '👀', desc: 'Know about your business' },
-    { key: 'interested', label: 'Interested', emoji: '🤔', desc: 'Showing interest' },
-    { key: 'qualified', label: 'Qualified', emoji: '✅', desc: 'Fit criteria & budget' },
-    { key: 'proposal', label: 'Proposal', emoji: '📋', desc: 'Proposal sent' },
-    { key: 'negotiation', label: 'Negotiation', emoji: '🤝', desc: 'Working on terms' },
-    { key: 'closed_won', label: 'Closed Won', emoji: '🎉', desc: 'Deal closed!' },
-    { key: 'closed_lost', label: 'Closed Lost', emoji: '❌', desc: 'Deal lost' }
+    { key: 'prospects', label: 'Prospects', emoji: '🎯', desc: 'Potential customers' },
+    { key: 'customers', label: 'Customers', emoji: '👥', desc: 'Active customers' },
+    { key: 'collaborators', label: 'Collaborators', emoji: '🤝', desc: 'Strategic partners' },
+    { key: 'tech_partners', label: 'Tech Partners', emoji: '⚙️', desc: 'Technology partners' },
+    { key: 'anchor_collaborators', label: 'Anchor Collaborators', emoji: '⚓', desc: 'Key strategic relationships' },
+    { key: 'content_leads', label: 'Content Leads', emoji: '📝', desc: 'Organic content leads' },
+    { key: 'search_leads', label: 'Search Leads', emoji: '🔍', desc: 'SEO-driven leads' },
+    { key: 'event_leads', label: 'Event Leads', emoji: '📅', desc: 'Event-generated leads' }
   ];
 
   const [pipelineData, setPipelineData] = useState({});
