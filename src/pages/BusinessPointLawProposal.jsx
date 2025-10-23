@@ -124,7 +124,7 @@ export default function BusinessPointLawProposal() {
             </p>
             <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
               <p className="text-gray-800 font-medium">
-                Please see the below that is a planned/proposed road map to help BusinessPoint Law increase customers. We look forward to collaborating with you!
+                Please see below our planned/proposed roadmap to help BusinessPoint Law increase customers. We look forward to collaborating with you!
               </p>
             </div>
             <p className="text-sm text-gray-500">
