@@ -92,35 +92,38 @@ export default function Landing() {
             </div>
           </div>
 
-          {/* CTA Section */}
+          {/* Primary CTA Section */}
+          <div className="text-center mb-8">
+            <button
+              onClick={() => navigate('/growth-dashboard')}
+              className="group relative px-12 py-4 bg-gradient-to-r from-red-600 to-orange-600 text-white text-xl font-bold rounded-2xl shadow-2xl hover:shadow-red-500/50 transition-all hover:scale-105 mb-4"
+            >
+              <span className="relative z-10">Explore the Platform →</span>
+              <div className="absolute inset-0 bg-gradient-to-r from-red-700 to-orange-700 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
+            </button>
+            
+            <p className="text-white/80 text-lg mb-6">
+              See how our growth platform works • No signup required
+            </p>
+          </div>
+
+          {/* Secondary CTA Section */}
           <div className="text-center">
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center max-w-3xl mx-auto">
-              <button
-                onClick={() => navigate('/learn-more')}
-                className="px-6 py-3 bg-white/20 backdrop-blur-sm border-2 border-white/30 text-white font-bold rounded-xl hover:bg-white/30 transition-all hover:scale-105"
-              >
-                Learn More
-              </button>
-              
-              <button
-                onClick={() => navigate('/assessment')}
-                className="px-6 py-3 bg-white/20 backdrop-blur-sm border-2 border-white/30 text-white font-bold rounded-xl hover:bg-white/30 transition-all hover:scale-105"
-              >
-                Take Assessment
-              </button>
-              
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center max-w-2xl mx-auto">
               <button
                 onClick={() => navigate('/growth-dashboard')}
-                className="group relative px-6 py-3 bg-gradient-to-r from-red-600 to-orange-600 text-white font-bold rounded-xl shadow-xl hover:shadow-red-500/50 transition-all hover:scale-105"
+                className="px-6 py-3 bg-white/20 backdrop-blur-sm border-2 border-white/30 text-white font-bold rounded-xl hover:bg-white/30 transition-all hover:scale-105"
               >
-                <span className="relative z-10">Try the Platform →</span>
-                <div className="absolute inset-0 bg-gradient-to-r from-red-700 to-orange-700 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                View Dashboard
+              </button>
+              
+              <button
+                onClick={() => navigate('/assessment-intro')}
+                className="px-6 py-3 bg-white/20 backdrop-blur-sm border-2 border-white/30 text-white font-bold rounded-xl hover:bg-white/30 transition-all hover:scale-105"
+              >
+                Try Assessment
               </button>
             </div>
-            
-            <p className="text-white/60 text-sm mt-4">
-              Free 2-minute assessment • Direct platform access • No signup required
-            </p>
           </div>
         </div>
       </div>
