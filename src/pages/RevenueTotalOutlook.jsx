@@ -4,7 +4,12 @@ import Navigation from '../components/Navigation';
 
 export default function RevenueTotalOutlook() {
   const navigate = useNavigate();
-  const [revenueData, setRevenueData] = useState(null);
+  const [revenueData, setRevenueData] = useState({
+    productName: 'Legal Consulting Services',
+    avgGrossPerUnit: '2500',
+    avgOrdersPerMonthPerCustomer: '2',
+    totalCustomers: '15'
+  });
   const [calculations, setCalculations] = useState({
     totalUnitsPerMonth: 0,
     monthlyRevenue: 0,

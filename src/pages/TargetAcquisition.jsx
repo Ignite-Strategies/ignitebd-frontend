@@ -5,17 +5,17 @@ import Navigation from '../components/Navigation';
 export default function TargetAcquisition() {
   const navigate = useNavigate();
   const [targetData, setTargetData] = useState({
-    previousRevenue: '',
-    targetRevenue: '',
+    previousRevenue: '750000',
+    targetRevenue: '1500000',
     timeHorizon: '12' // months
   });
 
   // Auto-calculated values from Revenue Stack
   const [revenueBaseline, setRevenueBaseline] = useState({
-    currentMonthlyRevenue: 0,
-    avgUnitValue: 0,
-    avgUnitsPerCustomer: 0,
-    totalCustomers: 0
+    currentMonthlyRevenue: 75000,
+    avgUnitValue: 2500,
+    avgUnitsPerCustomer: 2,
+    totalCustomers: 15
   });
 
   // Calculated values

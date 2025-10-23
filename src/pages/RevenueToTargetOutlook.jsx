@@ -4,8 +4,13 @@ import { useNavigate, useLocation } from 'react-router-dom';
 export default function RevenueToTargetOutlook() {
   const navigate = useNavigate();
   const location = useLocation();
-  const [assessmentData, setAssessmentData] = useState(null);
-  const [targetRevenue, setTargetRevenue] = useState('');
+  const [assessmentData, setAssessmentData] = useState({
+    pricePerWidget: '2500',
+    costPerWidget: '1500',
+    widgetsPerMonth: '30',
+    customersPerMonth: '15'
+  });
+  const [targetRevenue, setTargetRevenue] = useState('1000000');
   const [showCalculations, setShowCalculations] = useState(false);
 
   useEffect(() => {

@@ -4,7 +4,13 @@ import Navigation from '../components/Navigation';
 
 export default function HumanCapitalTotalOutlook() {
   const navigate = useNavigate();
-  const [humanCapitalData, setHumanCapitalData] = useState(null);
+  const [humanCapitalData, setHumanCapitalData] = useState({
+    totalTeamMembers: '8',
+    avgHoursPerWeek: '40',
+    founderHoursPerWeek: '50',
+    hoursPerUnit: '12',
+    contractorHours: '20'
+  });
   const [calculations, setCalculations] = useState({
     totalNeededHours: 0,
     teamCapacity: 0,
