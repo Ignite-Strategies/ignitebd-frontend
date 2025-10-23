@@ -86,7 +86,7 @@ export default function AssessmentIntro() {
                   Get a personalized growth analysis with real data insights and strategic recommendations.
                 </p>
                 <button
-                  onClick={() => window.open('mailto:joel@ignitestrategies.co?subject=Ignite Assessment Inquiry', '_blank')}
+                  onClick={() => window.open('mailto:adam@ignitestrategies.co?subject=Ignite Assessment Inquiry', '_blank')}
                   className="px-6 py-3 bg-green-600 text-white font-semibold rounded-xl hover:bg-green-700 transition-colors"
                 >
                   Contact Sales Team
