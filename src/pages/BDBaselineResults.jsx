@@ -44,85 +44,60 @@ export default function BDBaselineResults() {
           
           {/* Header */}
           <div className="text-center mb-12">
-            <div className="text-6xl mb-6">✅</div>
+            <div className="text-6xl mb-6">📊</div>
             <h1 className="text-4xl font-bold text-gray-900 mb-4">
-              BD Baseline Assessment Complete
+              Your BD Baseline Results
             </h1>
             <p className="text-xl text-gray-600 mb-8">
-              Here's a summary of your current business development foundation
+              Here's what you told us about your current BD foundation
             </p>
           </div>
 
           <div className="bg-white rounded-2xl shadow-lg p-8">
             
-            {/* BD Summary */}
+            {/* Simple Mirror of Assessment */}
             <div className="mb-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">Your BD Foundation</h2>
+              <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">Your Current BD Foundation</h2>
               
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div className="space-y-6">
-                  <div>
-                    <h3 className="text-lg font-semibold text-gray-700 mb-4">Team & Experience</h3>
-                    <div className="space-y-3">
-                      <div className="flex justify-between">
-                        <span className="text-gray-600">BD Team Size:</span>
-                        <span className="font-semibold text-gray-900">{baselineData.bdTeamSize} FTEs</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="text-gray-600">Average Experience:</span>
-                        <span className="font-semibold text-gray-900">{baselineData.bdExperience} years</span>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div>
-                    <h3 className="text-lg font-semibold text-gray-700 mb-4">Pipeline Metrics</h3>
-                    <div className="space-y-3">
-                      <div className="flex justify-between">
-                        <span className="text-gray-600">Active Pipeline:</span>
-                        <span className="font-semibold text-gray-900">{baselineData.currentPipeline} deals</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="text-gray-600">Average Deal Size:</span>
-                        <span className="font-semibold text-gray-900">${parseInt(baselineData.avgDealSize).toLocaleString()}</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="text-gray-600">Close Rate:</span>
-                        <span className="font-semibold text-gray-900">{baselineData.closeRate}%</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+              <div className="space-y-8">
                 
-                <div className="space-y-6">
-                  <div>
-                    <h3 className="text-lg font-semibold text-gray-700 mb-4">Channels & Tools</h3>
-                    <div className="space-y-3">
-                      <div className="flex justify-between">
-                        <span className="text-gray-600">Primary Channel:</span>
-                        <span className="font-semibold text-gray-900 capitalize">{baselineData.primaryChannel.replace('-', ' ')}</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="text-gray-600">BD Tools:</span>
-                        <span className="font-semibold text-gray-900">{baselineData.bdTools || 'Not specified'}</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="text-gray-600">Referral Program:</span>
-                        <span className="font-semibold text-gray-900 capitalize">{baselineData.referralProgram}</span>
-                      </div>
-                    </div>
+                {/* Followers */}
+                <div className="bg-blue-50 rounded-xl p-6">
+                  <h3 className="text-lg font-semibold text-blue-900 mb-4">📱 Social Followers</h3>
+                  <div className="text-3xl font-bold text-blue-700">
+                    {baselineData.socialFollowers || 'Not specified'}
                   </div>
+                  <p className="text-blue-600 text-sm mt-2">Total social media following</p>
                 </div>
+
+                {/* Founder Network */}
+                <div className="bg-green-50 rounded-xl p-6">
+                  <h3 className="text-lg font-semibold text-green-900 mb-4">🤝 Founder Network</h3>
+                  <div className="text-3xl font-bold text-green-700">
+                    {baselineData.founderNetwork || 'Not specified'}
+                  </div>
+                  <p className="text-green-600 text-sm mt-2">Active founder connections</p>
+                </div>
+
+                {/* Current Funnel */}
+                <div className="bg-orange-50 rounded-xl p-6">
+                  <h3 className="text-lg font-semibold text-orange-900 mb-4">🎯 Currently in Funnel</h3>
+                  <div className="text-3xl font-bold text-orange-700">
+                    {baselineData.currentFunnel || 'Not specified'}
+                  </div>
+                  <p className="text-orange-600 text-sm mt-2">Active prospects in your pipeline</p>
+                </div>
+
               </div>
             </div>
 
-            {/* Next Steps */}
+            {/* Simple Summary */}
             <div className="bg-gray-50 rounded-xl p-6 mb-8">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">What's Next?</h3>
-              <div className="space-y-2 text-gray-700">
-                <p>• Your BD baseline has been saved and will inform your growth strategy</p>
-                <p>• Use this data to set realistic targets in your BD roadmap</p>
-                <p>• Consider how to improve your weakest areas identified above</p>
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">Summary</h3>
+              <div className="text-gray-700 space-y-2">
+                <p>• You have <strong>{baselineData.socialFollowers || 'X'}</strong> social followers</p>
+                <p>• Your founder network includes <strong>{baselineData.founderNetwork || 'X'}</strong> active connections</p>
+                <p>• You currently have <strong>{baselineData.currentFunnel || 'X'}</strong> prospects in your funnel</p>
               </div>
             </div>
 

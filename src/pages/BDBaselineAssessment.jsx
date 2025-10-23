@@ -5,14 +5,9 @@ import Navigation from '../components/Navigation';
 export default function BDBaselineAssessment() {
   const navigate = useNavigate();
   const [baseline, setBaseline] = useState({
-    bdTeamSize: '',
-    bdExperience: '',
-    currentPipeline: '',
-    avgDealSize: '',
-    closeRate: '',
-    primaryChannel: 'none',
-    bdTools: '',
-    referralProgram: 'none'
+    socialFollowers: '',
+    founderNetwork: '',
+    currentFunnel: ''
   });
 
   const handleInputChange = (field, value) => {

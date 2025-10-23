@@ -146,6 +146,18 @@ export default function GrowthDashboard() {
       route: "/seo"
     },
     {
+      name: "Content Hub",
+      metrics: [
+        { label: "Blog Posts", value: "12" },
+        { label: "Social Posts", value: "45" }
+      ],
+      insight: "Active content creation, strong engagement",
+      cta: "Open",
+      icon: "📝",
+      color: "bg-indigo-500",
+      route: "/content"
+    },
+    {
       name: "Event Tracker",
       metrics: [
         { label: "Upcoming Events", value: "4" },
