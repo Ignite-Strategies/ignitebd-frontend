@@ -18,6 +18,7 @@ function ScrollToTop() {
 import Landing from './pages/Landing';
 import LearnMore from './pages/LearnMore';
 import BusinessPointLawProposal from './pages/BusinessPointLawProposal';
+import AssessmentIntro from './pages/AssessmentIntro';
 import Splash from './pages/Splash';
 import Signup from './pages/Signup';
 import Signin from './pages/Signin';
@@ -63,6 +64,7 @@ function App() {
           <Route path="/" element={<Landing />} />
           <Route path="/learn-more" element={<LearnMore />} />
           <Route path="/businesspoint-law-proposal" element={<BusinessPointLawProposal />} />
+          <Route path="/assessment-intro" element={<AssessmentIntro />} />
           <Route path="/assessment" element={<Assessment />} />
           <Route path="/assessment-results" element={<AssessmentResults />} />
         <Route path="/revenue" element={<Revenue />} />

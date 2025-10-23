@@ -5,11 +5,11 @@ import Navigation from '../components/Navigation';
 export default function HumanCapital() {
   const navigate = useNavigate();
   const [humanCapitalData, setHumanCapitalData] = useState({
-    totalTeamMembers: '',
-    avgHoursPerWeek: '',
-    founderHoursPerWeek: '',
-    hoursPerUnit: '',
-    contractorHours: ''
+    totalTeamMembers: '8',
+    avgHoursPerWeek: '40',
+    founderHoursPerWeek: '50',
+    hoursPerUnit: '12',
+    contractorHours: '20'
   });
 
   // Auto-calculated values
@@ -96,8 +96,8 @@ export default function HumanCapital() {
     };
     localStorage.setItem('humanCapitalData', JSON.stringify(dataToSave));
     
-    // Navigate to next step or show success
-    alert('Human Capital data saved! Ready for cost analysis.');
+    // Navigate to human capital outlook
+    navigate('/human-capital-total-outlook');
   };
 
   const isFormComplete = () => {

@@ -5,10 +5,10 @@ import Navigation from '../components/Navigation';
 export default function Revenue() {
   const navigate = useNavigate();
   const [revenueData, setRevenueData] = useState({
-    productName: '',
-    avgGrossPerUnit: '',
-    avgOrdersPerMonthPerCustomer: '',
-    totalCustomers: ''
+    productName: 'Legal Consulting Services',
+    avgGrossPerUnit: '2500',
+    avgOrdersPerMonthPerCustomer: '2',
+    totalCustomers: '15'
   });
 
   // Auto-calculated values
@@ -60,8 +60,8 @@ export default function Revenue() {
     };
     localStorage.setItem('revenueData', JSON.stringify(dataToSave));
     
-    // Navigate to next step or show success
-    alert('Revenue data saved! Ready for next module.');
+    // Navigate to revenue outlook
+    navigate('/revenue-total-outlook');
   };
 
   const isFormComplete = () => {
