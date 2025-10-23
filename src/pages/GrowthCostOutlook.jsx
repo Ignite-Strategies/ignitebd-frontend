@@ -1,5 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { 
+  calculateGrowthCoefficient, 
+  getPerformanceCategory, 
+  generateGrowthScenarios,
+  analyzeGrowthBottlenecks 
+} from '../services/GrowthCoefficientService';
 
 // Slider Component
 function Slider({ label, value, onChange, min, max, step, unit, color = 'blue' }) {
@@ -50,46 +56,20 @@ function GrowthCoefficientCalculator({ data }) {
     customerGrowth
   } = data;
 
-  // Calculate the growth coefficient
-  // This is the algorithmic formula you mentioned
-  const calculateGrowthCoefficient = () => {
-    // Base formula: BD + Human Capital + Founder Engagement = Growth Outcome
-    const bdWeight = 0.4; // Business development impact
-    const manpowerWeight = 0.3; // Human capital impact  
-    const founderWeight = 0.3; // Founder engagement impact
-    
-    const bdScore = (businessDevelopment / 100) * bdWeight;
-    const manpowerScore = (manpowerCosts / 100) * manpowerWeight;
-    const founderScore = (founderEngagement / 100) * founderWeight;
-    
-    const totalScore = (bdScore + manpowerScore + founderScore) * 100;
-    
-    // Apply customer growth multiplier
-    const growthMultiplier = customerGrowth / 100;
-    const finalCoefficient = totalScore * growthMultiplier;
-    
-    return {
-      totalScore: Math.round(totalScore),
-      finalCoefficient: Math.round(finalCoefficient),
-      bdScore: Math.round(bdScore * 100),
-      manpowerScore: Math.round(manpowerScore * 100),
-      founderScore: Math.round(founderScore * 100)
-    };
-  };
+  // Use the service to calculate growth coefficient
+  const coefficient = calculateGrowthCoefficient({
+    businessDevelopment,
+    manpowerCosts,
+    founderEngagement,
+    customerGrowth
+  });
 
-  const coefficient = calculateGrowthCoefficient();
+  const performance = getPerformanceCategory(coefficient.finalCoefficient);
 
   const getScoreColor = (score) => {
     if (score >= 80) return 'text-green-600';
     if (score >= 60) return 'text-yellow-600';
     return 'text-red-600';
-  };
-
-  const getScoreLabel = (score) => {
-    if (score >= 80) return 'Excellent';
-    if (score >= 60) return 'Good';
-    if (score >= 40) return 'Fair';
-    return 'Needs Improvement';
   };
 
   return (
@@ -103,7 +83,7 @@ function GrowthCoefficientCalculator({ data }) {
           </div>
           <div className="text-sm text-gray-600">Growth Coefficient</div>
           <div className={`text-sm font-semibold ${getScoreColor(coefficient.finalCoefficient)}`}>
-            {getScoreLabel(coefficient.finalCoefficient)}
+            {performance.label}
           </div>
         </div>
         
@@ -113,7 +93,7 @@ function GrowthCoefficientCalculator({ data }) {
           </div>
           <div className="text-sm text-gray-600">Base Score</div>
           <div className={`text-sm font-semibold ${getScoreColor(coefficient.totalScore)}`}>
-            {getScoreLabel(coefficient.totalScore)}
+            {getPerformanceCategory(coefficient.totalScore).label}
           </div>
         </div>
       </div>
@@ -136,14 +116,7 @@ function GrowthCoefficientCalculator({ data }) {
       <div className="mt-6 p-4 bg-white rounded-lg border border-purple-200">
         <h4 className="font-semibold text-gray-900 mb-2">Growth Outlook</h4>
         <p className="text-sm text-gray-600">
-          {coefficient.finalCoefficient >= 80 
-            ? "Strong growth potential with current strategy. Consider scaling operations."
-            : coefficient.finalCoefficient >= 60
-            ? "Good growth trajectory. Focus on optimizing underperforming areas."
-            : coefficient.finalCoefficient >= 40
-            ? "Moderate growth potential. Significant improvements needed in key areas."
-            : "Limited growth potential. Major strategic changes required."
-          }
+          {performance.description}
         </p>
       </div>
     </div>

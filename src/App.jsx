@@ -47,6 +47,7 @@ import Seo from './pages/Seo';
 import Events from './pages/Events';
 import EmailCampaigns from './pages/EmailCampaigns';
 import GrowthCostOutlook from './pages/GrowthCostOutlook';
+import BDROIAnalyzer from './pages/BDROIAnalyzer';
 import Prices from './pages/Prices';
 
 function App() {
@@ -72,6 +73,7 @@ function App() {
         <Route path="/events" element={<Events />} />
         <Route path="/email-campaigns" element={<EmailCampaigns />} />
         <Route path="/growth-cost-outlook" element={<GrowthCostOutlook />} />
+        <Route path="/bd-roi-analyzer" element={<BDROIAnalyzer />} />
           <Route path="/prices" element={<Prices />} />
           <Route path="/splash" element={<Splash />} />
           <Route path="/signup" element={<Signup />} />
