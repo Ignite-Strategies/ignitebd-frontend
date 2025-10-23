@@ -45,6 +45,7 @@ import Pipeline from './pages/Pipeline';
 import Ads from './pages/Ads';
 import Seo from './pages/Seo';
 import Events from './pages/Events';
+import EmailCampaigns from './pages/EmailCampaigns';
 import Prices from './pages/Prices';
 
 function App() {
@@ -58,16 +59,17 @@ function App() {
           <Route path="/businesspoint-law-proposal" element={<BusinessPointLawProposal />} />
           <Route path="/assessment" element={<Assessment />} />
           <Route path="/assessment-results" element={<AssessmentResults />} />
-          <Route path="/revenue" element={<Revenue />} />
-          <Route path="/human-capital" element={<HumanCapital />} />
-          <Route path="/target-acquisition" element={<TargetAcquisition />} />
-          <Route path="/growth-dashboard" element={<GrowthDashboard />} />
-          <Route path="/ecosystem" element={<Ecosystem />} />
-          <Route path="/persona" element={<Persona />} />
-          <Route path="/pipeline" element={<Pipeline />} />
-          <Route path="/ads" element={<Ads />} />
-          <Route path="/seo" element={<Seo />} />
-          <Route path="/events" element={<Events />} />
+        <Route path="/revenue" element={<Revenue />} />
+        <Route path="/human-capital" element={<HumanCapital />} />
+        <Route path="/target-acquisition" element={<TargetAcquisition />} />
+        <Route path="/growth-dashboard" element={<GrowthDashboard />} />
+        <Route path="/ecosystem" element={<Ecosystem />} />
+        <Route path="/persona" element={<Persona />} />
+        <Route path="/pipeline" element={<Pipeline />} />
+        <Route path="/ads" element={<Ads />} />
+        <Route path="/seo" element={<Seo />} />
+        <Route path="/events" element={<Events />} />
+        <Route path="/email-campaigns" element={<EmailCampaigns />} />
           <Route path="/prices" element={<Prices />} />
           <Route path="/splash" element={<Splash />} />
           <Route path="/signup" element={<Signup />} />

@@ -160,6 +160,18 @@ export default function GrowthDashboard() {
       route: "/seo"
     },
     {
+      name: "Email Campaigns",
+      metrics: [
+        { label: "Open Rate", value: "18.5%" },
+        { label: "Active Campaigns", value: "3" }
+      ],
+      insight: "Strong email engagement, ready to scale",
+      cta: "Open",
+      icon: "📧",
+      color: "bg-cyan-500",
+      route: "/email-campaigns"
+    },
+    {
       name: "Event Tracker",
       metrics: [
         { label: "Upcoming Events", value: "5" },
