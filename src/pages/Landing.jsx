@@ -6,6 +6,17 @@ export default function Landing() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-red-900 via-orange-900 to-red-800">
       
+      {/* Top CTA - Before Scroll */}
+      <div className="absolute top-8 left-1/2 transform -translate-x-1/2 z-10">
+        <button
+          onClick={() => navigate('/growth-dashboard')}
+          className="group relative px-8 py-3 bg-gradient-to-r from-red-600 to-orange-600 text-white text-lg font-bold rounded-xl shadow-xl hover:shadow-red-500/50 transition-all hover:scale-105"
+        >
+          <span className="relative z-10">Explore the Platform →</span>
+          <div className="absolute inset-0 bg-gradient-to-r from-red-700 to-orange-700 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
+        </button>
+      </div>
+
       {/* Hero Section */}
       <div className="flex items-center justify-center min-h-screen p-8">
         <div className="max-w-6xl w-full">
