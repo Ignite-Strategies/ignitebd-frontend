@@ -47,6 +47,8 @@ import Seo from './pages/Seo';
 import Events from './pages/Events';
 import EmailCampaigns from './pages/EmailCampaigns';
 import GrowthCostOutlook from './pages/GrowthCostOutlook';
+import RevenueToTargetOutlook from './pages/RevenueToTargetOutlook';
+import BDBaselineAssessment from './pages/BDBaselineAssessment';
 import Prices from './pages/Prices';
 
 function App() {
@@ -72,6 +74,8 @@ function App() {
         <Route path="/events" element={<Events />} />
         <Route path="/email-campaigns" element={<EmailCampaigns />} />
         <Route path="/growth-cost-outlook" element={<GrowthCostOutlook />} />
+        <Route path="/revenue-target-outlook" element={<RevenueToTargetOutlook />} />
+        <Route path="/bd-baseline-assessment" element={<BDBaselineAssessment />} />
           <Route path="/prices" element={<Prices />} />
           <Route path="/splash" element={<Splash />} />
           <Route path="/signup" element={<Signup />} />

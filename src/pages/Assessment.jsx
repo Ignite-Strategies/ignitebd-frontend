@@ -72,6 +72,23 @@ export default function Assessment() {
 
   const handleSubmit = async () => {
     try {
+      // Save assessment data to localStorage
+      const assessmentData = {
+        assessment: {
+          ...assessment,
+          ...contactInfo
+        },
+        timestamp: new Date().toISOString()
+      };
+      localStorage.setItem('assessmentData', JSON.stringify(assessmentData));
+      
+      // Navigate to revenue target outlook
+      navigate('/revenue-target-outlook', { 
+        state: { assessmentData: assessment } 
+      });
+      
+      return; // Skip the API call for now
+      
       // Save assessment data to database first
       const response = await api.post('/platformProspect/save-assessment', assessment);
       
