@@ -109,21 +109,12 @@ export default function Landing() {
 
           {/* Secondary CTA Section */}
           <div className="text-center">
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center max-w-2xl mx-auto">
-              <button
-                onClick={() => navigate('/growth-dashboard')}
-                className="px-6 py-3 bg-white/20 backdrop-blur-sm border-2 border-white/30 text-white font-bold rounded-xl hover:bg-white/30 transition-all hover:scale-105"
-              >
-                View Dashboard
-              </button>
-              
-              <button
-                onClick={() => navigate('/assessment-intro')}
-                className="px-6 py-3 bg-white/20 backdrop-blur-sm border-2 border-white/30 text-white font-bold rounded-xl hover:bg-white/30 transition-all hover:scale-105"
-              >
-                Try Assessment
-              </button>
-            </div>
+            <button
+              onClick={() => navigate('/growth-dashboard')}
+              className="px-8 py-3 bg-white/20 backdrop-blur-sm border-2 border-white/30 text-white font-bold rounded-xl hover:bg-white/30 transition-all hover:scale-105"
+            >
+              View Dashboard
+            </button>
           </div>
         </div>
       </div>
