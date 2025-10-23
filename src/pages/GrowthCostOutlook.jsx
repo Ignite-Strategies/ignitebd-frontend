@@ -336,6 +336,49 @@ export default function GrowthCostOutlook() {
               />
             </div>
 
+            {/* BD Spend Impact Calculator */}
+            <div className="bg-white border border-gray-200 rounded-xl p-6">
+              <h3 className="text-xl font-bold text-gray-900 mb-6">BD Spend Impact Analysis</h3>
+              <p className="text-gray-600 mb-6">
+                Your BD investment of {sliderData.businessDevelopment}% translates to real growth outcomes:
+              </p>
+              
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                <div className="text-center p-4 bg-blue-50 rounded-lg">
+                  <div className="text-2xl font-bold text-blue-600">
+                    {Math.round(sliderData.businessDevelopment * 0.8)}%
+                  </div>
+                  <div className="text-sm text-gray-600">Lead Generation Impact</div>
+                </div>
+                
+                <div className="text-center p-4 bg-green-50 rounded-lg">
+                  <div className="text-2xl font-bold text-green-600">
+                    {Math.round(sliderData.businessDevelopment * 0.6)}%
+                  </div>
+                  <div className="text-sm text-gray-600">Customer Acquisition</div>
+                </div>
+                
+                <div className="text-center p-4 bg-purple-50 rounded-lg">
+                  <div className="text-2xl font-bold text-purple-600">
+                    {Math.round(sliderData.businessDevelopment * 0.4)}%
+                  </div>
+                  <div className="text-sm text-gray-600">Revenue Growth</div>
+                </div>
+              </div>
+              
+              <div className="bg-gray-50 rounded-lg p-4">
+                <h4 className="font-semibold text-gray-900 mb-2">What this means:</h4>
+                <p className="text-sm text-gray-600">
+                  {sliderData.businessDevelopment >= 70 
+                    ? "Strong BD investment - you're likely to see significant growth from marketing and sales activities."
+                    : sliderData.businessDevelopment >= 40
+                    ? "Moderate BD investment - consider increasing spend or optimizing current channels for better results."
+                    : "Low BD investment - this may be limiting your growth potential. Consider increasing business development activities."
+                  }
+                </p>
+              </div>
+            </div>
+
             {/* Growth Coefficient Calculator */}
             <GrowthCoefficientCalculator data={sliderData} />
 
