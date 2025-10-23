@@ -14,9 +14,9 @@ export default function Assessment() {
     industry: '',
     workTooMuch: '',
     assignTasks: '',
-    wantMoreClients: '',
-    revenueGrowthPercent: '',
-    totalVolume: '',
+    currentRevenue: '',
+    currentCustomers: '',
+    averageDealSize: '',
     bdSpend: ''
   });
   const [calculating, setCalculating] = useState(false);
@@ -330,78 +330,70 @@ export default function Assessment() {
     <div className="text-center">
       <div className="text-6xl mb-6">🚀</div>
       <h1 className="text-4xl font-black text-white mb-4">
-        What are your growth goals?
+        Let's calculate your growth potential
       </h1>
       <p className="text-xl text-white/90 mb-8">
-        Help us understand your revenue targets and growth aspirations
+        Based on your business model, we'll calculate what's realistic for growth
       </p>
       
       <div className="bg-white/10 backdrop-blur-md rounded-3xl shadow-2xl p-10 border border-white/20">
         <div className="space-y-8">
           <div>
-            <h3 className="text-xl font-semibold text-white mb-4">Do you want to bring on more clients?</h3>
-            <div className="space-y-3">
-              {[
-                { value: 'yes', label: 'Yes - I need more clients to grow' },
-                { value: 'maybe', label: 'Maybe - depends on the right clients' },
-                { value: 'no', label: 'No - I have enough clients' }
-              ].map((option) => (
-                <label key={option.value} className="flex items-center space-x-3 cursor-pointer">
-                  <input
-                    type="radio"
-                    name="wantMoreClients"
-                    value={option.value}
-                    checked={assessment.wantMoreClients === option.value}
-                    onChange={(e) => handleInputChange('wantMoreClients', e.target.value)}
-                    className="w-5 h-5 text-red-600"
-                  />
-                  <span className="text-white/90">{option.label}</span>
-                </label>
-              ))}
+            <h3 className="text-xl font-semibold text-white mb-4">What's your current monthly revenue?</h3>
+            <div className="flex items-center gap-3">
+              <span className="text-white text-xl font-bold">$</span>
+              <input
+                type="number"
+                value={assessment.currentRevenue}
+                onChange={(e) => handleInputChange('currentRevenue', e.target.value)}
+                placeholder="e.g., 25000"
+                className="flex-1 px-4 py-3 bg-white/20 border border-white/30 rounded-xl text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-red-500"
+              />
             </div>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
-              <label className="block text-white font-semibold mb-2">Ideally how much revenue growth do you want to see? (percentage)</label>
-              <div className="flex items-center gap-3">
-                <input
-                  type="number"
-                  value={assessment.revenueGrowthPercent}
-                  onChange={(e) => handleInputChange('revenueGrowthPercent', e.target.value)}
-                  placeholder="e.g., 25"
-                  className="flex-1 px-4 py-3 bg-white/20 border border-white/30 rounded-xl text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-red-500"
-                />
-                <span className="text-white text-xl font-bold">%</span>
-              </div>
-            </div>
-            <div>
-              <label className="block text-white font-semibold mb-2">Total volume target</label>
-              <div className="flex items-center gap-3">
-                <span className="text-white text-xl font-bold">$</span>
-                <input
-                  type="number"
-                  value={assessment.totalVolume}
-                  onChange={(e) => handleInputChange('totalVolume', e.target.value)}
-                  placeholder="e.g., 1000000"
-                  className="flex-1 px-4 py-3 bg-white/20 border border-white/30 rounded-xl text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-red-500"
-                />
-              </div>
-            </div>
+            <p className="text-sm text-white/70 mt-2">This helps us calculate realistic growth targets</p>
           </div>
           
           <div>
-            <label className="block text-white font-semibold mb-2">How much do you currently spend on business development either staffing or ad buy?</label>
+            <h3 className="text-xl font-semibold text-white mb-4">How many customers do you currently serve?</h3>
+            <input
+              type="number"
+              value={assessment.currentCustomers}
+              onChange={(e) => handleInputChange('currentCustomers', e.target.value)}
+              placeholder="e.g., 50"
+              className="w-full px-4 py-3 bg-white/20 border border-white/30 rounded-xl text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-red-500"
+            />
+            <p className="text-sm text-white/70 mt-2">This helps us calculate customer acquisition needs</p>
+          </div>
+          
+          <div>
+            <h3 className="text-xl font-semibold text-white mb-4">What's your average deal size?</h3>
+            <div className="flex items-center gap-3">
+              <span className="text-white text-xl font-bold">$</span>
+              <input
+                type="number"
+                value={assessment.averageDealSize}
+                onChange={(e) => handleInputChange('averageDealSize', e.target.value)}
+                placeholder="e.g., 5000"
+                className="flex-1 px-4 py-3 bg-white/20 border border-white/30 rounded-xl text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-red-500"
+              />
+            </div>
+            <p className="text-sm text-white/70 mt-2">This helps us calculate realistic revenue projections</p>
+          </div>
+          
+          <div>
+            <h3 className="text-xl font-semibold text-white mb-4">How much do you currently spend on business development?</h3>
             <div className="flex items-center gap-3">
               <span className="text-white text-xl font-bold">$</span>
               <input
                 type="number"
                 value={assessment.bdSpend}
                 onChange={(e) => handleInputChange('bdSpend', e.target.value)}
-                placeholder="e.g., 50000"
+                placeholder="e.g., 5000"
                 className="flex-1 px-4 py-3 bg-white/20 border border-white/30 rounded-xl text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-red-500"
               />
+              <span className="text-white text-sm">/month</span>
             </div>
+            <p className="text-sm text-white/70 mt-2">This helps us calculate your BD ROI and growth potential</p>
           </div>
         </div>
         
@@ -414,10 +406,10 @@ export default function Assessment() {
           </button>
           <button
             onClick={handleSubmit}
-            disabled={!assessment.wantMoreClients || !assessment.revenueGrowthPercent || !assessment.totalVolume || !assessment.bdSpend}
+            disabled={!assessment.currentRevenue || !assessment.currentCustomers || !assessment.averageDealSize || !assessment.bdSpend}
             className="px-8 py-3 bg-gradient-to-r from-red-600 to-orange-600 text-white font-bold rounded-xl hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            Get My Analysis →
+            Calculate My Growth Potential →
           </button>
         </div>
       </div>
