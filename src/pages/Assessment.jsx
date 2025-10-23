@@ -14,9 +14,9 @@ export default function Assessment() {
     industry: '',
     workTooMuch: '',
     assignTasks: '',
-    currentRevenue: '',
-    currentCustomers: '',
-    averageDealSize: '',
+    pricePerWidget: '',
+    costPerWidget: '',
+    widgetsPerMonth: '',
     bdSpend: ''
   });
   const [calculating, setCalculating] = useState(false);
@@ -339,45 +339,45 @@ export default function Assessment() {
       <div className="bg-white/10 backdrop-blur-md rounded-3xl shadow-2xl p-10 border border-white/20">
         <div className="space-y-8">
           <div>
-            <h3 className="text-xl font-semibold text-white mb-4">What's your current monthly revenue?</h3>
+            <h3 className="text-xl font-semibold text-white mb-4">What's your average price per widget/service?</h3>
             <div className="flex items-center gap-3">
               <span className="text-white text-xl font-bold">$</span>
               <input
                 type="number"
-                value={assessment.currentRevenue}
-                onChange={(e) => handleInputChange('currentRevenue', e.target.value)}
-                placeholder="e.g., 25000"
+                value={assessment.pricePerWidget}
+                onChange={(e) => handleInputChange('pricePerWidget', e.target.value)}
+                placeholder="e.g., 500"
                 className="flex-1 px-4 py-3 bg-white/20 border border-white/30 rounded-xl text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-red-500"
               />
             </div>
-            <p className="text-sm text-white/70 mt-2">This helps us calculate realistic growth targets</p>
+            <p className="text-sm text-white/70 mt-2">The price you charge for one unit of your product/service</p>
           </div>
           
           <div>
-            <h3 className="text-xl font-semibold text-white mb-4">How many customers do you currently serve?</h3>
+            <h3 className="text-xl font-semibold text-white mb-4">What's your cost to deliver one widget?</h3>
+            <div className="flex items-center gap-3">
+              <span className="text-white text-xl font-bold">$</span>
+              <input
+                type="number"
+                value={assessment.costPerWidget}
+                onChange={(e) => handleInputChange('costPerWidget', e.target.value)}
+                placeholder="e.g., 200"
+                className="flex-1 px-4 py-3 bg-white/20 border border-white/30 rounded-xl text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-red-500"
+              />
+            </div>
+            <p className="text-sm text-white/70 mt-2">Your direct costs (materials, labor, etc.) to deliver one unit</p>
+          </div>
+          
+          <div>
+            <h3 className="text-xl font-semibold text-white mb-4">How many widgets do you sell per month?</h3>
             <input
               type="number"
-              value={assessment.currentCustomers}
-              onChange={(e) => handleInputChange('currentCustomers', e.target.value)}
-              placeholder="e.g., 50"
+              value={assessment.widgetsPerMonth}
+              onChange={(e) => handleInputChange('widgetsPerMonth', e.target.value)}
+              placeholder="e.g., 100"
               className="w-full px-4 py-3 bg-white/20 border border-white/30 rounded-xl text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-red-500"
             />
-            <p className="text-sm text-white/70 mt-2">This helps us calculate customer acquisition needs</p>
-          </div>
-          
-          <div>
-            <h3 className="text-xl font-semibold text-white mb-4">What's your average deal size?</h3>
-            <div className="flex items-center gap-3">
-              <span className="text-white text-xl font-bold">$</span>
-              <input
-                type="number"
-                value={assessment.averageDealSize}
-                onChange={(e) => handleInputChange('averageDealSize', e.target.value)}
-                placeholder="e.g., 5000"
-                className="flex-1 px-4 py-3 bg-white/20 border border-white/30 rounded-xl text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-red-500"
-              />
-            </div>
-            <p className="text-sm text-white/70 mt-2">This helps us calculate realistic revenue projections</p>
+            <p className="text-sm text-white/70 mt-2">Total units sold per month</p>
           </div>
           
           <div>
@@ -395,6 +395,42 @@ export default function Assessment() {
             </div>
             <p className="text-sm text-white/70 mt-2">This helps us calculate your BD ROI and growth potential</p>
           </div>
+
+          {/* Real-time Unit Economics Calculation */}
+          {assessment.pricePerWidget && assessment.costPerWidget && assessment.widgetsPerMonth && (
+            <div className="bg-white/20 backdrop-blur-md rounded-2xl p-6 border border-white/30">
+              <h4 className="text-lg font-semibold text-white mb-4">Your Unit Economics</h4>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-green-400">
+                    ${(parseInt(assessment.pricePerWidget) - parseInt(assessment.costPerWidget)).toLocaleString()}
+                  </div>
+                  <div className="text-sm text-white/70">Profit per Widget</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-blue-400">
+                    ${(parseInt(assessment.pricePerWidget) * parseInt(assessment.widgetsPerMonth)).toLocaleString()}
+                  </div>
+                  <div className="text-sm text-white/70">Monthly Revenue</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-purple-400">
+                    ${((parseInt(assessment.pricePerWidget) - parseInt(assessment.costPerWidget)) * parseInt(assessment.widgetsPerMonth)).toLocaleString()}
+                  </div>
+                  <div className="text-sm text-white/70">Monthly Profit</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-orange-400">
+                    {Math.round(((parseInt(assessment.pricePerWidget) - parseInt(assessment.costPerWidget)) / parseInt(assessment.pricePerWidget)) * 100)}%
+                  </div>
+                  <div className="text-sm text-white/70">Profit Margin</div>
+                </div>
+              </div>
+              <p className="text-sm text-white/80 mt-4 text-center">
+                To add $200,000 revenue, you'd need to sell {Math.round(200000 / parseInt(assessment.pricePerWidget))} more widgets
+              </p>
+            </div>
+          )}
         </div>
         
         <div className="flex justify-between mt-8">
@@ -406,7 +442,7 @@ export default function Assessment() {
           </button>
           <button
             onClick={handleSubmit}
-            disabled={!assessment.currentRevenue || !assessment.currentCustomers || !assessment.averageDealSize || !assessment.bdSpend}
+            disabled={!assessment.pricePerWidget || !assessment.costPerWidget || !assessment.widgetsPerMonth || !assessment.bdSpend}
             className="px-8 py-3 bg-gradient-to-r from-red-600 to-orange-600 text-white font-bold rounded-xl hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed"
           >
             Calculate My Growth Potential →
