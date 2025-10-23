@@ -185,7 +185,7 @@ export default function Roadmap() {
                     <th className="text-left py-3 px-4 font-semibold text-gray-900">Quarter</th>
                     <th className="text-left py-3 px-4 font-semibold text-gray-900">Phase</th>
                     <th className="text-left py-3 px-4 font-semibold text-gray-900">Core Focus</th>
-                    <th className="text-left py-3 px-4 font-semibold text-gray-900">Non-Negotiable Deliverables</th>
+                    <th className="text-left py-3 px-4 font-semibold text-gray-900">Deliverables</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -226,11 +226,14 @@ export default function Roadmap() {
           </div>
 
           <div className="mt-8 text-center">
+            <p className="text-gray-600 mb-4">
+              Ready to get started? Complete your growth assessment to create a personalized roadmap.
+            </p>
             <button
               onClick={() => navigate('/assessment')}
               className="px-8 py-3 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition-colors"
             >
-              Start Your BD Assessment →
+              Start Growth Assessment →
             </button>
           </div>
         </div>

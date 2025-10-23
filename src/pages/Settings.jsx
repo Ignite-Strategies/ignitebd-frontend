@@ -83,16 +83,38 @@ export default function Settings() {
 
           {/* Assessment */}
           <div className="mb-8 border-t border-gray-200 pt-8">
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">Take Assessment</h2>
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">Assessments</h2>
             <p className="text-gray-600 mb-6">
-              Complete our business development assessment to get personalized growth recommendations.
+              Complete our assessments to get personalized growth recommendations.
             </p>
-            <button
-              onClick={() => navigate('/assessment')}
-              className="px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
-            >
-              Start Assessment →
-            </button>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="bg-gray-50 rounded-lg p-4">
+                <h3 className="font-semibold text-gray-900 mb-2">Growth Assessment</h3>
+                <p className="text-sm text-gray-600 mb-3">
+                  Revenue, Human Capital, and Target Acquisition analysis
+                </p>
+                <button
+                  onClick={() => navigate('/assessment')}
+                  className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors text-sm"
+                >
+                  Start Growth Assessment →
+                </button>
+              </div>
+              
+              <div className="bg-gray-50 rounded-lg p-4">
+                <h3 className="font-semibold text-gray-900 mb-2">BD Baseline Assessment</h3>
+                <p className="text-sm text-gray-600 mb-3">
+                  Current BD activities, social followers, email list, website traffic
+                </p>
+                <button
+                  onClick={() => navigate('/bd-baseline-assessment')}
+                  className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors text-sm"
+                >
+                  Start BD Baseline →
+                </button>
+              </div>
+            </div>
           </div>
 
           {/* Roadmap */}
