@@ -7,17 +7,17 @@ function HeaderSummary({ targetRevenue, currentRevenue, timeHorizon }) {
   const remaining = Math.max(0, targetRevenue - currentRevenue);
   
   return (
-    <div className="bg-white rounded-2xl shadow-lg p-8 mb-8">
+    <div className="bg-white/10 backdrop-blur-md rounded-2xl shadow-2xl p-8 mb-8 border border-white/20">
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Growth Dashboard</h1>
-          <p className="text-gray-600">Your command center for business development</p>
+          <h1 className="text-3xl font-bold text-white mb-2">Growth Dashboard</h1>
+          <p className="text-white/90">Your command center for business development</p>
         </div>
         <div className="text-right">
-          <div className="text-2xl font-bold text-gray-900">
+          <div className="text-2xl font-bold text-white">
             {progressPercent.toFixed(1)}% to goal
           </div>
-          <div className="text-sm text-gray-500">
+          <div className="text-sm text-white/80">
             ${remaining.toLocaleString()} remaining
           </div>
         </div>
@@ -25,19 +25,19 @@ function HeaderSummary({ targetRevenue, currentRevenue, timeHorizon }) {
       
       {/* Progress Bar */}
       <div className="mb-4">
-        <div className="flex justify-between text-sm text-gray-600 mb-2">
+        <div className="flex justify-between text-sm text-white/90 mb-2">
           <span>Current: ${currentRevenue.toLocaleString()}</span>
           <span>Target: ${targetRevenue.toLocaleString()}</span>
         </div>
-        <div className="w-full bg-gray-200 rounded-full h-3">
+        <div className="w-full bg-white/20 rounded-full h-3">
           <div 
-            className="bg-gradient-to-r from-red-500 to-red-600 h-3 rounded-full transition-all duration-500"
+            className="bg-gradient-to-r from-orange-400 to-yellow-400 h-3 rounded-full transition-all duration-500"
             style={{ width: `${Math.min(progressPercent, 100)}%` }}
           ></div>
         </div>
       </div>
       
-      <div className="text-sm text-gray-500">
+      <div className="text-sm text-white/80">
         Target: ${targetRevenue.toLocaleString()} in {timeHorizon} months
       </div>
     </div>
@@ -49,7 +49,7 @@ function StackCard({ name, metrics, insight, cta, icon, color, route }) {
   const navigate = useNavigate();
   
   return (
-    <div className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 cursor-pointer"
+    <div className="bg-white/10 backdrop-blur-md rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 cursor-pointer border border-white/20"
          onClick={() => navigate(route)}>
       <div className="p-6">
         {/* Header */}
@@ -58,9 +58,9 @@ function StackCard({ name, metrics, insight, cta, icon, color, route }) {
             <div className={`w-10 h-10 rounded-lg ${color} flex items-center justify-center`}>
               <span className="text-white text-xl">{icon}</span>
             </div>
-            <h3 className="text-lg font-bold text-gray-900">{name}</h3>
+            <h3 className="text-lg font-bold text-white">{name}</h3>
           </div>
-          <div className="text-red-500 text-sm font-semibold">
+          <div className="text-orange-400 text-sm font-semibold">
             {cta} →
           </div>
         </div>
@@ -69,14 +69,14 @@ function StackCard({ name, metrics, insight, cta, icon, color, route }) {
         <div className="mb-4">
           {metrics.map((metric, index) => (
             <div key={index} className="flex justify-between items-center mb-2">
-              <span className="text-gray-600 text-sm">{metric.label}</span>
-              <span className="font-semibold text-gray-900">{metric.value}</span>
+              <span className="text-white/80 text-sm">{metric.label}</span>
+              <span className="font-semibold text-white">{metric.value}</span>
             </div>
           ))}
         </div>
         
         {/* Insight */}
-        <div className="text-sm text-gray-600 italic">
+        <div className="text-sm text-white/90 italic">
           "{insight}"
         </div>
       </div>
@@ -172,7 +172,7 @@ export default function GrowthDashboard() {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-br from-red-900 via-orange-900 to-red-800">
       <Navigation />
       <div className="p-8">
         <div className="max-w-7xl mx-auto">
@@ -192,29 +192,29 @@ export default function GrowthDashboard() {
         </div>
 
         {/* Quick Actions */}
-        <div className="mt-12 bg-white rounded-2xl shadow-lg p-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">Quick Actions</h2>
+        <div className="mt-12 bg-white/10 backdrop-blur-md rounded-2xl shadow-2xl p-8 border border-white/20">
+          <h2 className="text-2xl font-bold text-white mb-6">Quick Actions</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <button
               onClick={() => navigate('/assessment')}
-              className="p-4 bg-red-50 border border-red-200 rounded-xl hover:bg-red-100 transition-colors"
+              className="p-4 bg-white/20 border border-white/30 rounded-xl hover:bg-white/30 transition-colors"
             >
-              <div className="text-red-600 font-semibold">Start Assessment</div>
-              <div className="text-sm text-gray-600">Complete your growth analysis</div>
+              <div className="text-white font-semibold">Start Assessment</div>
+              <div className="text-sm text-white/80">Complete your growth analysis</div>
             </button>
             <button
               onClick={() => navigate('/revenue')}
-              className="p-4 bg-blue-50 border border-blue-200 rounded-xl hover:bg-blue-100 transition-colors"
+              className="p-4 bg-white/20 border border-white/30 rounded-xl hover:bg-white/30 transition-colors"
             >
-              <div className="text-blue-600 font-semibold">Update Revenue Stack</div>
-              <div className="text-sm text-gray-600">Refresh your revenue metrics</div>
+              <div className="text-white font-semibold">Update Revenue Stack</div>
+              <div className="text-sm text-white/80">Refresh your revenue metrics</div>
             </button>
             <button
               onClick={() => navigate('/settings')}
-              className="p-4 bg-green-50 border border-green-200 rounded-xl hover:bg-green-100 transition-colors"
+              className="p-4 bg-white/20 border border-white/30 rounded-xl hover:bg-white/30 transition-colors"
             >
-              <div className="text-green-600 font-semibold">Settings & Setup</div>
-              <div className="text-sm text-gray-600">Configure your account</div>
+              <div className="text-white font-semibold">Settings & Setup</div>
+              <div className="text-sm text-white/80">Configure your account</div>
             </button>
           </div>
         </div>

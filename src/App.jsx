@@ -47,6 +47,7 @@ import Ecosystem from './pages/Ecosystem';
 import Persona from './pages/Persona';
 import Ads from './pages/Ads';
 import Seo from './pages/Seo';
+import Content from './pages/Content';
 import Events from './pages/Events';
 import EmailCampaigns from './pages/EmailCampaigns';
 import GrowthCostOutlook from './pages/GrowthCostOutlook';
