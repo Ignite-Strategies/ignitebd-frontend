@@ -31,7 +31,7 @@ function HeaderSummary({ targetRevenue, currentRevenue, timeHorizon }) {
         </div>
         <div className="w-full bg-gray-200 rounded-full h-3">
           <div 
-            className="bg-gradient-to-r from-orange-500 to-red-500 h-3 rounded-full transition-all duration-500"
+            className="bg-gradient-to-r from-red-500 to-red-600 h-3 rounded-full transition-all duration-500"
             style={{ width: `${Math.min(progressPercent, 100)}%` }}
           ></div>
         </div>
@@ -60,7 +60,7 @@ function StackCard({ name, metrics, insight, cta, icon, color, route }) {
             </div>
             <h3 className="text-lg font-bold text-gray-900">{name}</h3>
           </div>
-          <div className="text-orange-500 text-sm font-semibold">
+          <div className="text-red-500 text-sm font-semibold">
             {cta} →
           </div>
         </div>
@@ -120,18 +120,6 @@ export default function GrowthDashboard() {
       icon: "👥",
       color: "bg-green-500",
       route: "/persona"
-    },
-    {
-      name: "Pipeline Management",
-      metrics: [
-        { label: "Active Leads", value: "47" },
-        { label: "Conversion Rate", value: "18%" }
-      ],
-      insight: "Healthy pipeline, focus on conversion",
-      cta: "Open",
-      icon: "🎯",
-      color: "bg-purple-500",
-      route: "/pipeline"
     },
     {
       name: "Ad Spend & Targeting",
@@ -209,9 +197,9 @@ export default function GrowthDashboard() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <button
               onClick={() => navigate('/assessment')}
-              className="p-4 bg-orange-50 border border-orange-200 rounded-xl hover:bg-orange-100 transition-colors"
+              className="p-4 bg-red-50 border border-red-200 rounded-xl hover:bg-red-100 transition-colors"
             >
-              <div className="text-orange-600 font-semibold">Start Assessment</div>
+              <div className="text-red-600 font-semibold">Start Assessment</div>
               <div className="text-sm text-gray-600">Complete your growth analysis</div>
             </button>
             <button

@@ -12,6 +12,7 @@ export default function Navigation() {
     { path: '/growth-dashboard', label: 'Dashboard', icon: '🏠' },
     { path: '/assessment', label: 'Assessment', icon: '📊' },
     { path: '/bdpipeline', label: 'Pipeline', icon: '🎯' },
+    { path: '/roadmap', label: 'Roadmap', icon: '🗺️' },
     { path: '/settings', label: 'Settings', icon: '⚙️' },
   ];
 
@@ -24,7 +25,7 @@ export default function Navigation() {
           <div className="flex items-center">
             <button
               onClick={() => navigate('/growth-dashboard')}
-              className="flex items-center space-x-2 text-lg font-bold text-orange-600 hover:text-orange-700 transition-colors"
+              className="flex items-center space-x-2 text-lg font-bold text-red-600 hover:text-red-700 transition-colors"
             >
               <span className="text-2xl">🔥</span>
               <span>Ignite BD</span>
@@ -39,8 +40,8 @@ export default function Navigation() {
                 onClick={() => navigate(item.path)}
                 className={`px-4 py-2 rounded-lg text-sm font-semibold transition-all ${
                   isActive(item.path)
-                    ? 'bg-orange-600 text-white shadow-md'
-                    : 'text-gray-700 hover:text-orange-600 hover:bg-orange-50'
+                    ? 'bg-red-600 text-white shadow-md'
+                    : 'text-gray-700 hover:text-red-600 hover:bg-red-50'
                 }`}
               >
                 <span className="mr-1.5">{item.icon}</span>
