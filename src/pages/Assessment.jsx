@@ -52,7 +52,7 @@ export default function Assessment() {
             First, let's get some basic information from you:
           </p>
           
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <div className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label className="block text-white font-semibold mb-2">Your Name</label>
@@ -62,7 +62,6 @@ export default function Assessment() {
                   onChange={(e) => handleInputChange('name', e.target.value)}
                   placeholder="e.g., John Smith"
                   className="w-full px-4 py-3 bg-white/20 border border-white/30 rounded-xl text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-orange-500"
-                  required
                 />
               </div>
               
@@ -74,7 +73,6 @@ export default function Assessment() {
                   onChange={(e) => handleInputChange('email', e.target.value)}
                   placeholder="e.g., john@company.com"
                   className="w-full px-4 py-3 bg-white/20 border border-white/30 rounded-xl text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-orange-500"
-                  required
                 />
               </div>
               
@@ -86,7 +84,6 @@ export default function Assessment() {
                   onChange={(e) => handleInputChange('company', e.target.value)}
                   placeholder="e.g., Acme Corp"
                   className="w-full px-4 py-3 bg-white/20 border border-white/30 rounded-xl text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-orange-500"
-                  required
                 />
               </div>
               
@@ -98,14 +95,13 @@ export default function Assessment() {
                   onChange={(e) => handleInputChange('industry', e.target.value)}
                   placeholder="e.g., Technology, Legal, Healthcare"
                   className="w-full px-4 py-3 bg-white/20 border border-white/30 rounded-xl text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-orange-500"
-                  required
                 />
               </div>
             </div>
             
             <div className="text-center mt-8">
               <button
-                type="submit"
+                onClick={handleSubmit}
                 className="px-12 py-4 bg-gradient-to-r from-red-600 to-orange-600 text-white text-xl font-bold rounded-2xl shadow-2xl hover:shadow-red-500/50 transition-all hover:scale-105"
               >
                 Start Assessment →
@@ -115,7 +111,7 @@ export default function Assessment() {
                 This assessment is designed for founders and CEOs
               </p>
             </div>
-          </form>
+          </div>
         </div>
       </div>
     </div>

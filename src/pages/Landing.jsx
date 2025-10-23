@@ -110,7 +110,7 @@ export default function Landing() {
               </button>
               
               <button
-                onClick={() => navigate('/splash')}
+                onClick={() => navigate('/growth-dashboard')}
                 className="group relative px-6 py-3 bg-gradient-to-r from-red-600 to-orange-600 text-white font-bold rounded-xl shadow-xl hover:shadow-red-500/50 transition-all hover:scale-105"
               >
                 <span className="relative z-10">Try the Platform →</span>
@@ -119,7 +119,7 @@ export default function Landing() {
             </div>
             
             <p className="text-white/60 text-sm mt-4">
-              Free 2-minute assessment • Full platform access • Personalized for your business
+              Free 2-minute assessment • Direct platform access • No signup required
             </p>
           </div>
         </div>
