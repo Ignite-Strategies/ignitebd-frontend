@@ -185,8 +185,7 @@ export default function BDBaselineAssessment() {
           <div className="mt-8 text-center">
             <button
               onClick={handleSubmit}
-              disabled={!isComplete()}
-              className="px-12 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white text-xl font-bold rounded-2xl shadow-2xl hover:shadow-blue-500/50 transition-all hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="px-12 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white text-xl font-bold rounded-2xl shadow-2xl hover:shadow-blue-500/50 transition-all hover:scale-105"
             >
               Show Me What I Need To Grow →
             </button>

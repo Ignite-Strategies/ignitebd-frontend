@@ -349,35 +349,32 @@ export default function TargetAcquisition() {
           <div className="text-center space-y-4">
             <button
               onClick={handleSave}
-              disabled={!isFormComplete()}
-              className="px-12 py-4 bg-gradient-to-r from-red-600 to-orange-600 text-white text-xl font-bold rounded-2xl shadow-2xl hover:shadow-red-500/50 transition-all hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="px-12 py-4 bg-gradient-to-r from-red-600 to-orange-600 text-white text-xl font-bold rounded-2xl shadow-2xl hover:shadow-red-500/50 transition-all hover:scale-105"
             >
               Save Target Data
             </button>
             
-            {isFormComplete() && (
-              <div>
-                <p className="text-white/80 text-lg mb-4">Next → Calculate your acquisition cost and activity targets</p>
-                <button
-                  onClick={() => navigate('/revenue')}
-                  className="px-8 py-3 bg-white/20 text-white font-semibold rounded-xl hover:bg-white/30 transition-all"
-                >
-                  Back to Revenue
-                </button>
-                <button
-                  onClick={() => navigate('/human-capital')}
-                  className="px-8 py-3 bg-white/20 text-white font-semibold rounded-xl hover:bg-white/30 transition-all ml-4"
-                >
-                  Back to Human Capital
-                </button>
-                <button
-                  onClick={() => navigate('/bd-baseline-assessment')}
-                  className="px-8 py-3 bg-white/20 text-white font-semibold rounded-xl hover:bg-white/30 transition-all ml-4"
-                >
-                  Next: BD Baseline →
-                </button>
-              </div>
-            )}
+            <div>
+              <p className="text-white/80 text-lg mb-4">Next → Calculate your acquisition cost and activity targets</p>
+              <button
+                onClick={() => navigate('/revenue')}
+                className="px-8 py-3 bg-white/20 text-white font-semibold rounded-xl hover:bg-white/30 transition-all"
+              >
+                Back to Revenue
+              </button>
+              <button
+                onClick={() => navigate('/human-capital')}
+                className="px-8 py-3 bg-white/20 text-white font-semibold rounded-xl hover:bg-white/30 transition-all ml-4"
+              >
+                Back to Human Capital
+              </button>
+              <button
+                onClick={() => navigate('/bd-baseline-assessment')}
+                className="px-8 py-3 bg-white/20 text-white font-semibold rounded-xl hover:bg-white/30 transition-all ml-4"
+              >
+                Next: BD Baseline →
+              </button>
+            </div>
           </div>
         </div>
 

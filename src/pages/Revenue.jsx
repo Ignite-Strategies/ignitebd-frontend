@@ -129,20 +129,20 @@ export default function Revenue() {
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label className="block text-white font-semibold mb-2">On average, how much do you earn per sale?</label>
+                <label className="block text-white font-semibold mb-2">What's your gross profit per unit?</label>
                 <div className="flex items-center gap-3">
                   <span className="text-white text-xl font-bold">$</span>
                   <input
                     type="number"
                     value={revenueData.avgGrossPerUnit}
                     onChange={(e) => handleInputChange('avgGrossPerUnit', e.target.value)}
-                    placeholder="e.g., 350"
+                    placeholder="e.g., 350 (after costs)"
                     className="flex-1 px-4 py-3 bg-white/20 border border-white/30 rounded-xl text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-red-500"
                   />
                 </div>
               </div>
               <div>
-                <label className="block text-white font-semibold mb-2">How often do customers buy from you each month?</label>
+                <label className="block text-white font-semibold mb-2">How many units does each B2B customer order per month?</label>
                 <div className="flex items-center gap-3">
                   <input
                     type="number"
@@ -234,23 +234,20 @@ export default function Revenue() {
           <div className="text-center space-y-4">
             <button
               onClick={handleSave}
-              disabled={!isFormComplete()}
-              className="px-12 py-4 bg-gradient-to-r from-red-600 to-orange-600 text-white text-xl font-bold rounded-2xl shadow-2xl hover:shadow-red-500/50 transition-all hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="px-12 py-4 bg-gradient-to-r from-red-600 to-orange-600 text-white text-xl font-bold rounded-2xl shadow-2xl hover:shadow-red-500/50 transition-all hover:scale-105"
             >
               Save Revenue Data
             </button>
             
-            {isFormComplete() && (
-              <div>
-                <p className="text-white/80 text-lg mb-4">Next → Assess your capacity to deliver this volume</p>
-                <button
-                  onClick={() => navigate('/revenue-total-outlook')}
-                  className="px-8 py-3 bg-white/20 text-white font-semibold rounded-xl hover:bg-white/30 transition-all"
-                >
-                  Review Calculations →
-                </button>
-              </div>
-            )}
+            <div>
+              <p className="text-white/80 text-lg mb-4">Next → Assess your capacity to deliver this volume</p>
+              <button
+                onClick={() => navigate('/revenue-total-outlook')}
+                className="px-8 py-3 bg-white/20 text-white font-semibold rounded-xl hover:bg-white/30 transition-all"
+              >
+                Review Calculations →
+              </button>
+            </div>
           </div>
         </div>
 
