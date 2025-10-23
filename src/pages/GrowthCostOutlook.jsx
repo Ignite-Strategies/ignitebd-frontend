@@ -338,45 +338,75 @@ export default function GrowthCostOutlook() {
 
             {/* BD Spend Impact Calculator */}
             <div className="bg-white border border-gray-200 rounded-xl p-6">
-              <h3 className="text-xl font-bold text-gray-900 mb-6">BD Spend Impact Analysis</h3>
+              <h3 className="text-xl font-bold text-gray-900 mb-6">BD Spend → Customer Acquisition</h3>
               <p className="text-gray-600 mb-6">
-                Your BD investment of {sliderData.businessDevelopment}% translates to real growth outcomes:
+                Your BD investment translates to concrete customer acquisition metrics:
               </p>
               
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-                <div className="text-center p-4 bg-blue-50 rounded-lg">
-                  <div className="text-2xl font-bold text-blue-600">
-                    {Math.round(sliderData.businessDevelopment * 0.8)}%
-                  </div>
-                  <div className="text-sm text-gray-600">Lead Generation Impact</div>
-                </div>
+              {/* Calculate spend and customer metrics */}
+              {(() => {
+                // Convert percentage to dollar spend (assuming base budget of $10k)
+                const monthlySpend = Math.round((sliderData.businessDevelopment / 100) * 10000);
+                const costPerCustomer = 500; // Industry average
+                const customersPerMonth = Math.round(monthlySpend / costPerCustomer);
+                const costPerLead = 50; // Industry average
+                const leadsPerMonth = Math.round(monthlySpend / costPerLead);
+                const conversionRate = 0.15; // 15% industry average
+                const actualCustomers = Math.round(leadsPerMonth * conversionRate);
                 
-                <div className="text-center p-4 bg-green-50 rounded-lg">
-                  <div className="text-2xl font-bold text-green-600">
-                    {Math.round(sliderData.businessDevelopment * 0.6)}%
+                return (
+                  <div className="space-y-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div className="text-center p-4 bg-blue-50 rounded-lg">
+                        <div className="text-3xl font-bold text-blue-600">
+                          ${monthlySpend.toLocaleString()}
+                        </div>
+                        <div className="text-sm text-gray-600">Monthly BD Spend</div>
+                      </div>
+                      
+                      <div className="text-center p-4 bg-green-50 rounded-lg">
+                        <div className="text-3xl font-bold text-green-600">
+                          {actualCustomers}
+                        </div>
+                        <div className="text-sm text-gray-600">New Customers/Month</div>
+                      </div>
+                    </div>
+                    
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                      <div className="text-center p-3 bg-gray-50 rounded-lg">
+                        <div className="text-xl font-bold text-gray-700">
+                          {leadsPerMonth}
+                        </div>
+                        <div className="text-xs text-gray-600">Leads Generated</div>
+                      </div>
+                      
+                      <div className="text-center p-3 bg-gray-50 rounded-lg">
+                        <div className="text-xl font-bold text-gray-700">
+                          ${costPerCustomer}
+                        </div>
+                        <div className="text-xs text-gray-600">Cost per Customer</div>
+                      </div>
+                      
+                      <div className="text-center p-3 bg-gray-50 rounded-lg">
+                        <div className="text-xl font-bold text-gray-700">
+                          {Math.round(conversionRate * 100)}%
+                        </div>
+                        <div className="text-xs text-gray-600">Conversion Rate</div>
+                      </div>
+                    </div>
+                    
+                    <div className="bg-gradient-to-r from-orange-50 to-red-50 border border-orange-200 rounded-lg p-4">
+                      <h4 className="font-semibold text-gray-900 mb-2">Growth Impact:</h4>
+                      <p className="text-sm text-gray-700">
+                        <strong>${monthlySpend.toLocaleString()}</strong> monthly spend = <strong>{actualCustomers} new customers</strong> = <strong>${(actualCustomers * 10000).toLocaleString()}</strong> in new revenue
+                      </p>
+                      <p className="text-xs text-gray-600 mt-2">
+                        Based on industry averages: $50 cost per lead, 15% conversion rate, $10k average deal size
+                      </p>
+                    </div>
                   </div>
-                  <div className="text-sm text-gray-600">Customer Acquisition</div>
-                </div>
-                
-                <div className="text-center p-4 bg-purple-50 rounded-lg">
-                  <div className="text-2xl font-bold text-purple-600">
-                    {Math.round(sliderData.businessDevelopment * 0.4)}%
-                  </div>
-                  <div className="text-sm text-gray-600">Revenue Growth</div>
-                </div>
-              </div>
-              
-              <div className="bg-gray-50 rounded-lg p-4">
-                <h4 className="font-semibold text-gray-900 mb-2">What this means:</h4>
-                <p className="text-sm text-gray-600">
-                  {sliderData.businessDevelopment >= 70 
-                    ? "Strong BD investment - you're likely to see significant growth from marketing and sales activities."
-                    : sliderData.businessDevelopment >= 40
-                    ? "Moderate BD investment - consider increasing spend or optimizing current channels for better results."
-                    : "Low BD investment - this may be limiting your growth potential. Consider increasing business development activities."
-                  }
-                </p>
-              </div>
+                );
+              })()}
             </div>
 
             {/* Growth Coefficient Calculator */}
