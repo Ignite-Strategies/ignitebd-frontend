@@ -231,6 +231,23 @@ export default function GrowthDashboard() {
           </div>
         </div>
 
+        {/* Contact Sales */}
+        <div className="mt-12 bg-gradient-to-r from-red-50 to-orange-50 rounded-2xl shadow-lg p-8 border border-red-200">
+          <div className="text-center">
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">Ready to Scale Your Growth?</h2>
+            <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
+              Get personalized insights and strategic guidance to accelerate your business development. 
+              Our team can help you implement these systems and achieve your growth targets.
+            </p>
+            <button
+              onClick={() => window.open('mailto:adam@ignitestrategies.co?subject=Growth Platform Inquiry', '_blank')}
+              className="px-8 py-4 bg-gradient-to-r from-red-600 to-orange-600 text-white text-lg font-bold rounded-xl shadow-xl hover:shadow-red-500/50 transition-all hover:scale-105"
+            >
+              Contact Sales Team →
+            </button>
+          </div>
+        </div>
+
         {/* Footer */}
         <div className="mt-8 text-center">
           <p className="text-gray-500 text-sm">
