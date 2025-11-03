@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Navigation from '../../components/Navigation';
-import ProposalHeader from '../../proposals/components/ProposalHeader';
-import ProposalPurpose from '../../proposals/components/ProposalPurpose';
-import ProposalSection from '../../proposals/components/ProposalSection';
-import MilestoneTimeline from '../../proposals/components/MilestoneTimeline';
-import CompensationCard from '../../proposals/components/CompensationCard';
-import FeedbackBox from '../../proposals/components/FeedbackBox';
-import ApproveButton from '../../proposals/components/ApproveButton';
-import { Proposal } from '../../proposals/types';
+import ProposalHeader from './components/ProposalHeader';
+import ProposalPurpose from './components/ProposalPurpose';
+import ProposalSection from './components/ProposalSection';
+import MilestoneTimeline from './components/MilestoneTimeline';
+import CompensationCard from './components/CompensationCard';
+import FeedbackBox from './components/FeedbackBox';
+import ApproveButton from './components/ApproveButton';
+import { Proposal } from './types';
 import proposalBusinessPointData from '../../data/proposals/proposalBusinessPoint.json';
 
 export default function ProposalPage() {

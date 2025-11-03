@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useActivation } from '../context/ActivationContext';
-import api from '../lib/api';
+import api from '../../lib/api';
 
 export default function Cost() {
   const navigate = useNavigate();

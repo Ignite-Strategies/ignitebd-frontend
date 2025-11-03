@@ -21,13 +21,13 @@ import AssessmentIntro from './pages/assessment/AssessmentIntro';
 import Splash from './pages/Splash';
 import Signup from './pages/auth/Signup';
 import Signin from './pages/auth/Signin';
-import Profilesetup from './pages/Setup/Profilesetup';
-import CompanyCreateOrChoose from './pages/Setup/CompanyCreateOrChoose';
+import Profilesetup from './pages/setup/Profilesetup';
+import CompanyCreateOrChoose from './pages/setup/CompanyCreateOrChoose';
 import CompanyProfile from './pages/company/CompanyProfile';
 import JoinCompany from './pages/company/JoinCompany';
 import Cost from './pages/assessment/Cost';
 import Human from './pages/assessment/Human';
-import BDPipeline from './pages/Setup/BDPipeline';
+import BDPipeline from './pages/setup/BDPipeline';
 import CompanyDashboard from './pages/company/CompanyDashboard';
 import Assessment from './pages/assessment/Assessment';
 import AssessmentResults from './pages/assessment/AssessmentResults';
@@ -38,8 +38,8 @@ import HumanCapitalTotalOutlook from './pages/assessment/HumanCapitalTotalOutloo
 import TargetAcquisition from './pages/assessment/TargetAcquisition';
 import BDAssessmentTotalOutlook from './pages/assessment/BDAssessmentTotalOutlook';
 import GrowthDashboard from './pages/GrowthDashboard';
-import Ecosystem from './pages/Setup/Ecosystem';
-import Persona from './pages/Setup/Persona';
+import Ecosystem from './pages/setup/Ecosystem';
+import Persona from './pages/setup/Persona';
 import Ads from './pages/attract/Ads';
 import Seo from './pages/attract/Seo';
 import Content from './pages/attract/Content';
@@ -57,7 +57,7 @@ import RevenueToTargetOutlook from './pages/assessment/RevenueToTargetOutlook';
 import BDBaselineAssessment from './pages/assessment/BDBaselineAssessment';
 import BDBaselineResults from './pages/assessment/BDBaselineResults';
 import Settings from './pages/Settings';
-import Roadmap from './pages/Roadmap';
+import BDPipelineRoadmap from './pages/bd-gen/BDPipelineRoadmap';
 
 function App() {
   return (
@@ -102,7 +102,7 @@ function App() {
         <Route path="/bd-baseline-assessment" element={<BDBaselineAssessment />} />
         <Route path="/bd-baseline-results" element={<BDBaselineResults />} />
         <Route path="/settings" element={<Settings />} />
-        <Route path="/roadmap" element={<Roadmap />} />
+        <Route path="/roadmap" element={<BDPipelineRoadmap />} />
         <Route path="/splash" element={<Splash />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/signin" element={<Signin />} />
