@@ -47,6 +47,8 @@ import AdPreview from './pages/ads/AdPreview';
 import CampaignCreate from './pages/ads/CampaignCreate';
 import Seo from './pages/attract/Seo';
 import Content from './pages/attract/Content';
+import BlogPotentials from './pages/attract/BlogPotentials';
+import BlogEditor from './pages/attract/BlogEditor';
 import BrandingHub from './pages/attract/BrandingHub';
 import Events from './pages/events/Events';
 import OutreachHome from './pages/outreach/OutreachHome';
@@ -106,6 +108,8 @@ function App() {
         <Route path="/ads/tools" element={<AdsDashboard />} />
         <Route path="/seo" element={<Seo />} />
         <Route path="/content" element={<Content />} />
+        <Route path="/content/blog-potentials" element={<BlogPotentials />} />
+        <Route path="/content/blog-editor" element={<BlogEditor />} />
         <Route path="/branding-hub" element={<BrandingHub />} />
         <Route path="/events" element={<Events />} />
         <Route path="/outreach" element={<OutreachHome />} />
