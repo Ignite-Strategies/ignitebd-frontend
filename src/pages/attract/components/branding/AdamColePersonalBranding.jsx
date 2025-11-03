@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { User, ArrowLeft, Edit2, Check, Circle, FileText, Calendar, MapPin, Target } from 'lucide-react';
+import { User, ArrowLeft, Edit2, Check, Circle, FileText, Calendar, MapPin, Target, Plus } from 'lucide-react';
 
 // Adam Cole's hydrated data - simulating completed wizard
 const adamColeData = {
@@ -92,6 +92,20 @@ export default function AdamColePersonalBranding() {
     setPosts(posts.map(p => 
       p.id === postId ? { ...p, status: newStatus } : p
     ));
+  };
+
+  const handleAddMorePosts = () => {
+    const newPostCount = 3; // Add 3 more posts
+    const newPosts = Array.from({ length: newPostCount }, (_, i) => ({
+      id: posts.length + i + 1,
+      title: `Post ${posts.length + i + 1}`,
+      goal: 'Part of your narrative arc',
+      theme: 'authenticity, growth, momentum',
+      prompt: 'Continue your narrative arc...',
+      status: 'not_started',
+      eventId: null
+    }));
+    setPosts([...posts, ...newPosts]);
   };
 
   const getEventForPost = (post) => {
@@ -204,7 +218,16 @@ export default function AdamColePersonalBranding() {
 
           {/* Posts Grid */}
           <div>
-            <h3 className="text-xl font-bold text-gray-900 mb-4">Your 5-Post Arc</h3>
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-xl font-bold text-gray-900">Your {posts.length}-Post Arc</h3>
+              <button
+                onClick={handleAddMorePosts}
+                className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-all flex items-center gap-2 text-sm font-medium"
+              >
+                <Plus className="h-4 w-4" />
+                Add More Posts
+              </button>
+            </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {posts.map((post, index) => {
                 const status = statusConfig[post.status];
