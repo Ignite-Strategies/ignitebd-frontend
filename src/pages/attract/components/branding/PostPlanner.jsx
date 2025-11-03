@@ -31,7 +31,7 @@ export default function PostPlanner({ userData, onBack }) {
     ));
   };
 
-  const getEventForPost = (postId) => {
+  const getEventForPost = (post) => {
     return userData.events?.find(e => e.id === post.eventId);
   };
 
@@ -74,7 +74,7 @@ export default function PostPlanner({ userData, onBack }) {
         {posts.map((post) => {
           const status = statusConfig[post.status];
           const StatusIcon = status.icon;
-          const event = getEventForPost(post.id);
+          const event = getEventForPost(post);
 
           return (
             <div

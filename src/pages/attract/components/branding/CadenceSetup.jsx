@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { ArrowRight, ArrowLeft, Check } from 'lucide-react';
 
 const cadenceOptions = [
@@ -11,33 +11,16 @@ export default function CadenceSetup({ userData, onNext, onBack }) {
   const [cadence, setCadence] = useState(userData.cadence || null);
   const postCount = userData.postCount || 10;
 
-  useEffect(() => {
-    // Generate posts when cadence is selected
-    if (cadence && !userData.posts.length) {
-      const posts = Array.from({ length: postCount }, (_, i) => ({
-        id: i + 1,
-        title: `Post ${i + 1}`,
-        goal: userData.arcGoal || 'Part of your narrative arc',
-        status: 'not_started',
-        eventId: null
-      }));
-      onNext({ posts });
-    }
-  }, [cadence]);
-
   const handleNext = () => {
-    if (!userData.posts.length) {
-      const posts = Array.from({ length: postCount }, (_, i) => ({
-        id: i + 1,
-        title: `Post ${i + 1}`,
-        goal: userData.arcGoal || 'Part of your narrative arc',
-        status: 'not_started',
-        eventId: null
-      }));
-      onNext({ cadence, posts });
-    } else {
-      onNext({ cadence });
-    }
+    // Generate posts if not already created
+    const posts = userData.posts?.length ? userData.posts : Array.from({ length: postCount }, (_, i) => ({
+      id: i + 1,
+      title: `Post ${i + 1}`,
+      goal: userData.arcGoal || 'Part of your narrative arc',
+      status: 'not_started',
+      eventId: null
+    }));
+    onNext({ cadence, posts });
   };
 
   return (
