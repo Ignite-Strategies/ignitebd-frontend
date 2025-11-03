@@ -102,9 +102,10 @@ export default function Assessment() {
             <div className="text-center mt-8">
               <button
                 onClick={handleSubmit}
-                className="px-12 py-4 bg-gradient-to-r from-red-600 to-orange-600 text-white text-xl font-bold rounded-2xl shadow-2xl hover:shadow-red-500/50 transition-all hover:scale-105"
+                disabled={submitting}
+                className="px-12 py-4 bg-gradient-to-r from-red-600 to-orange-600 text-white text-xl font-bold rounded-2xl shadow-2xl hover:shadow-red-500/50 transition-all hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                Start Assessment →
+                {submitting ? 'Submitting...' : 'Start Assessment →'}
               </button>
               
               <p className="text-white/60 text-sm mt-4">
