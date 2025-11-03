@@ -1,105 +1,93 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { signInWithGoogle, signUpWithEmail } from "../lib/firebase";
-import api from "../lib/api";
+import { signInWithGoogle, signInWithEmail, auth } from "../../lib/firebase";
+import api from "../../lib/api";
 
-export default function Signup() {
+export default function Signin() {
   const navigate = useNavigate();
-  const [isSigningUp, setIsSigningUp] = useState(false);
+  const [isSigningIn, setIsSigningIn] = useState(false);
   const [authMethod, setAuthMethod] = useState('google'); // 'google' or 'email'
   const [emailData, setEmailData] = useState({
     email: '',
-    password: '',
-    confirmPassword: '',
-    firstName: '',
-    lastName: ''
+    password: ''
   });
 
-  const handleGoogleSignUp = async () => {
-    if (isSigningUp) return;
+  const handleGoogleSignIn = async () => {
+    if (isSigningIn) return;
     
-    setIsSigningUp(true);
+    setIsSigningIn(true);
     try {
-      console.log("🚀 Starting signup with Google...");
+      console.log("🚀 Starting sign-in with Google...");
       const result = await signInWithGoogle();
       
-      console.log("✅ Google signup successful:", result);
+      console.log("✅ Google sign-in successful:", result);
       
-      // Call backend findOrCreate
-      const firstName = result.name?.split(' ')[0] || '';
-      const lastName = result.name?.split(' ').slice(1).join(' ') || '';
-      
+      // Call backend findOrCreate (will find existing user)
       const res = await api.post("/adminUserAuth/findOrCreate", {
         firebaseId: result.uid,
         email: result.email,
-        firstName,
-        lastName,
+        firstName: result.name?.split(' ')[0] || '',
+        lastName: result.name?.split(' ').slice(1).join(' ') || '',
         photoURL: result.photoURL
       });
       
       const admin = res.data;
-      console.log("✅ Admin:", admin.id);
+      console.log("✅ Admin found:", admin.id);
       
       // Store auth data
       localStorage.setItem("firebaseId", result.uid);
       localStorage.setItem("adminId", admin.id);
       localStorage.setItem("email", admin.email || result.email);
       
-      // NEW USER → Profile setup FIRST!
-      console.log("✅ New user → Profile setup");
+      // Redirect to profile setup
+      console.log("✅ Existing user → Profile setup");
       navigate("/profilesetup");
       
     } catch (error) {
-      console.error("❌ Google signup failed:", error);
-      alert("Signup failed. Please try again.");
+      console.error("❌ Google sign-in failed:", error);
+      alert("Sign-in failed. Please try again.");
     } finally {
-      setIsSigningUp(false);
+      setIsSigningIn(false);
     }
   };
 
-  const handleEmailSignUp = async (e) => {
+  const handleEmailSignIn = async (e) => {
     e.preventDefault();
-    if (isSigningUp) return;
+    if (isSigningIn) return;
     
-    if (emailData.password !== emailData.confirmPassword) {
-      alert("Passwords don't match!");
-      return;
-    }
-    
-    setIsSigningUp(true);
+    setIsSigningIn(true);
     try {
-      console.log("🚀 Starting signup with email...");
-      const displayName = `${emailData.firstName} ${emailData.lastName}`.trim();
-      const result = await signUpWithEmail(emailData.email, emailData.password, displayName);
+      console.log("🚀 Starting sign-in with email...");
+      const result = await signInWithEmail(emailData.email, emailData.password);
       
-      console.log("✅ Email signup successful:", result);
+      console.log("✅ Email sign-in successful:", result);
       
-      // Call backend findOrCreate
+      // Call backend findOrCreate (will find existing user)
       const res = await api.post("/adminUserAuth/findOrCreate", {
         firebaseId: result.uid,
         email: result.email,
-        firstName: emailData.firstName,
-        lastName: emailData.lastName,
+        firstName: result.name?.split(' ')[0] || '',
+        lastName: result.name?.split(' ').slice(1).join(' ') || '',
         photoURL: result.photoURL
       });
       
       const admin = res.data;
-      console.log("✅ Admin:", admin.id);
+      console.log("✅ Admin found:", admin.id);
       
       // Store auth data
       localStorage.setItem("firebaseId", result.uid);
       localStorage.setItem("adminId", admin.id);
       localStorage.setItem("email", admin.email || result.email);
       
-      // NEW USER → Profile setup FIRST!
-      console.log("✅ New user → Profile setup");
+      // Redirect to profile setup
+      console.log("✅ Existing user → Profile setup");
       navigate("/profilesetup");
       
     } catch (error) {
-      console.error("❌ Email signup failed:", error);
-      alert("Signup failed. Please try again.");
+      console.error("❌ Email sign-in failed:", error);
+      alert("Sign-in failed. Please check your credentials.");
     } finally {
-      setIsSigningUp(false);
+      setIsSigningIn(false);
     }
   };
 
@@ -112,10 +100,10 @@ export default function Signup() {
           <img src="/logo.png" alt="Ignite Strategies" className="h-20 mx-auto" />
           
           <h1 className="text-3xl font-bold text-white">
-            Welcome to Ignite!
+            Welcome Back!
           </h1>
           <p className="text-white/80 text-lg">
-            How would you like to get started?
+            Sign in to continue your journey
           </p>
         </div>
 
@@ -143,42 +131,35 @@ export default function Signup() {
           </button>
         </div>
 
-        {/* Google Sign Up */}
+        {/* Google Sign In */}
         {authMethod === 'google' && (
           <button
-            onClick={handleGoogleSignUp}
-            disabled={isSigningUp}
-            className="w-full bg-gradient-to-r from-red-600 to-orange-600 text-white py-4 px-6 rounded-xl font-semibold hover:from-red-700 hover:to-orange-700 transition shadow-lg disabled:opacity-50 flex items-center justify-center gap-3"
+            onClick={handleGoogleSignIn}
+            disabled={isSigningIn}
+            className="w-full bg-white/20 border-2 border-white/30 text-white py-4 px-6 rounded-xl font-semibold hover:bg-white/30 transition shadow-lg disabled:opacity-50 flex items-center justify-center gap-3"
           >
-            <span className="text-2xl">🚀</span>
-            <div className="text-left flex-1">
-              <div className="font-bold">Set Up Your Organization</div>
-              <div className="text-xs text-white/80">I'm starting fresh - create new org</div>
-            </div>
+            {isSigningIn ? (
+              <>
+                <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+                Signing in...
+              </>
+            ) : (
+              <>
+                <svg className="w-5 h-5" viewBox="0 0 24 24">
+                  <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                  <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                  <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                  <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                </svg>
+                Sign in with Google
+              </>
+            )}
           </button>
         )}
 
-        {/* Email Sign Up Form */}
+        {/* Email Sign In Form */}
         {authMethod === 'email' && (
-          <form onSubmit={handleEmailSignUp} className="space-y-4">
-            <div className="grid grid-cols-2 gap-4">
-              <input
-                type="text"
-                placeholder="First Name"
-                value={emailData.firstName}
-                onChange={(e) => setEmailData({...emailData, firstName: e.target.value})}
-                className="px-4 py-3 bg-white/20 border border-white/30 rounded-xl text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-red-500"
-                required
-              />
-              <input
-                type="text"
-                placeholder="Last Name"
-                value={emailData.lastName}
-                onChange={(e) => setEmailData({...emailData, lastName: e.target.value})}
-                className="px-4 py-3 bg-white/20 border border-white/30 rounded-xl text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-red-500"
-                required
-              />
-            </div>
+          <form onSubmit={handleEmailSignIn} className="space-y-4">
             <input
               type="email"
               placeholder="Email Address"
@@ -195,32 +176,24 @@ export default function Signup() {
               className="w-full px-4 py-3 bg-white/20 border border-white/30 rounded-xl text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-red-500"
               required
             />
-            <input
-              type="password"
-              placeholder="Confirm Password"
-              value={emailData.confirmPassword}
-              onChange={(e) => setEmailData({...emailData, confirmPassword: e.target.value})}
-              className="w-full px-4 py-3 bg-white/20 border border-white/30 rounded-xl text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-red-500"
-              required
-            />
             <button
               type="submit"
-              disabled={isSigningUp}
+              disabled={isSigningIn}
               className="w-full bg-gradient-to-r from-red-600 to-orange-600 text-white py-4 px-6 rounded-xl font-semibold hover:from-red-700 hover:to-orange-700 transition shadow-lg disabled:opacity-50"
             >
-              {isSigningUp ? 'Creating Account...' : 'Create Account →'}
+              {isSigningIn ? 'Signing in...' : 'Sign In →'}
             </button>
           </form>
         )}
 
-        {/* Already have account */}
+        {/* New user link */}
         <p className="text-white/80 text-sm">
-          Already have an account?{" "}
+          Don't have an account?{" "}
           <button
-            onClick={() => navigate("/signin")}
+            onClick={() => navigate("/signup")}
             className="text-red-400 font-semibold hover:underline"
           >
-            Sign In
+            Sign Up
           </button>
         </p>
 
@@ -237,3 +210,4 @@ export default function Signup() {
     </div>
   );
 }
+
