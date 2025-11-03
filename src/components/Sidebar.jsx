@@ -13,10 +13,27 @@ import {
   Building2,
   Mail,
   Target,
-  Zap
+  Zap,
+  UserCircle,
+  Handshake,
+  CheckCircle,
+  Lightbulb,
+  Sparkles
 } from 'lucide-react';
 
 const navigationGroups = [
+  {
+    name: 'Setup',
+    items: [
+      { name: 'Personas', path: '/personas', icon: UserCircle },
+    ]
+  },
+  {
+    name: 'Central Command',
+    items: [
+      { name: 'Pipeline', path: '/bdpipeline', icon: Target },
+    ]
+  },
   {
     name: 'Overview',
     items: [
@@ -31,16 +48,21 @@ const navigationGroups = [
       { name: 'Events', path: '/events', icon: Calendar },
       { name: 'Ads & SEO', path: '/ads', icon: Search },
       { name: 'Content', path: '/content', icon: FileText },
+      { name: 'Branding Hub', path: '/branding-hub', icon: Sparkles },
     ]
   },
   {
     name: 'Engage',
     items: [
-      { name: 'Personas', path: '/persona', icon: Users },
-      { name: 'Ecosystem', path: '/ecosystem', icon: Building2 },
-      { name: 'Pipeline', path: '/bdpipeline', icon: Target },
-      { name: 'Outreach Campaigns', path: '/outreach', icon: MessageSquare }, // Personalized outreach emails
-      { name: 'Campaign Analytics', path: '/outreach/analytics', icon: BarChart3 },
+      { name: 'Outreach', path: '/outreach', icon: MessageSquare },
+      { name: 'Meetings', path: '/meetings', icon: Calendar },
+      { name: 'Close Deals', path: '/close-deals', icon: CheckCircle },
+    ]
+  },
+  {
+    name: 'Insights',
+    items: [
+      { name: 'Insights', path: '/insights', icon: Lightbulb },
     ]
   },
   {

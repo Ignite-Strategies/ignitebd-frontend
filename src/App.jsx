@@ -28,6 +28,7 @@ import JoinCompany from './pages/company/JoinCompany';
 import Cost from './pages/assessment/Cost';
 import Human from './pages/assessment/Human';
 import BDPipeline from './pages/setup/BDPipeline';
+import Pipeline from './pages/bd-gen/Pipeline';
 import CompanyDashboard from './pages/company/CompanyDashboard';
 import Assessment from './pages/assessment/Assessment';
 import AssessmentResults from './pages/assessment/AssessmentResults';
@@ -46,6 +47,7 @@ import AdPreview from './pages/ads/AdPreview';
 import CampaignCreate from './pages/ads/CampaignCreate';
 import Seo from './pages/attract/Seo';
 import Content from './pages/attract/Content';
+import BrandingHub from './pages/attract/BrandingHub';
 import Events from './pages/events/Events';
 import OutreachHome from './pages/outreach/OutreachHome';
 import CampaignCreator from './pages/outreach/CampaignCreator';
@@ -61,6 +63,12 @@ import BDBaselineAssessment from './pages/assessment/BDBaselineAssessment';
 import BDBaselineResults from './pages/assessment/BDBaselineResults';
 import Settings from './pages/Settings';
 import BDPipelineRoadmap from './pages/bd-gen/BDPipelineRoadmap';
+import Personas from './pages/personas/Personas';
+import PersonaBuilder from './pages/personas/PersonaBuilder';
+import CloseDeals from './pages/proposals/CloseDeals';
+import MeetingDashboard from './pages/meetings/MeetingDashboard';
+import MeetingFeedbackForm from './pages/meetings/MeetingFeedbackForm';
+import Insights from './pages/Insights';
 
 function App() {
   return (
@@ -75,6 +83,7 @@ function App() {
           <Route path="/growth-dashboard" element={<GrowthDashboard />} />
           <Route path="/proposals" element={<ProposalsList />} />
           <Route path="/proposals/:clientId" element={<ProposalPage />} />
+          <Route path="/close-deals" element={<CloseDeals />} />
           <Route path="/assessment-intro" element={<AssessmentIntro />} />
           <Route path="/assessment" element={<Assessment />} />
           <Route path="/assessment-results" element={<AssessmentResults />} />
@@ -87,7 +96,9 @@ function App() {
         <Route path="/growth-dashboard" element={<GrowthDashboard />} />
         <Route path="/ecosystem" element={<Ecosystem />} />
         <Route path="/persona" element={<Persona />} />
-        <Route path="/bdpipeline" element={<BDPipeline />} />
+        <Route path="/personas" element={<Personas />} />
+        <Route path="/personas/builder" element={<PersonaBuilder />} />
+        <Route path="/bdpipeline" element={<Pipeline />} />
         <Route path="/ads" element={<AdsHub />} />
         <Route path="/ads/dashboard" element={<AdsDashboard />} />
         <Route path="/ads/campaign/:campaignId" element={<AdPreview />} />
@@ -95,8 +106,11 @@ function App() {
         <Route path="/ads/tools" element={<AdsDashboard />} />
         <Route path="/seo" element={<Seo />} />
         <Route path="/content" element={<Content />} />
+        <Route path="/branding-hub" element={<BrandingHub />} />
         <Route path="/events" element={<Events />} />
         <Route path="/outreach" element={<OutreachHome />} />
+        <Route path="/meetings" element={<MeetingDashboard />} />
+        <Route path="/meetings/feedback/:id" element={<MeetingFeedbackForm />} />
         <Route path="/outreach/campaign-creator" element={<CampaignCreator />} />
         <Route path="/outreach/campaign-preview" element={<CampaignPreview />} />
         <Route path="/outreach/campaign-success" element={<CampaignSuccess />} />
@@ -110,6 +124,7 @@ function App() {
         <Route path="/bd-baseline-results" element={<BDBaselineResults />} />
         <Route path="/settings" element={<Settings />} />
         <Route path="/roadmap" element={<BDPipelineRoadmap />} />
+        <Route path="/insights" element={<Insights />} />
         <Route path="/splash" element={<Splash />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/signin" element={<Signin />} />
