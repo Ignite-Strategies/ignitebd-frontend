@@ -1,90 +1,62 @@
-import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { TrendingUp, ArrowRight, Users, Handshake, DollarSign, Eye, Heart, MessageCircle, Target, Zap } from 'lucide-react';
+import { TrendingUp, ArrowRight, Users, DollarSign, Eye, Heart, MessageCircle, Target, Zap } from 'lucide-react';
 
-export default function MomentumLoop({ isHydrated }) {
-  const [metrics, setMetrics] = useState(null);
-  const [bdActivity, setBdActivity] = useState([]);
-  const [correlation, setCorrelation] = useState(null);
+export default function MomentumLoop() {
+  const metrics = {
+    totalEngagement: 108,
+    views: 1245,
+    likes: 89,
+    comments: 19,
+    shares: 12,
+    followersGained: 23,
+    engagementRate: 12.4,
+    trend: '+18%',
+    period: 'Last 30 days'
+  };
 
-  useEffect(() => {
-    if (isHydrated) {
-      // Engagement metrics
-      setMetrics({
-        totalEngagement: 108,
-        views: 1245,
-        likes: 89,
-        comments: 19,
-        shares: 12,
-        followersGained: 23,
-        engagementRate: 12.4,
-        trend: '+18%',
-        period: 'Last 30 days'
-      });
-
-      // BD Activity correlated with posts
-      setBdActivity([
-        {
-          id: 1,
-          postDate: '2024-01-15',
-          postContent: 'Just shipped our biggest feature yet...',
-          engagement: { views: 342, likes: 28, comments: 5 },
-          bdOutcomes: [
-            { type: 'Inbound Lead', date: '2024-01-16', value: '$15,000', source: 'LinkedIn post' },
-            { type: 'Mentor Outreach', date: '2024-01-17', value: '2 connections', source: 'Direct message' }
-          ]
-        },
-        {
-          id: 2,
-          postDate: '2024-01-08',
-          postContent: 'The biggest lesson from our last sprint...',
-          engagement: { views: 189, likes: 15, comments: 3 },
-          bdOutcomes: [
-            { type: 'Early Adopter', date: '2024-01-10', value: '1 signup', source: 'Post comment' }
-          ]
-        },
-        {
-          id: 3,
-          postDate: '2024-01-01',
-          postContent: 'Grateful for the mentors who pushed us...',
-          engagement: { views: 267, likes: 22, comments: 7 },
-          bdOutcomes: [
-            { type: 'Partnership Inquiry', date: '2024-01-03', value: 'Potential deal', source: 'Email follow-up' }
-          ]
-        }
-      ]);
-
-      // Correlation summary
-      setCorrelation({
-        postsToLeads: 3,
-        postsToMeetings: 2,
-        postsToDeals: 1,
-        avgDaysToEngagement: 2.3,
-        influenceScore: 72,
-        trustMeter: 8.5
-      });
+  const bdActivity = [
+    {
+      id: 1,
+      postDate: '2024-01-15',
+      postContent: 'Just shipped our biggest feature yet...',
+      engagement: { views: 342, likes: 28, comments: 5 },
+      bdOutcomes: [
+        { type: 'Inbound Lead', date: '2024-01-16', value: '$15,000', source: 'LinkedIn post' },
+        { type: 'Mentor Outreach', date: '2024-01-17', value: '2 connections', source: 'Direct message' }
+      ]
+    },
+    {
+      id: 2,
+      postDate: '2024-01-08',
+      postContent: 'The biggest lesson from our last sprint...',
+      engagement: { views: 189, likes: 15, comments: 3 },
+      bdOutcomes: [
+        { type: 'Early Adopter', date: '2024-01-10', value: '1 signup', source: 'Post comment' }
+      ]
+    },
+    {
+      id: 3,
+      postDate: '2024-01-01',
+      postContent: 'Grateful for the mentors who pushed us...',
+      engagement: { views: 267, likes: 22, comments: 7 },
+      bdOutcomes: [
+        { type: 'Partnership Inquiry', date: '2024-01-03', value: 'Potential deal', source: 'Email follow-up' }
+      ]
     }
-  }, [isHydrated]);
+  ];
 
-  if (!isHydrated || !metrics) {
-    return (
-      <div className="bg-white rounded-2xl shadow-xl p-12 text-center">
-        <div className="inline-block mb-4">
-          <TrendingUp className="h-12 w-12 text-purple-500" />
-        </div>
-        <p className="text-gray-600">Loading momentum data...</p>
-      </div>
-    );
-  }
+  const correlation = {
+    postsToLeads: 3,
+    postsToMeetings: 2,
+    postsToDeals: 1,
+    avgDaysToEngagement: 2.3,
+    influenceScore: 72,
+    trustMeter: 8.5
+  };
 
   return (
     <div className="space-y-6">
       {/* Engagement Overview */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="bg-white rounded-2xl shadow-xl p-8 border border-purple-100"
-      >
+      <div className="bg-white rounded-2xl shadow-xl p-8 border border-purple-100">
         <div className="flex items-center justify-between mb-6">
           <div>
             <h2 className="text-2xl font-bold text-gray-900 mb-2">How Your Voice is Landing</h2>
@@ -132,52 +104,40 @@ export default function MomentumLoop({ isHydrated }) {
             <div className="text-2xl font-bold text-gray-900">{metrics.engagementRate}%</div>
           </div>
         </div>
-      </motion.div>
+      </div>
 
       {/* Correlation Metrics */}
-      {correlation && (
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
-          className="grid grid-cols-1 md:grid-cols-3 gap-4"
-        >
-          <div className="bg-gradient-to-br from-purple-500 to-blue-500 rounded-2xl shadow-xl p-6 text-white">
-            <div className="flex items-center gap-3 mb-4">
-              <Zap className="h-6 w-6" />
-              <h3 className="text-lg font-bold">Influence Score</h3>
-            </div>
-            <div className="text-4xl font-bold mb-2">{correlation.influenceScore}</div>
-            <div className="text-sm opacity-90">Feeds into Ignite Coefficient</div>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="bg-gradient-to-br from-purple-500 to-blue-500 rounded-2xl shadow-xl p-6 text-white">
+          <div className="flex items-center gap-3 mb-4">
+            <Zap className="h-6 w-6" />
+            <h3 className="text-lg font-bold">Influence Score</h3>
           </div>
+          <div className="text-4xl font-bold mb-2">{correlation.influenceScore}</div>
+          <div className="text-sm opacity-90">Feeds into Ignite Coefficient</div>
+        </div>
 
-          <div className="bg-gradient-to-br from-green-500 to-emerald-500 rounded-2xl shadow-xl p-6 text-white">
-            <div className="flex items-center gap-3 mb-4">
-              <Target className="h-6 w-6" />
-              <h3 className="text-lg font-bold">Trust Meter</h3>
-            </div>
-            <div className="text-4xl font-bold mb-2">{correlation.trustMeter}/10</div>
-            <div className="text-sm opacity-90">Based on engagement quality</div>
+        <div className="bg-gradient-to-br from-green-500 to-emerald-500 rounded-2xl shadow-xl p-6 text-white">
+          <div className="flex items-center gap-3 mb-4">
+            <Target className="h-6 w-6" />
+            <h3 className="text-lg font-bold">Trust Meter</h3>
           </div>
+          <div className="text-4xl font-bold mb-2">{correlation.trustMeter}/10</div>
+          <div className="text-sm opacity-90">Based on engagement quality</div>
+        </div>
 
-          <div className="bg-gradient-to-br from-orange-500 to-red-500 rounded-2xl shadow-xl p-6 text-white">
-            <div className="flex items-center gap-3 mb-4">
-              <ArrowRight className="h-6 w-6" />
-              <h3 className="text-lg font-bold">Conversion Window</h3>
-            </div>
-            <div className="text-4xl font-bold mb-2">{correlation.avgDaysToEngagement}d</div>
-            <div className="text-sm opacity-90">Avg. days to BD activity</div>
+        <div className="bg-gradient-to-br from-orange-500 to-red-500 rounded-2xl shadow-xl p-6 text-white">
+          <div className="flex items-center gap-3 mb-4">
+            <ArrowRight className="h-6 w-6" />
+            <h3 className="text-lg font-bold">Conversion Window</h3>
           </div>
-        </motion.div>
-      )}
+          <div className="text-4xl font-bold mb-2">{correlation.avgDaysToEngagement}d</div>
+          <div className="text-sm opacity-90">Avg. days to BD activity</div>
+        </div>
+      </div>
 
       {/* Post-to-BD Activity Mapping */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.2 }}
-        className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100"
-      >
+      <div className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
         <h3 className="text-xl font-bold text-gray-900 mb-6">The Loop: Posts → Engagement → BD Activity</h3>
         
         {bdActivity.length === 0 ? (
@@ -188,12 +148,9 @@ export default function MomentumLoop({ isHydrated }) {
           </div>
         ) : (
           <div className="space-y-6">
-            {bdActivity.map((activity, index) => (
-              <motion.div
+            {bdActivity.map((activity) => (
+              <div
                 key={activity.id}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: index * 0.1 }}
                 className="border-l-4 border-purple-500 pl-6 py-4 bg-gradient-to-r from-purple-50/50 to-white rounded-r-xl"
               >
                 {/* Post Info */}
@@ -218,11 +175,8 @@ export default function MomentumLoop({ isHydrated }) {
                 {/* BD Outcomes */}
                 <div className="space-y-2">
                   {activity.bdOutcomes.map((outcome, idx) => (
-                    <motion.div
+                    <div
                       key={idx}
-                      initial={{ opacity: 0, x: 20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: (index * 0.1) + (idx * 0.05) }}
                       className="flex items-center gap-3 p-3 bg-white rounded-lg border border-gray-200 shadow-sm"
                     >
                       <ArrowRight className="h-5 w-5 text-green-600 flex-shrink-0" />
@@ -242,45 +196,38 @@ export default function MomentumLoop({ isHydrated }) {
                       ) : (
                         <Users className="h-5 w-5 text-blue-600 flex-shrink-0" />
                       )}
-                    </motion.div>
+                    </div>
                   ))}
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
         )}
-      </motion.div>
+      </div>
 
       {/* Summary Stats */}
-      {correlation && (
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
-          className="bg-gradient-to-br from-gray-900 to-gray-800 rounded-2xl shadow-xl p-8 text-white"
-        >
-          <h3 className="text-xl font-bold mb-6">Your Authenticity ROI</h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div>
-              <div className="text-3xl font-bold mb-2">{correlation.postsToLeads}</div>
-              <div className="text-sm text-gray-300">Posts → Leads</div>
-            </div>
-            <div>
-              <div className="text-3xl font-bold mb-2">{correlation.postsToMeetings}</div>
-              <div className="text-sm text-gray-300">Posts → Meetings</div>
-            </div>
-            <div>
-              <div className="text-3xl font-bold mb-2">{correlation.postsToDeals}</div>
-              <div className="text-sm text-gray-300">Posts → Deals</div>
-            </div>
+      <div className="bg-gradient-to-br from-gray-900 to-gray-800 rounded-2xl shadow-xl p-8 text-white">
+        <h3 className="text-xl font-bold mb-6">Your Authenticity ROI</h3>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div>
+            <div className="text-3xl font-bold mb-2">{correlation.postsToLeads}</div>
+            <div className="text-sm text-gray-300">Posts → Leads</div>
           </div>
-          <div className="mt-6 pt-6 border-t border-gray-700">
-            <p className="text-sm text-gray-300">
-              Your authentic voice is building trust and opening doors. Keep sharing your journey.
-            </p>
+          <div>
+            <div className="text-3xl font-bold mb-2">{correlation.postsToMeetings}</div>
+            <div className="text-sm text-gray-300">Posts → Meetings</div>
           </div>
-        </motion.div>
-      )}
+          <div>
+            <div className="text-3xl font-bold mb-2">{correlation.postsToDeals}</div>
+            <div className="text-sm text-gray-300">Posts → Deals</div>
+          </div>
+        </div>
+        <div className="mt-6 pt-6 border-t border-gray-700">
+          <p className="text-sm text-gray-300">
+            Your authentic voice is building trust and opening doors. Keep sharing your journey.
+          </p>
+        </div>
+      </div>
     </div>
   );
 }

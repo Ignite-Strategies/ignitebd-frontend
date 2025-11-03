@@ -1,13 +1,11 @@
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Send, Eye, Linkedin, Mail, Link2, Wand2, Lightbulb, X, Heart, PenTool } from 'lucide-react';
+import { useState } from 'react';
+import { Send, Eye, Linkedin, Mail, Link2, Wand2, Lightbulb, Heart, PenTool } from 'lucide-react';
 
-export default function VoiceBuilder({ isHydrated }) {
+export default function VoiceBuilder() {
   const [content, setContent] = useState('');
   const [postType, setPostType] = useState('Update');
   const [selectedPrompt, setSelectedPrompt] = useState(null);
   const [showPreview, setShowPreview] = useState(false);
-  const [toneAnalysis, setToneAnalysis] = useState(null);
 
   const prompts = [
     {
@@ -36,23 +34,20 @@ export default function VoiceBuilder({ isHydrated }) {
     }
   ];
 
-  // Simulate tone analysis
-  useEffect(() => {
-    if (content.length > 50) {
-      const words = content.toLowerCase().split(' ');
-      const analysis = {
-        authenticity: Math.min(95, 70 + Math.random() * 25),
-        clarity: Math.min(95, 75 + Math.random() * 20),
-        engagement: Math.min(95, 65 + Math.random() * 30),
-        tone: words.includes('learned') || words.includes('lesson') ? 'Reflective' :
-              words.includes('grateful') || words.includes('thank') ? 'Grateful' :
-              words.includes('launched') || words.includes('shipped') ? 'Energetic' : 'Balanced'
-      };
-      setToneAnalysis(analysis);
-    } else {
-      setToneAnalysis(null);
-    }
-  }, [content]);
+  const getToneAnalysis = () => {
+    if (content.length < 50) return null;
+    const words = content.toLowerCase().split(' ');
+    return {
+      authenticity: 85,
+      clarity: 80,
+      engagement: 75,
+      tone: words.includes('learned') || words.includes('lesson') ? 'Reflective' :
+            words.includes('grateful') || words.includes('thank') ? 'Grateful' :
+            words.includes('launched') || words.includes('shipped') ? 'Energetic' : 'Balanced'
+    };
+  };
+
+  const toneAnalysis = getToneAnalysis();
 
   const handlePromptSelect = (prompt) => {
     setSelectedPrompt(prompt);
@@ -61,44 +56,26 @@ export default function VoiceBuilder({ isHydrated }) {
   };
 
   const handlePublish = () => {
-    // In real app, this would publish to LinkedIn, email, etc.
     alert(`Post published as ${postType}! This would integrate with LinkedIn API, email digest, and Ignite Share Page.`);
     setContent('');
     setShowPreview(false);
   };
-
-  if (!isHydrated) {
-    return (
-      <div className="bg-white rounded-2xl shadow-xl p-12 text-center">
-        <div className="inline-block mb-4">
-          <PenTool className="h-12 w-12 text-purple-500" />
-        </div>
-        <p className="text-gray-600">Preparing your voice builder...</p>
-      </div>
-    );
-  }
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
       {/* Main Editor */}
       <div className="lg:col-span-2 space-y-6">
         {/* Prompt Selector */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="bg-white rounded-2xl shadow-xl p-6 border border-purple-100"
-        >
+        <div className="bg-white rounded-2xl shadow-xl p-6 border border-purple-100">
           <h3 className="text-lg font-bold text-gray-900 mb-4">Start with a prompt</h3>
           <div className="grid grid-cols-2 gap-3">
             {prompts.map((prompt) => {
               const Icon = prompt.icon;
               const isSelected = selectedPrompt?.type === prompt.type;
               return (
-                <motion.button
+                <button
                   key={prompt.type}
                   onClick={() => handlePromptSelect(prompt)}
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
                   className={`p-4 rounded-xl text-left transition-all ${
                     isSelected
                       ? 'bg-gradient-to-r from-purple-500 to-blue-500 text-white shadow-lg'
@@ -110,19 +87,14 @@ export default function VoiceBuilder({ isHydrated }) {
                     <span className="font-semibold text-sm">{prompt.type}</span>
                   </div>
                   <p className="text-xs opacity-90">{prompt.question}</p>
-                </motion.button>
+                </button>
               );
             })}
           </div>
-        </motion.div>
+        </div>
 
         {/* Editor */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
-          className="bg-white rounded-2xl shadow-xl p-6 border border-gray-200"
-        >
+        <div className="bg-white rounded-2xl shadow-xl p-6 border border-gray-200">
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-3">
               <PenTool className="h-5 w-5 text-purple-600" />
@@ -151,48 +123,34 @@ export default function VoiceBuilder({ isHydrated }) {
             </div>
           )}
 
-          <AnimatePresence mode="wait">
-            {!showPreview ? (
-              <motion.textarea
-                key="editor"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                value={content}
-                onChange={(e) => setContent(e.target.value)}
-                placeholder={selectedPrompt?.placeholder || "What's on your mind? Share authentically..."}
-                className="w-full h-64 p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent resize-none text-gray-800 leading-relaxed"
-              />
-            ) : (
-              <motion.div
-                key="preview"
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                className="min-h-[256px] p-6 bg-gradient-to-br from-gray-50 to-white rounded-xl border-2 border-purple-200"
-              >
-                <div className="flex items-center gap-3 mb-4 pb-4 border-b border-gray-200">
-                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-400 to-blue-400 flex items-center justify-center text-xl">
-                    👤
-                  </div>
-                  <div>
-                    <div className="font-semibold text-gray-900">Adam | GoFast</div>
-                    <div className="text-xs text-gray-500">Just now</div>
-                  </div>
+          {!showPreview ? (
+            <textarea
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
+              placeholder={selectedPrompt?.placeholder || "What's on your mind? Share authentically..."}
+              className="w-full h-64 p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent resize-none text-gray-800 leading-relaxed"
+            />
+          ) : (
+            <div className="min-h-[256px] p-6 bg-gradient-to-br from-gray-50 to-white rounded-xl border-2 border-purple-200">
+              <div className="flex items-center gap-3 mb-4 pb-4 border-b border-gray-200">
+                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-400 to-blue-400 flex items-center justify-center text-xl">
+                  👤
                 </div>
-                <div className="prose prose-sm max-w-none">
-                  <p className="text-gray-800 whitespace-pre-wrap leading-relaxed">{content || 'Your post will appear here...'}</p>
+                <div>
+                  <div className="font-semibold text-gray-900">Adam | GoFast</div>
+                  <div className="text-xs text-gray-500">Just now</div>
                 </div>
-                {postType && (
-                  <div className="mt-4 pt-4 border-t border-gray-200">
-                    <span className="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-xs font-medium">
-                      {postType}
-                    </span>
-                  </div>
-                )}
-              </motion.div>
-            )}
-          </AnimatePresence>
+              </div>
+              <p className="text-gray-800 whitespace-pre-wrap leading-relaxed">{content || 'Your post will appear here...'}</p>
+              {postType && (
+                <div className="mt-4 pt-4 border-t border-gray-200">
+                  <span className="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-xs font-medium">
+                    {postType}
+                  </span>
+                </div>
+              )}
+            </div>
+          )}
 
           <div className="mt-4 flex items-center justify-between">
             <div className="text-sm text-gray-500">
@@ -208,11 +166,7 @@ export default function VoiceBuilder({ isHydrated }) {
 
           {/* Publish Options */}
           {content.length > 20 && (
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="mt-6 pt-6 border-t border-gray-200"
-            >
+            <div className="mt-6 pt-6 border-t border-gray-200">
               <div className="flex items-center gap-3 mb-4">
                 <span className="text-sm font-medium text-gray-700">Publish to:</span>
                 <div className="flex gap-2">
@@ -237,20 +191,16 @@ export default function VoiceBuilder({ isHydrated }) {
                 <Send className="h-5 w-5" />
                 Publish & Share
               </button>
-            </motion.div>
+            </div>
           )}
-        </motion.div>
+        </div>
       </div>
 
       {/* Sidebar - Tone Analysis & Tips */}
       <div className="space-y-6">
         {/* Tone Analysis */}
         {toneAnalysis && (
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            className="bg-white rounded-2xl shadow-xl p-6 border border-purple-100"
-          >
+          <div className="bg-white rounded-2xl shadow-xl p-6 border border-purple-100">
             <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
               <Wand2 className="h-5 w-5 text-purple-600" />
               Tone Analysis
@@ -263,11 +213,9 @@ export default function VoiceBuilder({ isHydrated }) {
                     <span className="font-semibold text-gray-900">{Math.round(value)}%</span>
                   </div>
                   <div className="w-full bg-gray-200 rounded-full h-2">
-                    <motion.div
-                      initial={{ width: 0 }}
-                      animate={{ width: `${value}%` }}
-                      transition={{ duration: 0.8 }}
+                    <div
                       className="bg-gradient-to-r from-purple-500 to-blue-500 h-2 rounded-full"
+                      style={{ width: `${value}%` }}
                     />
                   </div>
                 </div>
@@ -279,16 +227,11 @@ export default function VoiceBuilder({ isHydrated }) {
                 </div>
               </div>
             </div>
-          </motion.div>
+          </div>
         )}
 
         {/* Tips */}
-        <motion.div
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.2 }}
-          className="bg-gradient-to-br from-purple-50 to-blue-50 rounded-2xl shadow-xl p-6 border border-purple-100"
-        >
+        <div className="bg-gradient-to-br from-purple-50 to-blue-50 rounded-2xl shadow-xl p-6 border border-purple-100">
           <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
             <Lightbulb className="h-5 w-5 text-yellow-500" />
             Tips for Authenticity
@@ -311,9 +254,8 @@ export default function VoiceBuilder({ isHydrated }) {
               <span>Connect your journey to your values</span>
             </li>
           </ul>
-        </motion.div>
+        </div>
       </div>
     </div>
   );
 }
-

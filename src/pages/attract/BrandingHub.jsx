@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { User, PenTool, TrendingUp } from 'lucide-react';
 import IdentityPulse from './components/IdentityPulse';
 import VoiceBuilder from './components/VoiceBuilder';
@@ -6,13 +6,6 @@ import MomentumLoop from './components/MomentumLoop';
 
 export default function BrandingHub() {
   const [activeZone, setActiveZone] = useState('pulse');
-  const [isHydrated, setIsHydrated] = useState(false);
-
-  // Simulate hydration loading
-  useEffect(() => {
-    const timer = setTimeout(() => setIsHydrated(true), 800);
-    return () => clearTimeout(timer);
-  }, []);
 
   const zones = [
     { id: 'pulse', name: 'Identity Pulse', icon: User, description: 'Who you are showing up as' },
@@ -69,9 +62,9 @@ export default function BrandingHub() {
 
         {/* Zone Content */}
         <div className="max-w-7xl mx-auto">
-          {activeZone === 'pulse' && <IdentityPulse isHydrated={isHydrated} />}
-          {activeZone === 'voice' && <VoiceBuilder isHydrated={isHydrated} />}
-          {activeZone === 'momentum' && <MomentumLoop isHydrated={isHydrated} />}
+          {activeZone === 'pulse' && <IdentityPulse />}
+          {activeZone === 'voice' && <VoiceBuilder />}
+          {activeZone === 'momentum' && <MomentumLoop />}
         </div>
       </div>
     </div>
