@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useActivation } from '../context/ActivationContext';
+import { useActivation } from '../../context/ActivationContext';
 
 export default function Human() {
   const navigate = useNavigate();
