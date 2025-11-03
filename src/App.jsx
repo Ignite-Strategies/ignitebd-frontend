@@ -97,7 +97,7 @@ function App() {
         <Route path="/target-acquisition" element={<TargetAcquisition />} />
         <Route path="/bd-assessment-total-outlook" element={<BDAssessmentTotalOutlook />} />
         <Route path="/growth-dashboard" element={<GrowthDashboard />} />
-        <Route path="/ecosystem" element={<Ecosystem />} />
+        <Route path="/setup/ecosystem" element={<Ecosystem />} />
         <Route path="/persona" element={<Persona />} />
         <Route path="/personas" element={<Personas />} />
         <Route path="/personas/builder" element={<PersonaBuilder />} />

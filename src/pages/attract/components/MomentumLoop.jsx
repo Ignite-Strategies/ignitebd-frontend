@@ -69,13 +69,9 @@ export default function MomentumLoop({ isHydrated }) {
   if (!isHydrated || !metrics) {
     return (
       <div className="bg-white rounded-2xl shadow-xl p-12 text-center">
-        <motion.div
-          animate={{ rotate: 360 }}
-          transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-          className="inline-block mb-4"
-        >
+        <div className="inline-block mb-4">
           <TrendingUp className="h-12 w-12 text-purple-500" />
-        </motion.div>
+        </div>
         <p className="text-gray-600">Loading momentum data...</p>
       </div>
     );

@@ -26,6 +26,7 @@ const navigationGroups = [
     name: 'Setup',
     items: [
       { name: 'Personas', path: '/personas', icon: UserCircle },
+      { name: 'Ecosystem', path: '/setup/ecosystem', icon: Building2 },
     ]
   },
   {

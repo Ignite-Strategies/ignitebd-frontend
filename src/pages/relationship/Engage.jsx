@@ -244,7 +244,7 @@ export default function Engage() {
         </div>
 
         <button
-          onClick={() => navigate('/ecosystem')}
+          onClick={() => navigate('/setup/ecosystem')}
           className="w-full px-4 py-3 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition font-medium flex items-center justify-center gap-2"
         >
           View Full Ecosystem →
