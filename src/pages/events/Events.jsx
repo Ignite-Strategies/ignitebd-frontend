@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Plus } from 'lucide-react';
 import Navigation from '../../components/Navigation';
+import CreateEvent from './CreateEvent';
 
 export default function Events() {
   const navigate = useNavigate();
@@ -12,6 +14,7 @@ export default function Events() {
   const [myEvents, setMyEvents] = useState([]);
   const [loading, setLoading] = useState(false);
   const [activeTab, setActiveTab] = useState('discover');
+  const [showCreateModal, setShowCreateModal] = useState(false);
 
   // Industry options
   const industries = [
@@ -156,8 +159,17 @@ export default function Events() {
   ];
 
   useEffect(() => {
-    setMyEvents(myUpcomingEvents);
+    // Load events from localStorage on mount
+    const savedEvents = JSON.parse(localStorage.getItem('myEvents') || '[]');
+    setMyEvents([...myUpcomingEvents, ...savedEvents]);
   }, []);
+
+  const handleEventCreated = (newEvent) => {
+    setMyEvents(prev => [...prev, newEvent]);
+    setShowCreateModal(false);
+    // Switch to My Events tab to show the new event
+    setActiveTab('my-events');
+  };
 
   const handleHydrateEvents = async () => {
     if (!selectedIndustry || !selectedLocation) {
@@ -381,9 +393,18 @@ export default function Events() {
         <div className="max-w-6xl mx-auto">
           
           {/* Header */}
-          <div className="mb-8">
-            <h1 className="text-3xl font-bold text-gray-900 mb-4">Event Tracker</h1>
-            <p className="text-gray-600">Discover and manage your networking events</p>
+          <div className="mb-8 flex items-center justify-between">
+            <div>
+              <h1 className="text-3xl font-bold text-gray-900 mb-4">Event Tracker</h1>
+              <p className="text-gray-600">Discover and manage your networking events</p>
+            </div>
+            <button
+              onClick={() => setShowCreateModal(true)}
+              className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-red-600 to-orange-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all hover:scale-105"
+            >
+              <Plus className="h-5 w-5" />
+              Add Event Manually
+            </button>
           </div>
 
           {/* Tabs */}
@@ -439,6 +460,14 @@ export default function Events() {
 
         </div>
       </div>
+
+      {/* Create Event Modal */}
+      {showCreateModal && (
+        <CreateEvent
+          onClose={() => setShowCreateModal(false)}
+          onEventCreated={handleEventCreated}
+        />
+      )}
     </div>
   );
 }
