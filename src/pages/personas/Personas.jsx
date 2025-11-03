@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Plus, UserCircle } from 'lucide-react';
-import { loadPersonas } from '../../utils/personaData';
+import { hydratePersonas } from '../../utils/personaData';
+import { DEMO_PERSONAS } from '../../data/demoPersonas';
 
 const Personas = () => {
   const navigate = useNavigate();
@@ -9,9 +10,9 @@ const Personas = () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    // Load personas from localStorage
-    const savedPersonas = loadPersonas();
-    setPersonas(savedPersonas);
+    // Load personas from localStorage or hydrate with demo data
+    const hydratedPersonas = hydratePersonas(DEMO_PERSONAS);
+    setPersonas(hydratedPersonas);
     // TODO: When API is ready, uncomment below and remove localStorage loading
     // const fetchPersonas = async () => {
     //   setLoading(true);
@@ -61,7 +62,7 @@ const Personas = () => {
                 <div>
                   <h3 className="text-lg font-semibold text-gray-900">{persona.name}</h3>
                   <p className="text-sm text-gray-500">{persona.title}</p>
-                  <p className="text-xs text-gray-400">{persona.company}</p>
+                  {persona.company && <p className="text-xs text-gray-400">{persona.company}</p>}
                 </div>
               </div>
               <div className="space-y-3">

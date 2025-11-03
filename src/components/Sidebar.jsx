@@ -49,7 +49,7 @@ const navigationGroups = [
       { name: 'Events', path: '/events', icon: Calendar },
       { name: 'Ads & SEO', path: '/ads', icon: Search },
       { name: 'Content', path: '/content', icon: FileText },
-      { name: 'Branding Hub', path: '/branding-hub', icon: Sparkles },
+      { name: 'Branding Hub', path: '/branding-hub', icon: UserCircle },
     ]
   },
   {

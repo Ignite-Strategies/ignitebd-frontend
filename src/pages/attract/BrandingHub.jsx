@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Sparkles, PenTool, TrendingUp } from 'lucide-react';
+import { User, PenTool, TrendingUp } from 'lucide-react';
 import IdentityPulse from './components/IdentityPulse';
 import VoiceBuilder from './components/VoiceBuilder';
 import MomentumLoop from './components/MomentumLoop';
@@ -15,7 +15,7 @@ export default function BrandingHub() {
   }, []);
 
   const zones = [
-    { id: 'pulse', name: 'Identity Pulse', icon: Sparkles, description: 'Who you are showing up as' },
+    { id: 'pulse', name: 'Identity Pulse', icon: User, description: 'Who you are showing up as' },
     { id: 'voice', name: 'Voice Builder', icon: PenTool, description: 'Craft your authentic message' },
     { id: 'momentum', name: 'Momentum Loop', icon: TrendingUp, description: 'How your voice is landing' },
   ];
@@ -27,7 +27,7 @@ export default function BrandingHub() {
         <div className="max-w-7xl mx-auto mb-8">
           <div className="flex items-center gap-3 mb-4">
             <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center shadow-lg">
-              <Sparkles className="h-6 w-6 text-white" />
+              <User className="h-6 w-6 text-white" />
             </div>
             <div>
               <h1 className="text-4xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">

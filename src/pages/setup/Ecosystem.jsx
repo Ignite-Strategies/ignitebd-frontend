@@ -332,8 +332,7 @@ export default function Ecosystem() {
     connectors: [],
     platforms: [],
     institutions: [],
-    communities: [],
-    events: []
+    communities: []
   });
 
   const relationshipTypes = [
@@ -361,8 +360,8 @@ export default function Ecosystem() {
     { 
       id: 'institutions', 
       name: 'Institutions', 
-      description: 'Formal orgs tied to your space',
-      goal: 'Credibility, compliance, industry standing',
+      description: 'Formal orgs tied to your space (associations, event hosts, licensing bodies)',
+      goal: 'Credibility, compliance, industry standing, speaking opportunities',
       icon: '🏢' 
     },
     { 
@@ -371,13 +370,6 @@ export default function Ecosystem() {
       description: 'Networks where your clients or peers gather',
       goal: 'Engagement, visibility, relationships',
       icon: '👥' 
-    },
-    { 
-      id: 'events', 
-      name: 'Events', 
-      description: 'Event planners, hosts, and conference organizers',
-      goal: 'Speaking, booth, sponsorship',
-      icon: '🎯' 
     }
   ];
 
@@ -393,6 +385,43 @@ export default function Ecosystem() {
       } catch (e) {
         console.error('Error loading ecosystem data:', e);
       }
+    } else {
+      // Demo data for first-time users
+      const demoData = {
+        collaborators: [
+          { id: 1, name: 'Design Studio Co' },
+          { id: 2, name: 'Tech Solutions Inc' },
+          { id: 3, name: 'Marketing Partners' }
+        ],
+        connectors: [
+          { id: 4, name: 'Sarah Johnson' },
+          { id: 5, name: 'Mike Chen' },
+          { id: 6, name: 'Lisa Martinez' }
+        ],
+        platforms: [
+          { id: 7, name: 'Google Ads' },
+          { id: 8, name: 'LinkedIn' },
+          { id: 9, name: 'Stripe' }
+        ],
+        institutions: [
+          { id: 10, name: 'State Bar Association' },
+          { id: 11, name: 'Chamber of Commerce' },
+          { id: 12, name: 'Industry Alliance' },
+          { id: 13, name: 'TechCrunch Disrupt' },
+          { id: 14, name: 'SXSW Conference' }
+        ],
+        communities: [
+          { id: 15, name: 'Tech Founders Slack' },
+          { id: 16, name: 'LinkedIn Pro Group' },
+          { id: 17, name: 'Local Business Network' }
+        ]
+      };
+      setEcosystemData(demoData);
+      // Save demo data
+      localStorage.setItem('ecosystemData', JSON.stringify({
+        ecosystemData: demoData,
+        timestamp: new Date().toISOString()
+      }));
     }
   }, []);
 

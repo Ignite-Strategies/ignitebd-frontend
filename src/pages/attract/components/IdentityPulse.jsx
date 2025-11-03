@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { User, Building2, Heart, TrendingUp, Calendar, Sparkles } from 'lucide-react';
+import { User, Building2, Heart, TrendingUp, Calendar } from 'lucide-react';
 
 export default function IdentityPulse({ isHydrated }) {
   const [profile, setProfile] = useState(null);
@@ -57,7 +57,7 @@ export default function IdentityPulse({ isHydrated }) {
     return (
       <div className="bg-white rounded-2xl shadow-xl p-12 text-center">
         <div className="inline-block mb-4">
-          <Sparkles className="h-12 w-12 text-purple-500" />
+          <User className="h-12 w-12 text-purple-500" />
         </div>
         <p className="text-gray-600">Loading your identity pulse...</p>
       </div>
@@ -160,7 +160,7 @@ export default function IdentityPulse({ isHydrated }) {
         <h3 className="text-xl font-bold text-gray-900 mb-6">Recent Posts</h3>
         {posts.length === 0 ? (
           <div className="text-center py-12 bg-gray-50 rounded-xl">
-            <Sparkles className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+            <User className="h-12 w-12 text-gray-400 mx-auto mb-4" />
             <p className="text-gray-600 mb-2">The world hasn't heard from you in a while</p>
             <p className="text-sm text-gray-500">Let's fix that — start crafting your voice</p>
           </div>

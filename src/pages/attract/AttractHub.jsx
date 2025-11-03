@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Calendar, Search, FileText, Sparkles, TrendingUp } from 'lucide-react';
+import { Calendar, Search, FileText, User, TrendingUp } from 'lucide-react';
 
 export default function AttractHub() {
   const navigate = useNavigate();
@@ -33,11 +33,10 @@ export default function AttractHub() {
     {
       name: 'Branding Hub',
       description: 'Craft your authentic professional identity',
-      icon: Sparkles,
+      icon: User,
       route: '/branding-hub',
       color: 'from-pink-500 to-purple-600',
-      hoverColor: 'hover:from-pink-600 hover:to-purple-700',
-      featured: true
+      hoverColor: 'hover:from-pink-600 hover:to-purple-700'
     }
   ];
 
@@ -77,15 +76,8 @@ export default function AttractHub() {
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 onClick={() => navigate(tool.route)}
-                className={`relative bg-white rounded-2xl shadow-xl p-8 border-2 border-transparent cursor-pointer transition-all ${
-                  tool.featured ? 'border-purple-200 ring-2 ring-purple-100' : 'hover:border-gray-200'
-                }`}
+                className="relative bg-white rounded-2xl shadow-xl p-8 border-2 border-transparent cursor-pointer transition-all hover:border-gray-200"
               >
-                {tool.featured && (
-                  <div className="absolute -top-3 -right-3 px-3 py-1 bg-gradient-to-r from-pink-500 to-purple-500 text-white text-xs font-semibold rounded-full shadow-lg">
-                    New
-                  </div>
-                )}
                 
                 <div className="flex items-start gap-4">
                   <div className={`w-16 h-16 rounded-xl bg-gradient-to-br ${tool.color} flex items-center justify-center shadow-lg flex-shrink-0`}>

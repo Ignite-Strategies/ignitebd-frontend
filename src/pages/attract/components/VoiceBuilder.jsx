@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Sparkles, Send, Eye, Linkedin, Mail, Link2, Wand2, Lightbulb, X, Heart, PenTool } from 'lucide-react';
+import { Send, Eye, Linkedin, Mail, Link2, Wand2, Lightbulb, X, Heart, PenTool } from 'lucide-react';
 
 export default function VoiceBuilder({ isHydrated }) {
   const [content, setContent] = useState('');
@@ -18,7 +18,7 @@ export default function VoiceBuilder({ isHydrated }) {
     },
     {
       type: 'Update',
-      icon: Sparkles,
+      icon: PenTool,
       question: 'What progress did you make?',
       placeholder: 'Tell us about a milestone, feature, or win...'
     },
@@ -71,7 +71,7 @@ export default function VoiceBuilder({ isHydrated }) {
     return (
       <div className="bg-white rounded-2xl shadow-xl p-12 text-center">
         <div className="inline-block mb-4">
-          <Sparkles className="h-12 w-12 text-purple-500" />
+          <PenTool className="h-12 w-12 text-purple-500" />
         </div>
         <p className="text-gray-600">Preparing your voice builder...</p>
       </div>

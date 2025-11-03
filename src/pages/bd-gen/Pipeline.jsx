@@ -14,17 +14,51 @@ const dealStages = [
 
 // Demo contacts to hydrate the pipeline
 const demoContacts = [
-  { id: '1', name: 'David Chen', company: 'Ares Capital', title: 'Capital Partner', stage: 'interested', type: 'prospects', value: 45000, source: 'LinkedIn' },
-  { id: '2', name: 'Sarah Martinez', company: 'Orion Holdings', title: 'Portfolio Manager', stage: 'interested', type: 'prospects', value: 32000, source: 'Event' },
-  { id: '3', name: 'Michael Thompson', company: 'Meridian Partners', title: 'Investment Director', stage: 'had-meeting', type: 'prospects', value: 65000, source: 'Referral' },
-  { id: '4', name: 'Jennifer Wilson', company: 'Global Capital Group', title: 'Capital Partner', stage: 'had-meeting', type: 'prospects', value: 55000, source: 'LinkedIn' },
-  { id: '5', name: 'Robert Lee', company: 'Acme Ventures', title: 'Portfolio Manager', stage: 'contract-negotiations', type: 'prospects', value: 75000, source: 'Event' },
-  { id: '6', name: 'Amanda Brown', company: 'Strategic Investments LLC', title: 'Investment Director', stage: 'contract-negotiations', type: 'prospects', value: 85000, source: 'Referral' },
-  { id: '7', name: 'James Davis', company: 'Premier Capital', title: 'Capital Partner', stage: 'contract-signed', type: 'prospects', value: 95000, source: 'LinkedIn' },
-  { id: '8', name: 'Lisa Anderson', company: 'Summit Holdings', title: 'Portfolio Manager', stage: 'contract-signed', type: 'prospects', value: 68000, source: 'Event' },
-  { id: '9', name: 'Tech Solutions Inc', company: 'Tech Solutions Inc', title: 'CTO', stage: 'interested', type: 'tech-partners', value: 0, source: 'Partnership' },
-  { id: '10', name: 'Data Analytics Co', company: 'Data Analytics Co', title: 'CEO', stage: 'had-meeting', type: 'tech-partners', value: 0, source: 'Partnership' },
-  { id: '11', name: 'Legal Services Corp', company: 'Legal Services Corp', title: 'Founder', stage: 'interested', type: 'collaborators', value: 0, source: 'Referral' },
+  // Prospects - Interested
+  { id: '1', name: 'David Chen', company: 'TechStart Industries', title: 'CEO', stage: 'interested', type: 'prospects', value: 45000, source: 'LinkedIn' },
+  { id: '2', name: 'Sarah Martinez', company: 'Digital Marketing Pro', title: 'Marketing Director', stage: 'interested', type: 'prospects', value: 32000, source: 'Event' },
+  { id: '3', name: 'Michael Thompson', company: 'Growth Solutions LLC', title: 'Business Development Manager', stage: 'interested', type: 'prospects', value: 28000, source: 'Website' },
+  
+  // Prospects - Had Meeting
+  { id: '4', name: 'Jennifer Wilson', company: 'Enterprise Solutions Group', title: 'VP of Operations', stage: 'had-meeting', type: 'prospects', value: 65000, source: 'Referral' },
+  { id: '5', name: 'Robert Lee', company: 'Innovation Labs', title: 'Founder', stage: 'had-meeting', type: 'prospects', value: 55000, source: 'LinkedIn' },
+  { id: '6', name: 'Amanda Brown', company: 'Strategic Consulting Inc', title: 'Managing Partner', stage: 'had-meeting', type: 'prospects', value: 48000, source: 'Event' },
+  
+  // Prospects - Contract Negotiations
+  { id: '7', name: 'James Davis', company: 'Premier Business Services', title: 'CEO', stage: 'contract-negotiations', type: 'prospects', value: 75000, source: 'LinkedIn' },
+  { id: '8', name: 'Lisa Anderson', company: 'Summit Consulting Group', title: 'Operations Director', stage: 'contract-negotiations', type: 'prospects', value: 85000, source: 'Referral' },
+  
+  // Prospects - Contract Signed
+  { id: '9', name: 'Thomas Williams', company: 'Success Partners LLC', title: 'Founder', stage: 'contract-signed', type: 'prospects', value: 95000, source: 'LinkedIn' },
+  { id: '10', name: 'Emily Johnson', company: 'Global Business Hub', title: 'VP Business Development', stage: 'contract-signed', type: 'prospects', value: 68000, source: 'Event' },
+  
+  // Tech Partners - Interested
+  { id: '11', name: 'Alex Rodriguez', company: 'CloudTech Solutions', title: 'CTO', stage: 'interested', type: 'tech-partners', value: 0, source: 'Partnership' },
+  { id: '12', name: 'Maria Garcia', company: 'DataSync Platforms', title: 'CEO', stage: 'interested', type: 'tech-partners', value: 0, source: 'Partnership' },
+  
+  // Tech Partners - Had Meeting
+  { id: '13', name: 'Michael Chen', company: 'DevOps Innovations', title: 'Founder', stage: 'had-meeting', type: 'tech-partners', value: 0, source: 'Partnership' },
+  { id: '14', name: 'Jessica Park', company: 'AI Integration Labs', title: 'CTO', stage: 'had-meeting', type: 'tech-partners', value: 0, source: 'Partnership' },
+  
+  // Tech Partners - Contract Negotiations
+  { id: '15', name: 'Ryan Kim', company: 'Automation Systems Co', title: 'CEO', stage: 'contract-negotiations', type: 'tech-partners', value: 0, source: 'Partnership' },
+  
+  // Tech Partners - Contract Signed
+  { id: '16', name: 'Sarah Kim', company: 'DevOps Partners', title: 'Partner', stage: 'contract-signed', type: 'tech-partners', value: 0, source: 'Partnership' },
+  
+  // Collaborators - Interested
+  { id: '17', name: 'Patricia Moore', company: 'Legal Services Corp', title: 'Founder', stage: 'interested', type: 'collaborators', value: 0, source: 'Referral' },
+  { id: '18', name: 'Daniel White', company: 'Marketing Agency Pro', title: 'Creative Director', stage: 'interested', type: 'collaborators', value: 0, source: 'Referral' },
+  
+  // Collaborators - Had Meeting
+  { id: '19', name: 'Rachel Green', company: 'Content Marketing Studio', title: 'Owner', stage: 'had-meeting', type: 'collaborators', value: 0, source: 'Referral' },
+  { id: '20', name: 'Chris Taylor', company: 'Design Co', title: 'Founder', stage: 'had-meeting', type: 'collaborators', value: 0, source: 'Event' },
+  
+  // Collaborators - Contract Negotiations
+  { id: '21', name: 'Jordan Smith', company: 'PR & Communications', title: 'Managing Partner', stage: 'contract-negotiations', type: 'collaborators', value: 0, source: 'Referral' },
+  
+  // Collaborators - Contract Signed
+  { id: '22', name: 'Morgan Lee', company: 'Brand Strategy Group', title: 'Principal', stage: 'contract-signed', type: 'collaborators', value: 0, source: 'Referral' },
 ];
 
 export default function Pipeline() {
