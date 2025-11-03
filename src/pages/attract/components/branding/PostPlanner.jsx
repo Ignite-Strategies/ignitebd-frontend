@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { ArrowLeft, Edit2, Check, Circle, FileText, Calendar } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { ArrowLeft, Edit2, Check, Circle, FileText, Calendar, Eye } from 'lucide-react';
 
 const statusConfig = {
   not_started: { label: 'Not started', color: 'bg-gray-100 text-gray-600', icon: Circle },
@@ -8,6 +9,7 @@ const statusConfig = {
 };
 
 export default function PostPlanner({ userData, onBack }) {
+  const navigate = useNavigate();
   const [posts, setPosts] = useState(userData.posts || []);
   const [editingPost, setEditingPost] = useState(null);
   const [editTitle, setEditTitle] = useState('');
@@ -46,13 +48,22 @@ export default function PostPlanner({ userData, onBack }) {
               {posts.length} posts planned for your narrative arc
             </p>
           </div>
-          <button
-            onClick={onBack}
-            className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-all flex items-center gap-2"
-          >
-            <ArrowLeft className="h-4 w-4" />
-            Back to Setup
-          </button>
+          <div className="flex gap-2">
+            <button
+              onClick={() => navigate('/branding-hub/adam-cole')}
+              className="px-4 py-2 bg-blue-50 border border-blue-200 text-blue-700 rounded-lg hover:bg-blue-100 transition-all flex items-center gap-2 text-sm font-medium"
+            >
+              <Eye className="h-4 w-4" />
+              See Example Plan
+            </button>
+            <button
+              onClick={onBack}
+              className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-all flex items-center gap-2"
+            >
+              <ArrowLeft className="h-4 w-4" />
+              Back to Setup
+            </button>
+          </div>
         </div>
 
         {/* Narrative Arc Summary */}
