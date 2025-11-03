@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Plus, UserCircle } from 'lucide-react';
+import { loadPersonas } from '../../utils/personaData';
 
 const Personas = () => {
   const navigate = useNavigate();
@@ -8,7 +9,10 @@ const Personas = () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    // TODO: Load personas from API
+    // Load personas from localStorage
+    const savedPersonas = loadPersonas();
+    setPersonas(savedPersonas);
+    // TODO: When API is ready, uncomment below and remove localStorage loading
     // const fetchPersonas = async () => {
     //   setLoading(true);
     //   const response = await api.get('/personas');
@@ -33,11 +37,11 @@ const Personas = () => {
           <p className="text-gray-600">Key customer profiles for your sales and BD strategy</p>
         </div>
         <button
-          onClick={() => navigate('/personas/create')}
+          onClick={() => navigate('/personas/builder')}
           className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded text-sm font-medium flex items-center gap-2"
         >
           <Plus className="h-4 w-4" />
-          Create Persona
+          Build Persona
         </button>
       </div>
 
@@ -61,13 +65,15 @@ const Personas = () => {
                 </div>
               </div>
               <div className="space-y-3">
-                <div>
-                  <p className="text-xs font-semibold text-gray-500 mb-1">Pain Points</p>
-                  <p className="text-sm text-gray-700 line-clamp-3">{persona.painPoints}</p>
-                </div>
+                {persona.priorities && (
+                  <div>
+                    <p className="text-xs font-semibold text-gray-500 mb-1">Priorities</p>
+                    <p className="text-sm text-gray-700 line-clamp-3">{persona.priorities}</p>
+                  </div>
+                )}
                 <div>
                   <p className="text-xs font-semibold text-gray-500 mb-1">Goals</p>
-                  <p className="text-sm text-gray-700">{persona.goals}</p>
+                  <p className="text-sm text-gray-700 line-clamp-2">{persona.goals}</p>
                 </div>
                 <div>
                   <p className="text-xs font-semibold text-gray-500 mb-1">Channels</p>
@@ -83,10 +89,10 @@ const Personas = () => {
           <p className="text-gray-500 mb-2">No personas yet</p>
           <p className="text-sm text-gray-400 mb-6">Create your first persona to get started</p>
           <button
-            onClick={() => navigate('/personas/create')}
+            onClick={() => navigate('/personas/builder')}
             className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded text-sm font-medium"
           >
-            Create Persona
+            Build Persona
           </button>
         </div>
       )}

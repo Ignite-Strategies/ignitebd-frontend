@@ -9,11 +9,12 @@ export default function Navigation() {
   };
 
   const navItems = [
-    { path: '/growth-dashboard', label: 'Dashboard', icon: '🏠' },
-    { path: '/assessment', label: 'Assessment', icon: '📊' },
     { path: '/bdpipeline', label: 'Pipeline', icon: '🎯' },
-    { path: '/proposals', label: 'Proposals', icon: '📄' },
-    { path: '/roadmap', label: 'BD Roadmap', icon: '🗺️' },
+    { path: '/growth-dashboard', label: 'Dashboard', icon: '🏠' },
+    { path: '/personas', label: 'Personas', icon: '👤' },
+    { path: '/outreach', label: 'Outreach', icon: '📧' },
+    { path: '/meetings', label: 'Meetings', icon: '📅' },
+    { path: '/assessment', label: 'Assessment', icon: '📊' },
     { path: '/settings', label: 'Settings', icon: '⚙️' },
   ];
 

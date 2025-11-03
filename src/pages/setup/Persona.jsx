@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { hydratePersonas, savePersonas } from '../../utils/personaData';
+import { DEMO_PERSONAS } from '../../data/demoPersonas';
 
 // Persona Card Component
 function PersonaCard({ persona, onEdit, onDelete }) {
@@ -35,8 +37,8 @@ function PersonaCard({ persona, onEdit, onDelete }) {
         </div>
         
         <div>
-          <h4 className="font-semibold text-gray-900 mb-2">Pain Points</h4>
-          <p className="text-sm text-gray-600">{persona.painPoints}</p>
+          <h4 className="font-semibold text-gray-900 mb-2">Priorities</h4>
+          <p className="text-sm text-gray-600">{persona.priorities}</p>
         </div>
         
         <div>
@@ -48,6 +50,13 @@ function PersonaCard({ persona, onEdit, onDelete }) {
           <h4 className="font-semibold text-gray-900 mb-2">Channels</h4>
           <p className="text-sm text-gray-600">{persona.channels}</p>
         </div>
+        
+        {persona.pitchStrategy && (
+          <div>
+            <h4 className="font-semibold text-gray-900 mb-2">How We Pitch Them</h4>
+            <p className="text-sm text-gray-600">{persona.pitchStrategy}</p>
+          </div>
+        )}
       </div>
     </div>
   );
@@ -61,12 +70,13 @@ function PersonaForm({ persona, onSave, onCancel }) {
     age: '',
     location: '',
     companySize: '',
-    painPoints: '',
+    priorities: '',
     goals: '',
     channels: '',
     budget: '',
     decisionProcess: '',
-    objections: ''
+    objections: '',
+    pitchStrategy: ''
   });
 
   useEffect(() => {
@@ -176,11 +186,11 @@ function PersonaForm({ persona, onSave, onCancel }) {
         </div>
         
         <div>
-          <label className="block text-sm font-semibold text-gray-700 mb-2">Pain Points</label>
+          <label className="block text-sm font-semibold text-gray-700 mb-2">Priorities</label>
           <textarea
-            value={formData.painPoints}
-            onChange={(e) => setFormData({ ...formData, painPoints: e.target.value })}
-            placeholder="What challenges do they face? What problems are they trying to solve?"
+            value={formData.priorities}
+            onChange={(e) => setFormData({ ...formData, priorities: e.target.value })}
+            placeholder="What are they focused on maximizing or achieving? What opportunities or challenges are they prioritizing? (e.g., Looking to maximize ROI, seeking to scale partnerships, etc.)"
             className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
             rows="3"
             required
@@ -233,6 +243,17 @@ function PersonaForm({ persona, onSave, onCancel }) {
           />
         </div>
         
+        <div>
+          <label className="block text-sm font-semibold text-gray-700 mb-2">How We Might Pitch Them</label>
+          <textarea
+            value={formData.pitchStrategy}
+            onChange={(e) => setFormData({ ...formData, pitchStrategy: e.target.value })}
+            placeholder="What messaging resonates with them? How should we approach them? What value proposition should we lead with? (e.g., Focus on ROI and time-to-value. Emphasize proven track record with similar companies...)"
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
+            rows="3"
+          />
+        </div>
+        
         <div className="flex justify-end gap-4">
           <button
             type="button"
@@ -260,81 +281,27 @@ export default function Persona() {
   const [showForm, setShowForm] = useState(false);
   const [editingPersona, setEditingPersona] = useState(null);
 
-  // Load data from localStorage on mount, or use dummy data
+  // Load data on mount - hydrate with demo data if no existing data
   useEffect(() => {
-    const savedData = localStorage.getItem('personaData');
-    if (savedData) {
-      const data = JSON.parse(savedData);
-      setPersonas(data.personas || []);
-    } else {
-      // Load dummy personas for demo
-      const dummyPersonas = [
-        {
-          id: 1,
-          name: "Sarah Chen",
-          title: "Startup Founder",
-          age: "35-44",
-          location: "San Francisco, CA",
-          companySize: "1-10 employees",
-          painPoints: "Struggling to scale customer acquisition while maintaining quality. Needs to find the right balance between growth and operational efficiency.",
-          goals: "Scale to $1M ARR within 18 months while building a sustainable growth engine.",
-          channels: "LinkedIn, industry events, referrals from VCs and advisors",
-          budget: "$50K - $100K",
-          decisionProcess: "Makes decisions quickly but consults with co-founder and board advisors",
-          objections: "Concerned about cost and time investment. Wants to see clear ROI."
-        },
-        {
-          id: 2,
-          name: "Mike Rodriguez",
-          title: "Tech Partner",
-          age: "35-44",
-          location: "Austin, TX",
-          companySize: "51-200 employees",
-          painPoints: "Looking for strategic partnerships to expand market reach and integrate complementary technologies.",
-          goals: "Build ecosystem of partners to accelerate growth and provide more value to customers.",
-          channels: "Industry conferences, LinkedIn, direct outreach, partner referrals",
-          budget: "$100K - $500K",
-          decisionProcess: "Committee decision involving CTO, CEO, and business development team",
-          objections: "Worried about integration complexity and maintaining quality standards."
-        },
-        {
-          id: 3,
-          name: "Jennifer Park",
-          title: "Anchor Collaborator",
-          age: "45-54",
-          location: "New York, NY",
-          companySize: "201-1000 employees",
-          painPoints: "Needs to establish thought leadership and strategic relationships in the industry.",
-          goals: "Position company as industry leader and build strategic alliances for long-term growth.",
-          channels: "Industry publications, speaking engagements, exclusive events, direct relationships",
-          budget: "$500K+",
-          decisionProcess: "Executive-level decision with input from legal and business development",
-          objections: "Concerned about exclusivity and long-term commitment requirements."
-        }
-      ];
-      setPersonas(dummyPersonas);
-    }
+    const hydratedPersonas = hydratePersonas(DEMO_PERSONAS);
+    setPersonas(hydratedPersonas);
   }, []);
 
   const handleSave = (personaData) => {
+    let updatedPersonas;
+    
     if (editingPersona) {
       // Update existing persona
-      setPersonas(prev => prev.map(p => 
+      updatedPersonas = personas.map(p => 
         p.id === editingPersona.id ? { ...personaData, id: editingPersona.id } : p
-      ));
+      );
     } else {
       // Create new persona
-      setPersonas(prev => [...prev, { ...personaData, id: Date.now() }]);
+      updatedPersonas = [...personas, { ...personaData, id: Date.now() }];
     }
     
-    // Save to localStorage
-    const dataToSave = {
-      personas: editingPersona ? personas.map(p => 
-        p.id === editingPersona.id ? { ...personaData, id: editingPersona.id } : p
-      ) : [...personas, { ...personaData, id: Date.now() }],
-      timestamp: new Date().toISOString()
-    };
-    localStorage.setItem('personaData', JSON.stringify(dataToSave));
+    setPersonas(updatedPersonas);
+    savePersonas(updatedPersonas);
     
     setShowForm(false);
     setEditingPersona(null);
@@ -349,13 +316,7 @@ export default function Persona() {
   const handleDelete = (personaId) => {
     const updatedPersonas = personas.filter(p => p.id !== personaId);
     setPersonas(updatedPersonas);
-    
-    // Save to localStorage
-    const dataToSave = {
-      personas: updatedPersonas,
-      timestamp: new Date().toISOString()
-    };
-    localStorage.setItem('personaData', JSON.stringify(dataToSave));
+    savePersonas(updatedPersonas);
   };
 
   const handleCancel = () => {

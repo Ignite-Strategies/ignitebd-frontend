@@ -117,11 +117,11 @@ export default function Engage() {
             </div>
           </div>
           <button
-            onClick={() => navigate('/personas/create')}
+            onClick={() => navigate('/personas/builder')}
             className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm font-medium flex items-center gap-2"
           >
             <Plus className="h-4 w-4" />
-            Create Persona
+            Build Persona
           </button>
         </div>
 

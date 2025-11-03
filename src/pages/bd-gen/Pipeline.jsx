@@ -1,38 +1,30 @@
 import { useState, useMemo, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
-import { User, Building2, Inbox } from 'lucide-react';
-import PageHeader from '../../components/PageHeader';
+import { Inbox, Plus } from 'lucide-react';
+import Navigation from '../../components/Navigation';
 
-// Pipeline stages for legal services
-const stages = [
-  { id: 'interested', name: 'Interested', color: 'bg-blue-100', borderColor: 'border-blue-300', textColor: 'text-blue-700' },
-  { id: 'had-meeting', name: 'Had Meeting', color: 'bg-purple-100', borderColor: 'border-purple-300', textColor: 'text-purple-700' },
-  { id: 'contract-negotiations', name: 'Contract Negotiations', color: 'bg-orange-100', borderColor: 'border-orange-300', textColor: 'text-orange-700' },
-  { id: 'contract-signed', name: 'Contract Signed', color: 'bg-green-100', borderColor: 'border-green-300', textColor: 'text-green-700' }
-];
-
-// Contact types
-const contactTypes = [
-  { key: 'all', label: 'All', color: 'bg-gray-100 text-gray-700' },
-  { key: 'prospects', label: 'Prospects', color: 'bg-blue-100 text-blue-700' },
-  { key: 'collaborators', label: 'Collaborators', color: 'bg-green-100 text-green-700' },
-  { key: 'tech-partners', label: 'Tech Partners', color: 'bg-purple-100 text-purple-700' }
+// Pipeline stages
+const dealStages = [
+  { key: 'interested', label: 'Interested', color: 'bg-blue-100' },
+  { key: 'had-meeting', label: 'Had Meeting', color: 'bg-purple-100' },
+  { key: 'contract-negotiations', label: 'Contract Negotiations', color: 'bg-orange-100' },
+  { key: 'contract-signed', label: 'Contract Signed', color: 'bg-green-100' }
 ];
 
 // Demo contacts to hydrate the pipeline
 const demoContacts = [
-  { id: '1', name: 'David Chen', company: 'Ares Capital', title: 'Capital Partner', stage: 'Interested', type: 'prospects', value: 45000, source: 'LinkedIn' },
-  { id: '2', name: 'Sarah Martinez', company: 'Orion Holdings', title: 'Portfolio Manager', stage: 'Interested', type: 'prospects', value: 32000, source: 'Event' },
-  { id: '3', name: 'Michael Thompson', company: 'Meridian Partners', title: 'Investment Director', stage: 'Had Meeting', type: 'prospects', value: 65000, source: 'Referral' },
-  { id: '4', name: 'Jennifer Wilson', company: 'Global Capital Group', title: 'Capital Partner', stage: 'Had Meeting', type: 'prospects', value: 55000, source: 'LinkedIn' },
-  { id: '5', name: 'Robert Lee', company: 'Acme Ventures', title: 'Portfolio Manager', stage: 'Contract Negotiations', type: 'prospects', value: 75000, source: 'Event' },
-  { id: '6', name: 'Amanda Brown', company: 'Strategic Investments LLC', title: 'Investment Director', stage: 'Contract Negotiations', type: 'prospects', value: 85000, source: 'Referral' },
-  { id: '7', name: 'James Davis', company: 'Premier Capital', title: 'Capital Partner', stage: 'Contract Signed', type: 'prospects', value: 95000, source: 'LinkedIn' },
-  { id: '8', name: 'Lisa Anderson', company: 'Summit Holdings', title: 'Portfolio Manager', stage: 'Contract Signed', type: 'prospects', value: 68000, source: 'Event' },
-  { id: '9', name: 'Tech Solutions Inc', company: 'Tech Solutions Inc', title: 'CTO', stage: 'Interested', type: 'tech-partners', value: 0, source: 'Partnership' },
-  { id: '10', name: 'Data Analytics Co', company: 'Data Analytics Co', title: 'CEO', stage: 'Had Meeting', type: 'tech-partners', value: 0, source: 'Partnership' },
-  { id: '11', name: 'Legal Services Corp', company: 'Legal Services Corp', title: 'Founder', stage: 'Interested', type: 'collaborators', value: 0, source: 'Referral' },
+  { id: '1', name: 'David Chen', company: 'Ares Capital', title: 'Capital Partner', stage: 'interested', type: 'prospects', value: 45000, source: 'LinkedIn' },
+  { id: '2', name: 'Sarah Martinez', company: 'Orion Holdings', title: 'Portfolio Manager', stage: 'interested', type: 'prospects', value: 32000, source: 'Event' },
+  { id: '3', name: 'Michael Thompson', company: 'Meridian Partners', title: 'Investment Director', stage: 'had-meeting', type: 'prospects', value: 65000, source: 'Referral' },
+  { id: '4', name: 'Jennifer Wilson', company: 'Global Capital Group', title: 'Capital Partner', stage: 'had-meeting', type: 'prospects', value: 55000, source: 'LinkedIn' },
+  { id: '5', name: 'Robert Lee', company: 'Acme Ventures', title: 'Portfolio Manager', stage: 'contract-negotiations', type: 'prospects', value: 75000, source: 'Event' },
+  { id: '6', name: 'Amanda Brown', company: 'Strategic Investments LLC', title: 'Investment Director', stage: 'contract-negotiations', type: 'prospects', value: 85000, source: 'Referral' },
+  { id: '7', name: 'James Davis', company: 'Premier Capital', title: 'Capital Partner', stage: 'contract-signed', type: 'prospects', value: 95000, source: 'LinkedIn' },
+  { id: '8', name: 'Lisa Anderson', company: 'Summit Holdings', title: 'Portfolio Manager', stage: 'contract-signed', type: 'prospects', value: 68000, source: 'Event' },
+  { id: '9', name: 'Tech Solutions Inc', company: 'Tech Solutions Inc', title: 'CTO', stage: 'interested', type: 'tech-partners', value: 0, source: 'Partnership' },
+  { id: '10', name: 'Data Analytics Co', company: 'Data Analytics Co', title: 'CEO', stage: 'had-meeting', type: 'tech-partners', value: 0, source: 'Partnership' },
+  { id: '11', name: 'Legal Services Corp', company: 'Legal Services Corp', title: 'Founder', stage: 'interested', type: 'collaborators', value: 0, source: 'Referral' },
 ];
 
 export default function Pipeline() {
@@ -48,12 +40,12 @@ export default function Pipeline() {
     }
   }, []);
 
-  // Group contacts by stage with normalized stage names
-  const contactsByStage = useMemo(() => {
+  // Group contacts by stage
+  const dealsData = useMemo(() => {
     const grouped = {};
-    stages.forEach(stage => {
-      grouped[stage.id] = contacts.filter(c => {
-        const contactStage = (c.stage || 'Interested').toLowerCase()
+    dealStages.forEach(stage => {
+      grouped[stage.key] = contacts.filter(c => {
+        const contactStage = (c.stage || 'interested').toLowerCase()
           .replace(/\s+/g, '-')
           .replace('prospect', 'interested')
           .replace('prospecting', 'interested')
@@ -66,23 +58,11 @@ export default function Pipeline() {
           .replace('client', 'contract-signed')
           .replace('closed-won', 'contract-signed')
           .replace('signed', 'contract-signed');
-        return contactStage === stage.id;
+        return contactStage === stage.key;
       });
     });
     return grouped;
   }, [contacts]);
-
-  const getStageCount = (stageId) => {
-    const deals = contactsByStage[stageId] || [];
-    if (contactType === 'all') return deals.length;
-    return deals.filter(deal => (deal.type || 'prospects') === contactType).length;
-  };
-
-  const getFilteredContacts = (stageId) => {
-    const deals = contactsByStage[stageId] || [];
-    if (contactType === 'all') return deals;
-    return deals.filter(deal => (deal.type || 'prospects') === contactType);
-  };
 
   const formatCurrency = (amount) => {
     if (!amount || amount === 0) return '$0';
@@ -94,9 +74,20 @@ export default function Pipeline() {
     }).format(amount);
   };
 
-  const getStageTotal = (stageId) => {
-    const deals = contactsByStage[stageId] || [];
-    return deals.reduce((sum, deal) => sum + (deal.value || deal.dealValue || 0), 0);
+  const getStageTotal = (stage) => {
+    return dealsData[stage]?.reduce((sum, deal) => sum + (deal.value || deal.dealValue || 0), 0) || 0;
+  };
+
+  const getStageCount = (stage) => {
+    const deals = dealsData[stage] || [];
+    if (contactType === 'all') return deals.length;
+    return deals.filter(deal => (deal.type || 'prospects') === contactType).length;
+  };
+
+  const getFilteredDeals = (stage) => {
+    const deals = dealsData[stage] || [];
+    if (contactType === 'all') return deals;
+    return deals.filter(deal => (deal.type || 'prospects') === contactType);
   };
 
   const getContactTypeColor = (type) => {
@@ -115,180 +106,196 @@ export default function Pipeline() {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <PageHeader
-        title="Pipeline"
-        subtitle="Manage deals and contacts across pipeline stages"
-        backTo="/contacts"
-        backLabel="← Back to Contacts"
-      />
-
-      {/* Contact Type Filter */}
-      <div className="bg-white rounded-xl shadow-lg p-4 mb-6">
-        <div className="flex items-center gap-2">
-          <span className="text-sm font-medium text-gray-700">Filter by contact type:</span>
-          <div className="flex gap-2">
-            {contactTypes.map((type) => (
-              <button
-                key={type.key}
-                onClick={() => setContactType(type.key)}
-                className={`px-3 py-1 rounded-full text-sm font-medium transition-colors ${
-                  contactType === type.key 
-                    ? `${type.color} ring-2 ring-current` 
-                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                }`}
-              >
-                {type.label}
-              </button>
-            ))}
+    <div className="min-h-screen bg-gray-50">
+      <Navigation />
+      
+      <div className="p-8">
+        <div className="max-w-7xl mx-auto">
+          {/* Header */}
+          <div className="mb-8">
+            <h1 className="text-3xl font-bold text-gray-900 mb-2">BD Pipeline</h1>
+            <p className="text-gray-600">Click on a stage to view deals in that stage</p>
           </div>
-        </div>
-      </div>
 
-      {/* Stage Overview Cards */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-        {stages.map((stage) => (
-          <div
-            key={stage.id}
-            className={`${stage.color} rounded-lg p-4 cursor-pointer hover:shadow-md transition-shadow ${
-              selectedStage === stage.id ? 'ring-2 ring-indigo-500' : ''
-            }`}
-            onClick={() => setSelectedStage(selectedStage === stage.id ? null : stage.id)}
-          >
-            <h3 className="font-semibold text-gray-900 mb-1 text-base">{stage.name}</h3>
-            <div className="text-sm text-gray-600">
-              {getStageCount(stage.id)} {getStageCount(stage.id) === 1 ? 'deal' : 'deals'}
-            </div>
-            <div className="text-sm font-medium text-gray-800 mt-1">
-              {formatCurrency(getStageTotal(stage.id))}
-            </div>
-          </div>
-        ))}
-      </div>
-
-      {/* Selected Stage Details */}
-      {selectedStage && (
-        <div className="bg-white rounded-xl shadow-lg p-6 mb-6">
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-bold text-gray-900">
-              {stages.find(s => s.id === selectedStage)?.name} Deals
-            </h2>
-            <div className="text-sm text-gray-600">
-              {getStageCount(selectedStage)} deals • {formatCurrency(getStageTotal(selectedStage))}
+          {/* Contact Type Filter */}
+          <div className="mb-6">
+            <div className="flex items-center gap-2 mb-4">
+              <span className="text-sm font-medium text-gray-700">Filter by contact type:</span>
+              <div className="flex gap-2">
+                {[
+                  { key: 'all', label: 'All', color: 'bg-gray-100 text-gray-700' },
+                  { key: 'prospects', label: 'Prospects', color: 'bg-blue-100 text-blue-700' },
+                  { key: 'collaborators', label: 'Collaborators', color: 'bg-green-100 text-green-700' },
+                  { key: 'tech-partners', label: 'Tech Partners', color: 'bg-purple-100 text-purple-700' }
+                ].map((type) => (
+                  <button
+                    key={type.key}
+                    onClick={() => setContactType(type.key)}
+                    className={`px-3 py-1 rounded-full text-sm font-medium transition-colors ${
+                      contactType === type.key 
+                        ? `${type.color} ring-2 ring-current` 
+                        : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                    }`}
+                  >
+                    {type.label}
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
 
-          {/* Contacts List */}
-          {getFilteredContacts(selectedStage).length === 0 ? (
-            <div className="text-center py-12">
-              <Inbox className="h-12 w-12 text-gray-300 mx-auto mb-4" />
-              <p className="text-gray-500 mb-2">No contacts in this stage</p>
+          {/* Add Contacts Button Section */}
+          <div className="bg-white rounded-lg shadow-md p-6 mb-8">
+            <div className="flex items-center justify-between">
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">Manage Contacts</h3>
+                <p className="text-sm text-gray-600">Add new contacts, update existing ones, or import from CSV</p>
+              </div>
               <button
                 onClick={() => navigate('/contacts')}
-                className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition"
+                className="px-6 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors font-medium flex items-center gap-2"
               >
-                Add Contacts
+                <Plus className="h-5 w-5" />
+                Go to Contacts
               </button>
             </div>
-          ) : (
-            <div className="space-y-4">
-              {getFilteredContacts(selectedStage).map((contact) => {
-                const contactTypeValue = contact.type || 'prospects';
-                const stageInfo = stages.find(s => s.id === selectedStage) || stages[0];
-                
-                return (
-                  <div
-                    key={contact.id}
-                    className="border border-gray-200 rounded-lg p-4 hover:shadow-sm transition-shadow"
+          </div>
+
+          {/* Stage Overview Cards */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+            {dealStages.map((stage) => (
+              <div
+                key={stage.key}
+                className={`${stage.color} rounded-lg p-4 cursor-pointer hover:shadow-md transition-shadow ${
+                  selectedStage === stage.key ? 'ring-2 ring-red-500' : ''
+                }`}
+                onClick={() => setSelectedStage(selectedStage === stage.key ? null : stage.key)}
+              >
+                <h3 className="font-semibold text-gray-900 mb-1">{stage.label}</h3>
+                <div className="text-sm text-gray-600">
+                  {getStageCount(stage.key)} deals
+                </div>
+                <div className="text-sm font-medium text-gray-800">
+                  {formatCurrency(getStageTotal(stage.key))}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Selected Stage Details */}
+          {selectedStage && (
+            <div className="bg-white rounded-lg shadow-md p-6">
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-2xl font-bold text-gray-900">
+                  {dealStages.find(s => s.key === selectedStage)?.label} Deals
+                </h2>
+                <div className="text-sm text-gray-600">
+                  {getStageCount(selectedStage)} deals • {formatCurrency(getStageTotal(selectedStage))}
+                </div>
+              </div>
+
+              {/* Deals List */}
+              {getFilteredDeals(selectedStage)?.length === 0 ? (
+                <div className="text-center py-12">
+                  <Inbox className="h-12 w-12 text-gray-300 mx-auto mb-4" />
+                  <p className="text-gray-500 mb-2">No contacts in this stage</p>
+                  <button
+                    onClick={() => navigate('/contacts')}
+                    className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition"
                   >
-                    <div className="flex items-center justify-between">
-                      <div className="flex-1">
-                        <div className="flex items-center gap-2 mb-2">
-                          <div className="font-semibold text-gray-900 text-base">{contact.name || contact.contact || 'Unknown'}</div>
-                          <span className={`px-2 py-1 rounded-full text-xs font-medium ${getContactTypeColor(contactTypeValue)}`}>
-                            {getContactTypeLabel(contactTypeValue)}
-                          </span>
-                          <span className={`inline-flex px-2 py-1 text-xs rounded-full font-medium ${stageInfo.color} ${stageInfo.textColor}`}>
-                            {stageInfo.name}
-                          </span>
-                        </div>
-                        <div className="text-sm text-gray-600">
-                          {contact.company || 'No company'} {contact.title && `• ${contact.title}`}
-                        </div>
-                        <div className="text-sm text-gray-500 mt-1">
-                          {formatCurrency(contact.value || contact.dealValue || 0)} {contact.source && `• ${contact.source}`}
-                        </div>
-                      </div>
-                      <div className="flex items-center gap-3">
-                        <div className="text-right">
-                          <div className="text-lg font-semibold text-gray-900">
-                            {formatCurrency(contact.value || contact.dealValue || 0)}
-                          </div>
-                          {contact.source && (
-                            <div className="text-xs text-gray-500 capitalize">
-                              {contact.source}
+                    Add Contacts
+                  </button>
+                </div>
+              ) : (
+                <div className="space-y-4">
+                  {getFilteredDeals(selectedStage)?.map((deal) => {
+                    const contactTypeValue = deal.type || 'prospects';
+                    return (
+                      <div key={deal.id} className="border border-gray-200 rounded-lg p-4 hover:shadow-sm transition-shadow">
+                        <div className="flex items-center justify-between">
+                          <div className="flex-1">
+                            <div className="flex items-center gap-2 mb-1">
+                              <div className="font-medium text-gray-900">{deal.company || deal.name || 'Unknown'}</div>
+                              <span className={`px-2 py-1 rounded-full text-xs font-medium ${getContactTypeColor(contactTypeValue)}`}>
+                                {getContactTypeLabel(contactTypeValue)}
+                              </span>
                             </div>
-                          )}
+                            <div className="text-sm text-gray-600">
+                              {deal.name || deal.contact || 'Unknown'} {deal.title && `• ${deal.title}`}
+                            </div>
+                            <div className="text-sm text-gray-500 mt-1">
+                              {formatCurrency(deal.value || deal.dealValue || 0)} {deal.source && `• ${deal.source}`}
+                            </div>
+                          </div>
+                          <div className="flex items-center gap-3">
+                            <div className="text-right">
+                              <div className="text-lg font-semibold text-gray-900">
+                                {formatCurrency(deal.value || deal.dealValue || 0)}
+                              </div>
+                              {deal.source && (
+                                <div className="text-xs text-gray-500 capitalize">
+                                  {deal.source}
+                                </div>
+                              )}
+                            </div>
+                            <select
+                              value={selectedStage}
+                              onChange={(e) => {
+                                const updated = contacts.map(c => 
+                                  c.id === deal.id 
+                                    ? { 
+                                        ...c, 
+                                        stage: e.target.value
+                                      }
+                                    : c
+                                );
+                                setContacts(updated);
+                                setSelectedStage(e.target.value);
+                              }}
+                              className="px-3 py-1.5 rounded-lg text-sm font-medium border border-gray-300 bg-white focus:outline-none focus:ring-2 focus:ring-red-500"
+                            >
+                              {dealStages.map(stage => (
+                                <option key={stage.key} value={stage.key}>
+                                  {stage.label}
+                                </option>
+                              ))}
+                            </select>
+                          </div>
                         </div>
-                        <select
-                          value={selectedStage}
-                          onChange={(e) => {
-                            const updated = contacts.map(c => 
-                              c.id === contact.id 
-                                ? { 
-                                    ...c, 
-                                    stage: e.target.value.split('-').map(word => 
-                                      word.charAt(0).toUpperCase() + word.slice(1)
-                                    ).join(' ')
-                                  }
-                                : c
-                            );
-                            setContacts(updated);
-                            setSelectedStage(e.target.value);
-                          }}
-                          className={`px-3 py-1.5 rounded-lg text-sm font-medium border-2 ${stageInfo.borderColor} ${stageInfo.color} ${stageInfo.textColor} focus:outline-none focus:ring-2 focus:ring-indigo-500`}
-                        >
-                          {stages.map(stage => (
-                            <option key={stage.id} value={stage.id}>
-                              {stage.name}
-                            </option>
-                          ))}
-                        </select>
                       </div>
-                    </div>
-                  </div>
-                );
-              })}
+                    );
+                  })}
+                </div>
+              )}
             </div>
           )}
-        </div>
-      )}
 
-      {/* Quick Stats */}
-      <div className="bg-white rounded-xl shadow-lg p-6">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">Pipeline Summary</h3>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="text-center">
-            <div className="text-2xl font-bold text-gray-900">
-              {contacts.length}
+          {/* Quick Stats */}
+          <div className="mt-8 bg-white rounded-lg shadow-md p-6">
+            <h3 className="text-lg font-semibold text-gray-900 mb-4">Pipeline Summary</h3>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="text-center">
+                <div className="text-2xl font-bold text-gray-900">
+                  {contacts.length}
+                </div>
+                <div className="text-sm text-gray-600">Total Contacts</div>
+              </div>
+              <div className="text-center">
+                <div className="text-2xl font-bold text-green-600">
+                  {formatCurrency(getStageTotal('contract-signed'))}
+                </div>
+                <div className="text-sm text-gray-600">Contract Signed</div>
+              </div>
+              <div className="text-center">
+                <div className="text-2xl font-bold text-blue-600">
+                  {formatCurrency(dealStages.reduce((sum, stage) => sum + getStageTotal(stage.key), 0))}
+                </div>
+                <div className="text-sm text-gray-600">Total Pipeline Value</div>
+              </div>
             </div>
-            <div className="text-sm text-gray-600">Total Contacts</div>
-          </div>
-          <div className="text-center">
-            <div className="text-2xl font-bold text-green-600">
-              {formatCurrency(getStageTotal('contract-signed'))}
-            </div>
-            <div className="text-sm text-gray-600">Contract Signed</div>
-          </div>
-          <div className="text-center">
-            <div className="text-2xl font-bold text-blue-600">
-              {formatCurrency(stages.reduce((sum, stage) => sum + getStageTotal(stage.id), 0))}
-            </div>
-            <div className="text-sm text-gray-600">Total Pipeline Value</div>
           </div>
         </div>
       </div>
     </div>
   );
 }
-

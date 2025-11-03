@@ -1,13 +1,15 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Plus } from 'lucide-react';
 import Navigation from '../../components/Navigation';
+import ContentIdea from './ContentIdea';
 
 export default function Content() {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('blog');
+  const [showCreateModal, setShowCreateModal] = useState(false);
   const [blogPosts, setBlogPosts] = useState([]);
   const [socialPosts, setSocialPosts] = useState([]);
-  const [contentIdeas, setContentIdeas] = useState([]);
 
   // Dummy data for demo
   useEffect(() => {
@@ -74,40 +76,25 @@ export default function Content() {
       }
     ]);
 
-    setContentIdeas([
-      {
-        id: 1,
-        title: 'BD Automation Tools Comparison',
-        type: 'Blog Post',
-        priority: 'High',
-        estimatedTime: '3 hours',
-        status: 'Idea'
-      },
-      {
-        id: 2,
-        title: 'LinkedIn Carousel: BD Metrics That Matter',
-        type: 'Social Media',
-        priority: 'Medium',
-        estimatedTime: '1 hour',
-        status: 'Idea'
-      },
-      {
-        id: 3,
-        title: 'Video: How to Run Effective BD Meetings',
-        type: 'Video Content',
-        priority: 'High',
-        estimatedTime: '2 hours',
-        status: 'Idea'
-      }
-    ]);
   }, []);
+
+  const handleIdeaSubmitted = (idea, blogPotentials) => {
+    setShowCreateModal(false);
+    navigate('/content/blog-potentials', { 
+      state: { idea, potentials: blogPotentials }
+    });
+  };
 
   const renderBlogTab = () => (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
-        <h3 className="text-xl font-bold text-gray-900">Blog Management</h3>
-        <button className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700">
-          + New Post
+        <h3 className="text-xl font-bold text-gray-900">Published Blog Posts</h3>
+        <button 
+          onClick={() => setShowCreateModal(true)}
+          className="px-6 py-3 bg-gradient-to-r from-red-600 to-orange-600 text-white rounded-lg hover:shadow-lg transition-all font-semibold flex items-center gap-2"
+        >
+          <Plus className="h-5 w-5" />
+          Create Content
         </button>
       </div>
 
@@ -210,52 +197,6 @@ export default function Content() {
     </div>
   );
 
-  const renderIdeasTab = () => (
-    <div className="space-y-6">
-      <div className="flex justify-between items-center">
-        <h3 className="text-xl font-bold text-gray-900">Content Ideas</h3>
-        <button className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700">
-          + New Idea
-        </button>
-      </div>
-
-      <div className="grid gap-4">
-        {contentIdeas.map((idea) => (
-          <div key={idea.id} className="bg-white rounded-xl shadow-lg p-6 border border-gray-200">
-            <div className="flex items-start justify-between">
-              <div className="flex-1">
-                <div className="flex items-center gap-3 mb-2">
-                  <h4 className="text-lg font-semibold text-gray-900">{idea.title}</h4>
-                  <span className={`px-2 py-1 text-xs rounded-full ${
-                    idea.priority === 'High' ? 'bg-red-100 text-red-800' :
-                    idea.priority === 'Medium' ? 'bg-yellow-100 text-yellow-800' :
-                    'bg-green-100 text-green-800'
-                  }`}>
-                    {idea.priority}
-                  </span>
-                </div>
-                
-                <div className="flex items-center gap-4 text-sm text-gray-600 mb-3">
-                  <span>📝 {idea.type}</span>
-                  <span>⏱️ {idea.estimatedTime}</span>
-                  <span>📊 {idea.status}</span>
-                </div>
-              </div>
-              
-              <div className="ml-4 flex gap-2">
-                <button className="px-3 py-1 text-sm bg-green-100 text-green-700 rounded hover:bg-green-200">
-                  Start
-                </button>
-                <button className="px-3 py-1 text-sm bg-gray-100 text-gray-700 rounded hover:bg-gray-200">
-                  Edit
-                </button>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -303,10 +244,10 @@ export default function Content() {
             
             <div className="bg-white rounded-xl shadow-lg p-6">
               <div className="flex items-center gap-3">
-                <div className="text-3xl">💡</div>
+                <div className="text-3xl">✍️</div>
                 <div>
-                  <p className="text-2xl font-bold text-gray-900">8</p>
-                  <p className="text-gray-600">Content Ideas</p>
+                  <p className="text-2xl font-bold text-gray-900">5</p>
+                  <p className="text-gray-600">Drafts</p>
                 </div>
               </div>
             </div>
@@ -337,16 +278,6 @@ export default function Content() {
                   📱 Social Media
                 </button>
                 <button
-                  onClick={() => setActiveTab('ideas')}
-                  className={`py-4 px-1 border-b-2 font-medium text-sm ${
-                    activeTab === 'ideas'
-                      ? 'border-red-500 text-red-600'
-                      : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-                  }`}
-                >
-                  💡 Content Ideas
-                </button>
-                <button
                   onClick={() => setActiveTab('analytics')}
                   className={`py-4 px-1 border-b-2 font-medium text-sm ${
                     activeTab === 'analytics'
@@ -364,7 +295,6 @@ export default function Content() {
           <div className="bg-white rounded-xl shadow-lg p-8">
             {activeTab === 'blog' && renderBlogTab()}
             {activeTab === 'social' && renderSocialTab()}
-            {activeTab === 'ideas' && renderIdeasTab()}
             {activeTab === 'analytics' && (
               <div className="text-center py-12">
                 <div className="text-4xl mb-4">📊</div>
@@ -376,6 +306,18 @@ export default function Content() {
 
         </div>
       </div>
+
+      {/* Create Content Modal */}
+      {showCreateModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-xl shadow-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+            <ContentIdea
+              onClose={() => setShowCreateModal(false)}
+              onIdeaSubmitted={handleIdeaSubmitted}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 }
