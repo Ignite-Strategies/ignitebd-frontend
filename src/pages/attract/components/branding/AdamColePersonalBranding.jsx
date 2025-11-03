@@ -6,7 +6,7 @@ const adamColeData = {
   identity: 'founder-builder',
   narrativeArc: 'From heads-down to out-in-the-open: bringing GoFast from build mode to real-world feedback.',
   postCount: 5,
-  arcGoal: 'GoFast is live, I'm sharing progress and learning out loud again — next stop Boston Marathon and real user traction.',
+  arcGoal: 'GoFast is live, I\'m sharing progress and learning out loud again — next stop Boston Marathon and real user traction.',
   cadence: 'weekly',
   events: [
     { id: 1, name: 'DC Startup Week', date: '2024-10-15' },
