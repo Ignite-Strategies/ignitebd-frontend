@@ -50,6 +50,7 @@ import Content from './pages/attract/Content';
 import BlogPotentials from './pages/attract/BlogPotentials';
 import BlogEditor from './pages/attract/BlogEditor';
 import BrandingHub from './pages/attract/BrandingHub';
+import AdamColePersonalBranding from './pages/attract/components/branding/AdamColePersonalBranding';
 import AttractHub from './pages/attract/AttractHub';
 import Events from './pages/events/Events';
 import OutreachHome from './pages/outreach/OutreachHome';
@@ -113,6 +114,7 @@ function App() {
         <Route path="/content/blog-potentials" element={<BlogPotentials />} />
         <Route path="/content/blog-editor" element={<BlogEditor />} />
         <Route path="/branding-hub" element={<BrandingHub />} />
+        <Route path="/branding-hub/adam-cole" element={<AdamColePersonalBranding />} />
         <Route path="/events" element={<Events />} />
         <Route path="/outreach" element={<OutreachHome />} />
         <Route path="/meetings" element={<MeetingDashboard />} />
