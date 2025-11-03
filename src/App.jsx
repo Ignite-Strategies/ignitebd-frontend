@@ -40,7 +40,10 @@ import BDAssessmentTotalOutlook from './pages/assessment/BDAssessmentTotalOutloo
 import GrowthDashboard from './pages/GrowthDashboard';
 import Ecosystem from './pages/setup/Ecosystem';
 import Persona from './pages/setup/Persona';
-import Ads from './pages/attract/Ads';
+import AdsHub from './pages/ads/AdsHub';
+import AdsDashboard from './pages/ads/AdsDashboard';
+import AdPreview from './pages/ads/AdPreview';
+import CampaignCreate from './pages/ads/CampaignCreate';
 import Seo from './pages/attract/Seo';
 import Content from './pages/attract/Content';
 import Events from './pages/events/Events';
@@ -85,7 +88,11 @@ function App() {
         <Route path="/ecosystem" element={<Ecosystem />} />
         <Route path="/persona" element={<Persona />} />
         <Route path="/bdpipeline" element={<BDPipeline />} />
-        <Route path="/ads" element={<Ads />} />
+        <Route path="/ads" element={<AdsHub />} />
+        <Route path="/ads/dashboard" element={<AdsDashboard />} />
+        <Route path="/ads/campaign/:campaignId" element={<AdPreview />} />
+        <Route path="/ads/create" element={<CampaignCreate />} />
+        <Route path="/ads/tools" element={<AdsDashboard />} />
         <Route path="/seo" element={<Seo />} />
         <Route path="/content" element={<Content />} />
         <Route path="/events" element={<Events />} />
