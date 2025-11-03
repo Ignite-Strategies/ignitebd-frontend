@@ -1,11 +1,5 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { 
-  calculateGrowthCoefficient, 
-  getPerformanceCategory, 
-  generateGrowthScenarios,
-  analyzeGrowthBottlenecks 
-} from '../../services/GrowthCoefficientService';
 
 // Slider Component
 function Slider({ label, value, onChange, min, max, step, unit, color = 'blue' }) {
@@ -47,24 +41,18 @@ function Slider({ label, value, onChange, min, max, step, unit, color = 'blue' }
   );
 }
 
-// Growth Coefficient Calculator
+// Growth Coefficient Calculator - using hardcoded sample data
 function GrowthCoefficientCalculator({ data }) {
-  const {
-    manpowerCosts,
-    businessDevelopment,
-    founderEngagement,
-    customerGrowth
-  } = data;
-
-  // Use the service to calculate growth coefficient
-  const coefficient = calculateGrowthCoefficient({
-    businessDevelopment,
-    manpowerCosts,
-    founderEngagement,
-    customerGrowth
-  });
-
-  const performance = getPerformanceCategory(coefficient.finalCoefficient);
+  // Hardcoded sample data - backend will handle real calculations
+  const sampleCoefficient = 72;
+  const sampleTotalScore = 68;
+  const sampleBdScore = 75;
+  const sampleManpowerScore = 65;
+  const sampleFounderScore = 70;
+  const samplePerformance = {
+    label: 'Strong Growth Potential',
+    description: 'Your investment strategy shows strong potential for growth. Focus on maintaining BD momentum while scaling team capacity.'
+  };
 
   const getScoreColor = (score) => {
     if (score >= 80) return 'text-green-600';
@@ -79,21 +67,21 @@ function GrowthCoefficientCalculator({ data }) {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
         <div className="text-center">
           <div className="text-4xl font-bold text-purple-600 mb-2">
-            {coefficient.finalCoefficient}
+            {sampleCoefficient}
           </div>
           <div className="text-sm text-gray-600">Growth Coefficient</div>
-          <div className={`text-sm font-semibold ${getScoreColor(coefficient.finalCoefficient)}`}>
-            {performance.label}
+          <div className={`text-sm font-semibold ${getScoreColor(sampleCoefficient)}`}>
+            {samplePerformance.label}
           </div>
         </div>
         
         <div className="text-center">
           <div className="text-4xl font-bold text-indigo-600 mb-2">
-            {coefficient.totalScore}
+            {sampleTotalScore}
           </div>
           <div className="text-sm text-gray-600">Base Score</div>
-          <div className={`text-sm font-semibold ${getScoreColor(coefficient.totalScore)}`}>
-            {getPerformanceCategory(coefficient.totalScore).label}
+          <div className={`text-sm font-semibold ${getScoreColor(sampleTotalScore)}`}>
+            {samplePerformance.label}
           </div>
         </div>
       </div>
@@ -101,22 +89,22 @@ function GrowthCoefficientCalculator({ data }) {
       <div className="space-y-4">
         <div className="flex justify-between items-center">
           <span className="text-sm text-gray-600">Business Development</span>
-          <span className="font-semibold text-gray-900">{coefficient.bdScore}%</span>
+          <span className="font-semibold text-gray-900">{sampleBdScore}%</span>
         </div>
         <div className="flex justify-between items-center">
           <span className="text-sm text-gray-600">Human Capital</span>
-          <span className="font-semibold text-gray-900">{coefficient.manpowerScore}%</span>
+          <span className="font-semibold text-gray-900">{sampleManpowerScore}%</span>
         </div>
         <div className="flex justify-between items-center">
           <span className="text-sm text-gray-600">Founder Engagement</span>
-          <span className="font-semibold text-gray-900">{coefficient.founderScore}%</span>
+          <span className="font-semibold text-gray-900">{sampleFounderScore}%</span>
         </div>
       </div>
 
       <div className="mt-6 p-4 bg-white rounded-lg border border-purple-200">
         <h4 className="font-semibold text-gray-900 mb-2">Growth Outlook</h4>
         <p className="text-sm text-gray-600">
-          {performance.description}
+          {samplePerformance.description}
         </p>
       </div>
     </div>
