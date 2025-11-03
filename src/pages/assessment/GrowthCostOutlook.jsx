@@ -5,7 +5,7 @@ import {
   getPerformanceCategory, 
   generateGrowthScenarios,
   analyzeGrowthBottlenecks 
-} from '../services/GrowthCoefficientService';
+} from '../../services/GrowthCoefficientService';
 
 // Slider Component
 function Slider({ label, value, onChange, min, max, step, unit, color = 'blue' }) {
