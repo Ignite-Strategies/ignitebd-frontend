@@ -12,6 +12,7 @@ export default function Navigation() {
     { path: '/growth-dashboard', label: 'Dashboard', icon: '🏠' },
     { path: '/assessment', label: 'Assessment', icon: '📊' },
     { path: '/bdpipeline', label: 'Pipeline', icon: '🎯' },
+    { path: '/proposals', label: 'Proposals', icon: '📄' },
     { path: '/roadmap', label: 'BD Roadmap', icon: '🗺️' },
     { path: '/settings', label: 'Settings', icon: '⚙️' },
   ];

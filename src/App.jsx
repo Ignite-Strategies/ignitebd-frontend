@@ -19,6 +19,7 @@ import Landing from './pages/Landing';
 import LearnMore from './pages/LearnMore';
 import BusinessPointLawProposal from './pages/BusinessPointLawProposal';
 import ProposalPage from './pages/proposals/ProposalPage';
+import ProposalsList from './pages/ProposalsList';
 import AssessmentIntro from './pages/AssessmentIntro';
 import Splash from './pages/Splash';
 import Signup from './pages/Signup';
@@ -65,6 +66,7 @@ function App() {
           <Route path="/" element={<Landing />} />
           <Route path="/learn-more" element={<LearnMore />} />
           <Route path="/businesspoint-law-proposal" element={<BusinessPointLawProposal />} />
+          <Route path="/proposals" element={<ProposalsList />} />
           <Route path="/proposals/:clientId" element={<ProposalPage />} />
           <Route path="/assessment-intro" element={<AssessmentIntro />} />
           <Route path="/assessment" element={<Assessment />} />
