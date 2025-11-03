@@ -127,7 +127,7 @@ export default function GrowthDashboard() {
       insight: "Strong acquisition channels with events, ready to scale",
       icon: <TrendingUp className="h-6 w-6 text-white" />,
       color: "bg-blue-500",
-      route: "/events" // TODO: Update to /attract when created
+      route: "/attract"
     },
     {
       name: "Engage",
