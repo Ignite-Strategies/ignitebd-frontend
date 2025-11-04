@@ -19,7 +19,7 @@ const adamColeData = {
       title: 'DC Startup Week — Authenticity in Building',
       goal: 'Re-Entry / Event Reflection',
       theme: 'authenticity, ecosystem, founder lessons',
-      prompt: 'Reflect on attending DC Startup Week, what authenticity means when you're building from scratch, and what you took from connecting with the local founder scene.',
+      prompt: 'Reflect on attending DC Startup Week, what authenticity means when you\'re building from scratch, and what you took from connecting with the local founder scene.',
       status: 'published',
       eventId: 1,
       publishedDate: '2024-10-18'
@@ -39,7 +39,7 @@ const adamColeData = {
       title: 'Building in DC — Why the Ecosystem Matters',
       goal: 'Community / Context',
       theme: 'local network, collaboration, energy',
-      prompt: 'Share what you're seeing in the DC startup ecosystem — why local energy and connections matter when you're grinding through a build.',
+      prompt: 'Share what you\'re seeing in the DC startup ecosystem — why local energy and connections matter when you\'re grinding through a build.',
       status: 'drafting',
       eventId: null
     },
@@ -48,7 +48,7 @@ const adamColeData = {
       title: 'Getting Feedback — The Scariest and Best Part of Building',
       goal: 'User Insight',
       theme: 'feedback loops, humility, iteration',
-      prompt: 'Reflect on what it's like opening your app to real users and hearing what's not working — and why that's actually fuel.',
+      prompt: 'Reflect on what it\'s like opening your app to real users and hearing what\'s not working — and why that\'s actually fuel.',
       status: 'not_started',
       eventId: null
     },
@@ -57,7 +57,7 @@ const adamColeData = {
       title: 'Looking Ahead — Boston, Balance, and Building Better',
       goal: 'Reflection / Future Vision',
       theme: 'iteration, growth, momentum',
-      prompt: 'Use your Boston Marathon acceptance as a metaphor for the next chapter — what's next for GoFast, and what staying consistent looks like now.',
+      prompt: 'Use your Boston Marathon acceptance as a metaphor for the next chapter — what\'s next for GoFast, and what staying consistent looks like now.',
       status: 'not_started',
       eventId: 3
     }
